@@ -476,6 +476,10 @@ ul { padding: 0; list-style: none; }
   .footer__col { grid-column: span 12; }
   .thennow__stage { height: 60vh; }
   .filter__result { margin-left: 0; width: 100%; }
+  .filters { gap: 26px 32px; }
+  .filter { flex-wrap: wrap; gap: 12px 16px; }
+  .filter__label { min-width: 0; width: 100%; }
+  .seg button { padding: 10px 12px; font-size: 0.7rem; min-width: 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
