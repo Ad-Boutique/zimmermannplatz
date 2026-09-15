@@ -11,7 +11,7 @@
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/URWGothic-Demi.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=488687">
 </head>
 <body>
 
@@ -179,22 +179,22 @@
         <text class="north" x="352" y="22">N</text>
         <line x1="360" y1="28" x2="360" y2="46" stroke="#8e8170" stroke-width="1"/>
 
-        <g class="pin" data-cat="mobil"><circle cx="262" cy="330" r="3.5"/><text x="150" y="324">U6 Alser Straße</text><text class="sub" x="150" y="338">220 m, 3 Min</text></g>
+        <g class="pin pin--key" data-cat="mobil"><circle cx="262" cy="330" r="3.5"/><text x="150" y="324">U6 Alser Straße</text><text class="sub" x="150" y="338">220 m, 3 Min</text></g>
         <g class="pin" data-cat="mobil"><circle cx="300" cy="500" r="3.5"/><text x="218" y="522">Straßenbahn 43, 44</text><text class="sub" x="218" y="536">350 m, 5 Min</text></g>
-        <g class="pin" data-cat="mobil"><circle cx="612" cy="480" r="3.5"/><text x="560" y="504">Schottentor</text><text class="sub" x="560" y="518">12 Min Straßenbahn</text></g>
+        <g class="pin pin--key" data-cat="mobil"><circle cx="612" cy="480" r="3.5"/><text x="560" y="504">Schottentor</text><text class="sub" x="560" y="518">12 Min Straßenbahn</text></g>
 
-        <g class="pin" data-cat="medizin"><circle cx="230" cy="420" r="3.5"/><text x="128" y="446">AKH Wien</text><text class="sub" x="128" y="460">Universitätsklinikum</text></g>
+        <g class="pin pin--key" data-cat="medizin"><circle cx="230" cy="420" r="3.5"/><text x="128" y="446">AKH Wien</text><text class="sub" x="128" y="460">Universitätsklinikum</text></g>
         <g class="pin" data-cat="medizin"><circle cx="330" cy="440" r="3.5"/><text x="340" y="452">St. Anna Kinderspital</text></g>
         <g class="pin" data-cat="medizin"><circle cx="440" cy="250" r="3.5"/><text x="448" y="246">Wiener Privatklinik</text></g>
 
         <g class="pin" data-cat="gruen"><circle cx="420" cy="400" r="3.5"/><text x="428" y="414">Viktor-Frankl-Park</text></g>
-        <g class="pin" data-cat="gruen"><circle cx="560" cy="250" r="3.5"/><text x="568" y="244">Liechtensteinpark</text><text class="sub" x="568" y="258">Palais Liechtenstein</text></g>
+        <g class="pin pin--key" data-cat="gruen"><circle cx="560" cy="250" r="3.5"/><text x="568" y="244">Liechtensteinpark</text><text class="sub" x="568" y="258">Palais Liechtenstein</text></g>
         <g class="pin" data-cat="gruen"><circle cx="470" cy="530" r="3.5"/><text x="478" y="548">Altes AKH</text><text class="sub" x="478" y="562">Campus und Höfe</text></g>
 
-        <g class="pin" data-cat="bildung"><circle cx="640" cy="420" r="3.5"/><text x="598" y="408">Universität Wien</text><text class="sub" x="598" y="394">12 Min Straßenbahn</text></g>
+        <g class="pin pin--key" data-cat="bildung"><circle cx="640" cy="420" r="3.5"/><text x="598" y="408">Universität Wien</text><text class="sub" x="598" y="394">12 Min Straßenbahn</text></g>
         <g class="pin" data-cat="bildung"><circle cx="300" cy="580" r="3.5"/><text x="212" y="602">Medizinische Universität</text></g>
 
-        <g class="pin" data-cat="alltag"><circle cx="520" cy="340" r="3.5"/><text x="528" y="336">Servitenviertel</text><text class="sub" x="528" y="350">Cafés, Buchhandlungen</text></g>
+        <g class="pin pin--key" data-cat="alltag"><circle cx="520" cy="340" r="3.5"/><text x="528" y="336">Servitenviertel</text><text class="sub" x="528" y="350">Cafés, Buchhandlungen</text></g>
         <g class="pin" data-cat="alltag"><circle cx="560" cy="170" r="3.5"/><text x="568" y="166">Liechtensteinstraße</text><text class="sub" x="568" y="180">Geschäfte, Apotheken</text></g>
         <g class="pin" data-cat="alltag"><circle cx="420" cy="300" r="3.5"/><text x="428" y="296">Währinger Straße</text></g>
 
@@ -354,8 +354,8 @@
         <g class="tree"><line x1="590" y1="250" x2="590" y2="205"/><circle cx="590" cy="186" r="20"/></g>
         <g class="tree"><line x1="640" y1="250" x2="640" y2="195"/><circle cx="640" cy="174" r="24"/></g>
         <rect class="fill-terra" x="330" y="180" width="40" height="70"/>
-        <text x="300" y="275">Morgen</text>
-        <text x="380" y="275" style="text-anchor:end">Abend</text>
+        <text class="minor" x="300" y="275">Morgen</text>
+        <text class="minor" x="380" y="275" style="text-anchor:end">Abend</text>
         <text x="40" y="275">Licht von zwei Seiten</text>
       </svg>
     </figure>
@@ -498,7 +498,7 @@
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/vendor/lenis.min.js"></script>
-<script src="assets/js/units.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/units.js?v=488687"></script>
+<script src="assets/js/main.js?v=488687"></script>
 </body>
 </html>

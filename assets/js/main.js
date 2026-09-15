@@ -41,12 +41,12 @@
     });
   });
   $$('[data-reveal="chars"]').forEach((el) => {
-    const text = el.textContent; el.innerHTML = "";
-    text.split("").forEach((ch) => {
-      const s = document.createElement("span");
-      if (ch === " ") { s.className = "space"; s.innerHTML = "&nbsp;"; }
-      else { s.className = "char"; s.textContent = ch; }
-      el.appendChild(s);
+    const text = el.textContent.trim(); el.innerHTML = "";
+    text.split(/\s+/).forEach((word, wi, arr) => {
+      const w = document.createElement("span"); w.className = "word";
+      word.split("").forEach((ch) => { const s = document.createElement("span"); s.className = "char"; s.textContent = ch; w.appendChild(s); });
+      el.appendChild(w);
+      if (wi < arr.length - 1) el.appendChild(document.createTextNode(" "));
     });
   });
 
