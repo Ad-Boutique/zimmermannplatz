@@ -72,9 +72,9 @@ Laufband 1 (Olive): "Wohnung finden" mit Z6 als Trenner, das gesamte Band ist de
 
 Laufband 2 (Greige): "Penthäuser im Dach" als zweiter Einstieg in den Finder, vorgefiltert auf Dachgeschoss.
 
-5 Wohnen: Zwei Typologien nebeneinander mit großen Zahlen (17 Bestand, 6 Dach). Collage der Materialien (Fischgrät, Putz, Stein, Grün, Dachdetail) driftet mit Parallax. Ausstattungsliste mit sechs Kapiteln, Hover tauscht das Bild in einer klebenden Bildtafel. Kleine Grafik "Durchstecker": Platz, Wohnung, Garten als Schnitt. Aufgabe: Fühlen, was man kauft.
+5 Wohnen: Zwei Typologien nebeneinander mit großen Zahlen (17 Bestand, 6 Dach). Collage der Materialien (Fischgrät, Putz, Stein, Grün, Dachdetail) driftet am Desktop mit Parallax, mobil als scrollgesteuertes horizontales Bildband mit versetzten Höhen und Bild-Parallax. Ausstattungsliste mit sechs Kapiteln, Hover tauscht das Bild in einer klebenden Bildtafel. Kleine Grafik "Durchstecker": Platz, Wohnung, Garten als Schnitt. Aufgabe: Fühlen, was man kauft.
 
-6 Wohnungsfinder: Filter für Zimmer und Lage im Haus als Hairline-Schalter (keine Pills), Sortierung nach Fläche. Links ein Gebäudeschnitt (EG Gewerbe, 1. bis 4. OG Bestand, DG Penthäuser), dessen Ebenen die Trefferzahl zeigen und als Filter klickbar sind. Rechts die Liste mit Top, Geschoss, Zimmer, Wohnfläche, Außenfläche, Ausrichtung, Status. Zeile öffnet Detail mit "Anfragen", das den Kontakt vorbelegt. Aufgabe: Conversion.
+6 Wohnungsfinder: Filter für Zimmer und Lage im Haus als Hairline-Schalter (keine Pills), Sortierung nach Fläche. Liste in voller Breite mit Top, Geschoss, Zimmer, Wohnfläche, Außenfläche, Ausrichtung, Status (Gebäudeschnitt als Filter am 16.09. auf Kundenwunsch entfernt). Zeile öffnet Detail mit "Anfragen", das den Kontakt vorbelegt. Aufgabe: Conversion.
 
 7 Kontakt (Olive, Z6-Muster): Headline, Formular mit Underline-Feldern (Name, E-Mail, Telefon, Interesse, Nachricht, Datenschutz). Aufgabe: Lead.
 

@@ -11,7 +11,7 @@
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/URWGothic-Demi.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=488687">
+<link rel="stylesheet" href="assets/css/style.css?v=553931">
 </head>
 <body>
 
@@ -298,12 +298,14 @@
   </div>
 
   <div class="drift" id="drift">
+    <div class="drift__stage" id="driftStage">
     <figure class="drift__item drift__1" data-speed="0.6"><img src="assets/img/mat-parkett.jpg" alt="Fischgrätparkett aus Eiche" loading="lazy"><figcaption>Fischgrät</figcaption></figure>
     <figure class="drift__item drift__2" data-speed="1.4"><img src="assets/img/mat-putz.jpg" alt="Feiner mineralischer Putz" loading="lazy"><figcaption>Putz</figcaption></figure>
     <figure class="drift__item drift__3" data-speed="0.9"><img src="assets/img/detail-terrasse.jpg" alt="Bronzefarbenes Dach mit Terrassen" loading="lazy"><figcaption>Dach</figcaption></figure>
     <figure class="drift__item drift__4" data-speed="1.2"><img src="assets/img/mat-stein.jpg" alt="Naturstein im Streiflicht" loading="lazy"><figcaption>Stein</figcaption></figure>
     <figure class="drift__item drift__5" data-speed="0.7"><img src="assets/img/mat-gruen.jpg" alt="Dichtes Blattgrün" loading="lazy"><figcaption>Grün</figcaption></figure>
     <div class="drift__pattern" data-speed="1.6" aria-hidden="true"></div>
+    </div>
     <div class="drift__text">
       <h2 class="display-2" data-reveal="words">Was Sie berühren, bleibt.</h2>
       <p class="muted" data-reveal>Eiche, Stein, Putz, Bronze und Grün. Materialien, die mit dem Haus alt werden dürfen.</p>
@@ -372,7 +374,7 @@
   <div class="section-rule"><span class="label">05</span><span class="label">Wohnungsfinder</span></div>
   <div class="finder__head">
     <h2 class="display-2" data-reveal="words">Finden Sie Ihre Wohnung.</h2>
-    <p data-reveal>23 Wohnungen von 46 bis 148 m². Filtern Sie nach Zimmern und Lage im Haus oder wählen Sie ein Geschoss im Schnitt.</p>
+    <p data-reveal>23 Wohnungen von 46 bis 148 m². Filtern Sie nach Zimmern und Lage im Haus, sortieren Sie nach Fläche.</p>
   </div>
   <div class="filters" id="filters" data-reveal>
     <div class="filter">
@@ -406,26 +408,6 @@
   </div>
 
   <div class="finder__body">
-    <div class="finder__section" data-reveal>
-      <svg class="bsec" id="bsec" viewBox="0 0 360 420" role="img" aria-label="Gebäudeschnitt mit sechs Ebenen">
-        <g class="lvl" data-level="5">
-          <polygon class="roof" points="60,120 300,120 330,60 210,38 30,60"/>
-          <rect class="win" x="120" y="66" width="34" height="22"/>
-          <rect class="win" x="200" y="60" width="34" height="22"/>
-          <text x="20" y="52">Dach</text>
-          <text class="cnt" x="344" y="112" data-cnt="5">6</text>
-        </g>
-        <g class="lvl" data-level="4"><rect class="body" x="60" y="120" width="240" height="50"/><rect class="win" x="90" y="134" width="14" height="22"/><rect class="win" x="140" y="134" width="14" height="22"/><rect class="win" x="190" y="134" width="14" height="22"/><rect class="win" x="240" y="134" width="14" height="22"/><text x="20" y="150">4. OG</text><text class="cnt" x="344" y="150" data-cnt="4">5</text></g>
-        <g class="lvl" data-level="3"><rect class="body" x="60" y="170" width="240" height="50"/><rect class="win" x="90" y="184" width="14" height="22"/><rect class="win" x="140" y="184" width="14" height="22"/><rect class="win" x="190" y="184" width="14" height="22"/><rect class="win" x="240" y="184" width="14" height="22"/><text x="20" y="200">3. OG</text><text class="cnt" x="344" y="200" data-cnt="3">4</text></g>
-        <g class="lvl" data-level="2"><rect class="body" x="60" y="220" width="240" height="50"/><rect class="win" x="90" y="234" width="14" height="22"/><rect class="win" x="140" y="234" width="14" height="22"/><rect class="win" x="190" y="234" width="14" height="22"/><rect class="win" x="240" y="234" width="14" height="22"/><text x="20" y="250">2. OG</text><text class="cnt" x="344" y="250" data-cnt="2">4</text></g>
-        <g class="lvl" data-level="1"><rect class="body" x="60" y="270" width="240" height="50"/><rect class="win" x="90" y="284" width="14" height="22"/><rect class="win" x="140" y="284" width="14" height="22"/><rect class="win" x="190" y="284" width="14" height="22"/><rect class="win" x="240" y="284" width="14" height="22"/><text x="20" y="300">1. OG</text><text class="cnt" x="344" y="300" data-cnt="1">4</text></g>
-        <g class="lvl lvl--eg" data-level="0"><rect class="body" x="60" y="320" width="240" height="58"/><rect class="win" x="84" y="334" width="40" height="34"/><rect class="win" x="150" y="334" width="30" height="44"/><rect class="win" x="210" y="334" width="60" height="34"/><text x="20" y="352">EG</text><text class="cnt" x="344" y="352" style="font-weight:400;font-size:9.5px;letter-spacing:0.12em">Gewerbe</text></g>
-        <line class="ground" x1="0" y1="378" x2="360" y2="378"/>
-        <text x="60" y="404">Zimmermannplatz</text>
-        <text x="256" y="404">Hof</text>
-      </svg>
-      <p>Geschoss anklicken, um die Liste zu filtern. Erneut klicken hebt die Auswahl auf.</p>
-    </div>
     <div class="finder__list" data-reveal>
       <table class="units" id="unitsTable">
         <thead>
@@ -498,7 +480,7 @@
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/vendor/lenis.min.js"></script>
-<script src="assets/js/units.js?v=488687"></script>
-<script src="assets/js/main.js?v=488687"></script>
+<script src="assets/js/units.js?v=553931"></script>
+<script src="assets/js/main.js?v=553931"></script>
 </body>
 </html>

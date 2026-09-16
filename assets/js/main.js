@@ -172,10 +172,23 @@
       gsap.set(img, { scale: 1 + amt / 60 });
       gsap.fromTo(img, { yPercent: -amt / 2 }, { yPercent: amt / 2, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } });
     });
-    /* collage drift */
-    $$("#drift [data-speed]").forEach((el) => {
-      const sp = parseFloat(el.dataset.speed);
-      gsap.fromTo(el, { y: (sp - 1) * 160 }, { y: (1 - sp) * 160, ease: "none", scrollTrigger: { trigger: "#drift", start: "top bottom", end: "bottom top", scrub: true } });
+    /* collage drift: desktop vertical drift with own speeds, mobile horizontal strip driven by scroll */
+    const dmm = gsap.matchMedia();
+    dmm.add("(min-width: 821px)", () => {
+      $$("#drift [data-speed]").forEach((el) => {
+        const sp = parseFloat(el.dataset.speed);
+        gsap.fromTo(el, { y: (sp - 1) * 160 }, { y: (1 - sp) * 160, ease: "none", scrollTrigger: { trigger: "#drift", start: "top bottom", end: "bottom top", scrub: true } });
+      });
+    });
+    dmm.add("(max-width: 820px)", () => {
+      const stage = $("#driftStage"); const drift = $("#drift"); if (!stage) return;
+      const dist = () => Math.max(0, stage.scrollWidth - drift.clientWidth + parseFloat(getComputedStyle(drift).paddingLeft) * 2);
+      gsap.fromTo(stage, { x: 0 }, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: drift, start: "top 85%", end: "bottom 15%", scrub: 0.7, invalidateOnRefresh: true } });
+      $$(".drift__item", stage).forEach((fig, i) => {
+        gsap.fromTo(fig, { y: i % 2 ? 40 : -20 }, { y: i % 2 ? -30 : 30, ease: "none", scrollTrigger: { trigger: drift, start: "top bottom", end: "bottom top", scrub: true } });
+        const img = $("img", fig);
+        gsap.fromTo(img, { scale: 1.18, xPercent: 6 }, { scale: 1.18, xPercent: -6, ease: "none", scrollTrigger: { trigger: drift, start: "top bottom", end: "bottom top", scrub: true } });
+      });
     });
   }
 
@@ -267,14 +280,6 @@
     result.innerHTML = `<b>${list.length}</b> von ${units.length} Wohnungen`;
     const sum = list.reduce((s, u) => s + u.area, 0);
     sumEl.textContent = list.length ? `${list.length} Wohnungen, ${fmt(sum)} m² Wohnfläche` : "";
-    /* building section state */
-    $$("#bsec .lvl").forEach((g) => {
-      const lvl = Number(g.dataset.level); if (lvl === 0) return;
-      const n = list.filter((u) => u.level === lvl).length;
-      const c = $(`[data-cnt="${lvl}"]`, g); if (c) c.textContent = n;
-      g.classList.toggle("is-on", state.level === lvl);
-      g.classList.toggle("is-off", n === 0);
-    });
     if (hasGsap) ScrollTrigger.refresh();
   }
   function toggleDetail(top) { state.open = state.open === top ? null : top; render(); }
@@ -286,12 +291,6 @@
     }));
   });
   $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
-  $$("#bsec .lvl").forEach((g) => g.addEventListener("click", () => {
-    const lvl = Number(g.dataset.level); if (lvl === 0) return;
-    state.level = state.level === lvl ? null : lvl; state.zone = "all";
-    $$('.seg[data-filter="zone"] button').forEach((x) => x.classList.toggle("is-on", x.dataset.value === "all"));
-    state.open = null; render();
-  }));
   function presetFilter(level) {
     state.rooms = "all"; state.level = null; state.zone = level === "5" ? "dach" : "all"; state.open = null;
     $$('.seg[data-filter="rooms"] button').forEach((x) => x.classList.toggle("is-on", x.dataset.value === "all"));
