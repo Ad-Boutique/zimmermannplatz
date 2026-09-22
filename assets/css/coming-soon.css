@@ -23,8 +23,8 @@ body.cs { background: var(--ivory); }
 .cs__logos { gap: 36px; align-items: center; }
 .cs__logo { display: inline-flex; align-items: center; transition: opacity 0.4s var(--ease); }
 .cs__logo:hover { opacity: 0.7; }
-.cs__logo img { height: 40px; width: auto; }
-.cs__logo img[alt="Pia Estate"] { height: 96px; }
+.cs__logo img { height: 46px; width: auto; }
+.cs__logo img[alt="Pia Estate"] { height: 84px; }
 .cs__contact { display: grid; gap: 6px; font-size: 1.05rem; }
 .cs__contact a { transition: color 0.3s; }
 .cs__contact a:hover { color: var(--terra); }
