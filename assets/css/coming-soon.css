@@ -52,8 +52,15 @@ body.cs { background: var(--ivory); }
 .cs__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
 .cs__foot a { margin-left: 22px; }
 
-[data-in] { opacity: 0; transform: translateY(20px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
-[data-in].is-in { opacity: 1; transform: none; }
+/* Einblendung rein ueber CSS, damit die Inhalte auch ohne JavaScript sichtbar sind */
+[data-in] { opacity: 0; transform: translateY(20px); animation: cs-in 0.9s var(--ease) forwards; }
+.cs__body > [data-in]:nth-child(1) { animation-delay: 0.15s; }
+.cs__body > [data-in]:nth-child(2) { animation-delay: 0.27s; }
+.cs__body > [data-in]:nth-child(3) { animation-delay: 0.39s; }
+.cs__body > [data-in]:nth-child(4) { animation-delay: 0.51s; }
+.cs__body > [data-in]:nth-child(5) { animation-delay: 0.63s; }
+.cs__body > [data-in]:nth-child(6) { animation-delay: 0.75s; }
+@keyframes cs-in { to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
   .cs__layout { grid-template-columns: 1fr; min-height: auto; }
@@ -62,4 +69,4 @@ body.cs { background: var(--ivory); }
   .cs__body { padding: 32px 0 40px; max-width: none; }
   .cs__logos { max-width: 320px; }
 }
-@media (prefers-reduced-motion: reduce) { .cs__media img { animation: none; transform: none; } [data-in] { opacity: 1; transform: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .cs__media img { animation: none; transform: none; } [data-in] { opacity: 1; transform: none; animation: none; } }
