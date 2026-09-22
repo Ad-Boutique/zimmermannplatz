@@ -1,44 +1,65 @@
 /* Coming soon: Bild links, Inhalt rechts */
 body.cs { background: var(--ivory); }
+
 .cs__layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; }
+
+/* Bild */
 .cs__media { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--greige); }
 .cs__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); animation: cs-zoom 18s var(--ease) forwards; }
-.cs__media figcaption { position: absolute; left: clamp(20px, 3vw, 40px); bottom: clamp(20px, 3vw, 40px); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ivory); text-shadow: 0 1px 10px rgba(0,0,0,0.45); }
-.cs__mark { position: absolute; right: clamp(20px, 3vw, 40px); top: clamp(20px, 3vw, 40px); width: clamp(40px, 4vw, 64px); }
+.cs__media figcaption { position: absolute; left: clamp(20px, 3vw, 40px); bottom: clamp(20px, 3vw, 40px); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory); text-shadow: 0 1px 10px rgba(0,0,0,0.45); }
+.cs__mark { position: absolute; right: clamp(20px, 3vw, 40px); top: clamp(20px, 3vw, 40px); width: clamp(34px, 3.2vw, 52px); }
 .cs__mark svg { fill: var(--ivory); filter: drop-shadow(0 1px 10px rgba(0,0,0,0.35)); }
 @keyframes cs-zoom { to { transform: scale(1); } }
 
-.cs__content { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: clamp(20px, 3vw, 44px) clamp(28px, 5vw, 96px); min-height: 100svh; }
-.cs__top { display: flex; justify-content: space-between; align-items: center; }
-.cs__top .brand svg { height: clamp(40px, 3.6vw, 56px); width: auto; fill: var(--olive); }
-.cs__body { padding: 24px 0; max-width: 54ch; }
-.cs__body .display-2 { font-size: clamp(1.9rem, 3vw, 3.4rem); margin-bottom: 26px; }
-.cs__claim { color: var(--ink); font-size: clamp(1.15rem, 1.6vw, 1.5rem); margin-bottom: 32px; }
-.cs__facts { margin-bottom: 40px; display: grid; gap: 10px; }
-.cs__facts li { padding-left: 18px; font-size: 0.95rem; position: relative; }
-.cs__facts li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 7px; height: 1px; background: var(--terra); }
-.cs__sales { margin-bottom: 32px; }
-.cs__sales .label, .cs__contact .label { display: block; margin-bottom: 12px; }
-.cs__logos { display: flex; flex-wrap: wrap; gap: 14px; }
-.cs__logos { gap: 36px; align-items: center; }
+/* Inhaltsspalte */
+.cs__content { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: clamp(20px, 3vw, 44px) clamp(28px, 5vw, 88px); min-height: 100svh; }
+.cs__top { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.cs__top .brand svg { height: clamp(32px, 2.8vw, 42px); width: auto; fill: var(--olive); }
+.cs__top .label { font-size: 0.62rem; letter-spacing: 0.2em; }
+
+.cs__body { padding: 16px 0; max-width: 50ch; }
+
+/* Stufe 1: Headline */
+.cs__body .display-2 { font-size: clamp(1.5rem, 2.25vw, 2.3rem); line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 18px; }
+
+/* Stufe 3: Fliesstext */
+.cs__text { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; margin-bottom: 22px; }
+
+/* Stufe 2: Claim, durch Farbe und Akzentlinie abgesetzt, nicht durch Groesse */
+.cs__claim { color: var(--ink); font-size: 1.12rem; line-height: 1.35; letter-spacing: -0.01em; margin: 0 0 26px; padding-top: 16px; position: relative; }
+.cs__claim::before { content: ""; position: absolute; top: 0; left: 0; width: 34px; height: 1px; background: var(--terra); }
+
+/* Stufe 3: Fakten */
+.cs__facts { display: grid; gap: 6px; margin-bottom: 28px; }
+.cs__facts li { padding-left: 17px; font-size: 0.88rem; line-height: 1.5; color: var(--ink-soft); position: relative; }
+.cs__facts li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 7px; height: 1px; background: var(--terra); }
+
+/* Stufe 4: Labels */
+.cs__sales .label, .cs__contact .label { display: block; font-size: 0.62rem; letter-spacing: 0.2em; margin-bottom: 14px; }
+
+/* Vertriebslogos: eines links, eines rechts, optisch auf gleiche Versalhoehe gebracht */
+.cs__sales { margin-bottom: 28px; }
+.cs__logos { display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 340px; }
 .cs__logo { display: inline-flex; align-items: center; transition: opacity 0.4s var(--ease); }
-.cs__logo:hover { opacity: 0.7; }
-.cs__logo img { height: 46px; width: auto; }
-.cs__logo img[alt="Pia Estate"] { height: 84px; }
-.cs__contact { display: grid; gap: 6px; font-size: 1.05rem; }
-.cs__contact a { transition: color 0.3s; }
+.cs__logo:hover { opacity: 0.65; }
+.cs__logo img { display: block; width: auto; height: 28px; }
+.cs__logo img[alt="Pia Estate"] { height: 13px; }
+
+.cs__contact { display: grid; gap: 5px; font-size: 0.9rem; }
+.cs__contact a { color: var(--ink); transition: color 0.3s; }
 .cs__contact a:hover { color: var(--terra); }
-.cs__text { color: var(--ink-soft); margin-bottom: 22px; }
-.cs__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
+
+.cs__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
 .cs__foot a { margin-left: 22px; }
 
-[data-in] { opacity: 0; transform: translateY(22px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+[data-in] { opacity: 0; transform: translateY(20px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
 [data-in].is-in { opacity: 1; transform: none; }
 
 @media (max-width: 900px) {
   .cs__layout { grid-template-columns: 1fr; min-height: auto; }
-  .cs__media { position: relative; height: 56vh; }
-  .cs__content { min-height: auto; padding-top: 28px; }
-  .cs__body { padding: 40px 0 48px; max-width: none; }
-    }
+  .cs__media { position: relative; height: 52vh; }
+  .cs__content { min-height: auto; padding-top: 26px; }
+  .cs__body { padding: 32px 0 40px; max-width: none; }
+  .cs__logos { max-width: 320px; }
+}
 @media (prefers-reduced-motion: reduce) { .cs__media img { animation: none; transform: none; } [data-in] { opacity: 1; transform: none; transition: none; } }
