@@ -104,6 +104,6 @@ Eigenständige Seite für die Zeit vor dem Verkaufsstart. Desktop zweigeteilt: l
 - [prüfen] Jahr der historischen Aufnahme (auf der Seite "um 1900" ohne Jahreszahl formuliert).
 - [prüfen] Dachmaterial: Renderings zeigen bronzefarbene Metallhaut. Auf der Seite nur als Farbe benannt, nicht als Material.
 - [prüfen] Bauträger, Ansprechperson, Telefon, E-Mail, Impressum, Datenschutz, Visualisierungs-Credit (Dateiname deutet auf Stix und Partner).
-- [prüfen] Formular-Versand für Anfrage-Pop-up und Coming-soon-Vormerkung: aktuell nur Frontend, Endpoint anbinden (siehe UNIO-Lead-Mailversand als Vorlage).
+- Formular-Versand: Backend unter api/ (Vercel Functions, Neon Postgres, Admin mit Login und CSV unter /admin) ist gebaut. Einrichtung laut docs/BACKEND.md: Vercel-Import, Datenbank anlegen, Env-Vars setzen.
 - [prüfen] Lizenz ITC Avant Garde Gothic Pro für Web-Embedding.
 - Renderings liegen nur in 1111 x 833 px vor. Für Retina-Hero mindestens 2400 px Breite anfordern, idealerweise zusätzlich Innenraum-Renderings (Bestand mit Fischgrät, Penthouse mit Terrasse) und ein Hof-/Gartenbild.

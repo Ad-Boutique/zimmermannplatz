@@ -6,10 +6,11 @@
 <title>Zimmermannplatz 6</title>
 <meta name="description" content="Zimmermannplatz 6, 1090 Wien. 16 Wohnungen im sanierten Bestand und im neuen Dachgeschoss am Alsergrund. Verkaufsstart in Kürze.">
 <meta name="robots" content="noindex">
+<meta name="z6-api" content="">
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=065936">
-<link rel="stylesheet" href="assets/css/coming-soon.css?v=065936">
+<link rel="stylesheet" href="assets/css/style.css?v=066643">
+<link rel="stylesheet" href="assets/css/coming-soon.css?v=066643">
 </head>
 <body class="cs">
 
@@ -42,6 +43,7 @@
           <div class="field"><input type="email" id="csMail" name="email" placeholder=" " required autocomplete="email"><label for="csMail">E-Mail</label></div>
           <button class="btn" type="submit">Vormerken <svg class="arr"><use href="#arrow"/></svg></button>
         </div>
+        <input type="text" name="website" id="csWebsite" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
         <label class="check"><input type="checkbox" id="csPrivacy" required><span class="box"></span><span>Ich stimme der Speicherung meiner E-Mail-Adresse für die Information zum Verkaufsstart zu.</span></label>
         <div class="form__msg" id="csMsg"></div>
       </form>
@@ -64,8 +66,11 @@
     var mail = document.getElementById("csMail").value.trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { msg.className = "form__msg"; msg.textContent = "Bitte eine gültige E-Mail-Adresse angeben."; return; }
     if (!document.getElementById("csPrivacy").checked) { msg.className = "form__msg"; msg.textContent = "Bitte der Speicherung zustimmen."; return; }
-    /* Versand: Endpoint folgt. */
-    msg.className = "form__msg is-ok"; msg.textContent = "Danke. Sie hören als Erste von uns."; f.reset();
+    var api = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
+    msg.className = "form__msg"; msg.textContent = "Wird gesendet";
+    fetch(api + "api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ source: "coming-soon", email: mail, consent: true, website: document.getElementById("csWebsite").value }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok || !d.ok) throw new Error(d.error || "Failed to fetch"); msg.className = "form__msg is-ok"; msg.textContent = "Danke. Sie hören als Erste von uns."; f.reset(); }); })
+      .catch(function (err) { msg.className = "form__msg"; msg.textContent = err.message === "Failed to fetch" ? "Die Vormerkung ist gerade nicht möglich. Bitte versuchen Sie es später noch einmal." : err.message; });
   });
 })();
 </script>

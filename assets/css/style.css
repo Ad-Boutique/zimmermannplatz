@@ -56,6 +56,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 h1, h2, h3, h4, p, ul, ol, figure { margin: 0; }
 ul { padding: 0; list-style: none; }
 ::selection { background: var(--terra); color: var(--ivory); }
+[hidden] { display: none !important; }
 
 /* ---------- Typography ---------- */
 .display-1 { font-weight: 400; font-size: clamp(2.4rem, 7.6vw, 8.4rem); line-height: 0.96; letter-spacing: -0.025em; text-wrap: balance; }

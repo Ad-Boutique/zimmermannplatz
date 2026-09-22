@@ -1,0 +1,11 @@
+{
+  "name": "zimmermannplatz-6",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Zimmermannplatz 6: statische Website plus Anfrage-Backend (Vercel Serverless Functions, Neon Postgres)",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "nodemailer": "^6.9.16"
+  }
+}

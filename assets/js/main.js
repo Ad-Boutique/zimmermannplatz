@@ -304,6 +304,7 @@
   render();
 
   /* ---------- Inquiry modal ---------- */
+  const API_BASE = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
   const modal = $("#modal"); const qForm = $("#inquiryForm"); const qMsg = $("#qFormMsg"); const qDone = $("#modalDone");
   let lastFocus = null;
   function prefill(u) {
@@ -333,8 +334,12 @@
     const name = $("#qName").value.trim(); const mail = $("#qMail").value.trim();
     if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { qMsg.className = "form__msg"; qMsg.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben."; return; }
     if (!$("#qPrivacy").checked) { qMsg.className = "form__msg"; qMsg.textContent = "Bitte der Datenverarbeitung zustimmen."; return; }
-    /* Versand: Endpoint folgt. Aktuell nur Bestaetigung im Frontend. */
-    qForm.hidden = true; qDone.hidden = false; qForm.reset();
+    const btn = $("button[type=submit]", qForm); btn.disabled = true; qMsg.className = "form__msg"; qMsg.textContent = "Wird gesendet";
+    const payload = { source: "finder", top: $("#qTop").value, unit_summary: $("#modalFacts").textContent, name, email: mail, phone: $("#qPhone").value.trim(), message: $("#qMsg").value.trim(), consent: true, website: $("#qWebsite").value };
+    fetch(API_BASE + "api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+      .then(async (r) => { const d = await r.json().catch(() => ({})); if (!r.ok || !d.ok) throw new Error(d.error || "Failed to fetch"); qForm.hidden = true; qDone.hidden = false; qForm.reset(); })
+      .catch((err) => { qMsg.textContent = err.message === "Failed to fetch" ? "Der Versand ist gerade nicht möglich. Bitte versuchen Sie es später noch einmal." : err.message; })
+      .finally(() => { btn.disabled = false; });
   });
 
   window.addEventListener("load", () => { if (hasGsap) ScrollTrigger.refresh(); });
