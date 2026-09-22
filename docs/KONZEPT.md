@@ -96,7 +96,7 @@ Jede Sektion hat genau einen Ausgang, immer zum Finder oder zum Kontakt:
 
 Eigenständige Seite für die Zeit vor dem Verkaufsstart, Inhalt laut Vorgabe Vertrieb vom 22.09.2026. Desktop zweigeteilt: links das Straßen-Rendering vollflächig (bleibt beim Scrollen stehen), rechts auf Ivory Wortmarke, Headline "Zimmermannplatz 6. Wiener Geschichte, neu gedacht.", Beschreibungstext, Claim, fünf Fakten als Hairline-Liste, Exklusivvertrieb mit Logos, Kontakt (sales@zimmermannplatz6.at, 01 585 36 63, 0660 508 36 35), Impressum-Link auf onerep.at. Kein Formular. Mobil Bild oben, Inhalt darunter. noindex gesetzt. Für den Livegang als Startseite ausliefern (Umbenennen in index.html oder Redirect).
 
-Offen: zweites Vertriebslogo fehlt (Platzhalter "Logo folgt"), erstes Logo ist ONE Real Estate Partner von onerep.at. Der Text "16 sanierte Altbauwohnungen" stammt aus der Vertriebsvorgabe; laut Topographie sind es 10 sanierte Bestandswohnungen plus 6 im Dach, zusammen 16.
+Vertriebslogos: Pia Estate (assets/img/partner/pia-estate.png) und Elisabeth Rohr Real Estate (aus dem Maison-57-Repo übernommen). Wortlaut der Wohnungsliste am 22.09. an die Topographie angepasst (10 sanierte Altbauwohnungen, 4 im 1. DG, 2 Penthäuser im 2. DG, 2 bis 5 Zimmer). Top 23 zählt im Finder mit 5 Zimmern, weil die separate Küche mit 21,90 m² als Raum gilt.
 
 ## 6. Offene Punkte, vor Livegang klären
 

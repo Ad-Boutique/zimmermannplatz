@@ -14,18 +14,20 @@ body.cs { background: var(--ivory); }
 .cs__body { padding: 24px 0; max-width: 54ch; }
 .cs__body .display-2 { font-size: clamp(1.9rem, 3vw, 3.4rem); margin-bottom: 26px; }
 .cs__claim { color: var(--ink); font-size: clamp(1.15rem, 1.6vw, 1.5rem); margin-bottom: 32px; }
-.cs__facts { border-top: 1px solid var(--line); margin-bottom: 36px; }
-.cs__facts li { padding: 11px 0 11px 18px; border-bottom: 1px solid var(--line); font-size: 0.95rem; position: relative; }
-.cs__facts li::before { content: ""; position: absolute; left: 0; top: 1.15em; width: 7px; height: 1px; background: var(--terra); }
+.cs__facts { margin-bottom: 40px; display: grid; gap: 10px; }
+.cs__facts li { padding-left: 18px; font-size: 0.95rem; position: relative; }
+.cs__facts li::before { content: ""; position: absolute; left: 0; top: 0.75em; width: 7px; height: 1px; background: var(--terra); }
 .cs__sales { margin-bottom: 32px; }
 .cs__sales .label, .cs__contact .label { display: block; margin-bottom: 12px; }
 .cs__logos { display: flex; flex-wrap: wrap; gap: 14px; }
-.cs__logo { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; height: 64px; padding: 10px 18px; border: 1px solid var(--line-strong); color: var(--ink-soft); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; transition: border-color 0.4s var(--ease); }
-.cs__logo:hover { border-color: var(--olive); }
-.cs__logo img { max-height: 40px; width: auto; }
-.cs__contact { display: grid; gap: 4px; font-size: 0.95rem; }
-.cs__contact a { border-bottom: 1px solid var(--line-strong); transition: border-color 0.3s; }
-.cs__contact a:hover { border-color: var(--olive); }
+.cs__logos { gap: 36px; align-items: center; }
+.cs__logo { display: inline-flex; align-items: center; transition: opacity 0.4s var(--ease); }
+.cs__logo:hover { opacity: 0.7; }
+.cs__logo img { height: 40px; width: auto; }
+.cs__logo img[alt="Pia Estate"] { height: 96px; }
+.cs__contact { display: grid; gap: 6px; font-size: 1.05rem; }
+.cs__contact a { transition: color 0.3s; }
+.cs__contact a:hover { color: var(--terra); }
 .cs__text { color: var(--ink-soft); margin-bottom: 22px; }
 .cs__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
 .cs__foot a { margin-left: 22px; }

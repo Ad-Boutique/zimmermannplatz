@@ -1,7 +1,7 @@
 /* Wohnungsliste laut Topographie / Ausfuehrung zur Ausschreibung, VERS-02 vom 01.09.2026 (1600_TOPO_AUSSCHR_01.9.2026_VS2.pdf).
    Aufgenommen sind alle Wohnungen, die Teil der Sanierung bzw. des Dachausbaus sind.
    Nicht aufgenommen (unbefristet vermietet, nicht Teil der Sanierung): Tuer 3, 9, 13, 16, 18. Nicht aufgenommen: Tuer 1 Geschaeftslokal (125,37 m2).
-   Flaechen sind Netto-Nutzflaechen in m2 exakt aus der Topographie. Zimmerzahl = Wohnkueche/Wohnzimmer plus Zimmer.
+   Flaechen sind Netto-Nutzflaechen in m2 exakt aus der Topographie. Zimmerzahl = Wohnkueche/Wohnzimmer plus Zimmer; bei Top 23 zaehlt die separate Kueche (21,90 m2) als Raum mit.
    Einlagerungsraum im Keller: laut Topographie jeder Wohnung zugeteilt, Zuteilung "zu klaeren". */
 window.Z6_UNITS = [
   { top: "2",     level: 0, levelName: "Erdgeschoss", rooms: 4, area: 82.61,  out: [{ type: "Terrasse (erdberührt)", m2: 10.97 }], zone: "bestand", kind: "Bestand, Sanierung",
@@ -32,7 +32,7 @@ window.Z6_UNITS = [
     program: "Vorraum, Zimmer 1, WC, Bad, Wohnküche, Zimmer 2", status: "frei" },
   { top: "22",    level: 4, levelName: "1. Dachgeschoss", rooms: 4, area: 115.82, out: [{ type: "Loggia", m2: 3.35 }, { type: "Balkon", m2: 7.01 }], zone: "dach", kind: "Dachgeschoss, Neubau",
     program: "Vorraum, Garderobe, WC, Abstellraum, Wohnküche, Schrankraum, Bad, Zimmer 3, Gang, WC/Dusche, Zimmer 1, Zimmer 2", status: "frei" },
-  { top: "23",    level: 5, levelName: "2. Dachgeschoss", rooms: 4, area: 160.10, out: [{ type: "Terrasse", m2: 16.89 }, { type: "Dachterrasse", m2: 76.75 }], zone: "dach", kind: "Dachgeschoss, Neubau",
+  { top: "23",    level: 5, levelName: "2. Dachgeschoss", rooms: 5, area: 160.10, out: [{ type: "Terrasse", m2: 16.89 }, { type: "Dachterrasse", m2: 76.75 }], zone: "dach", kind: "Dachgeschoss, Neubau",
     program: "Vorraum, Abstellraum, WC, Dusche, Wohnzimmer, Zimmer 1, Küche, Vorzimmer, Bad, WC, Schrankraum, Zimmer 2, Zimmer 3", status: "frei" },
   { top: "24",    level: 5, levelName: "2. Dachgeschoss", rooms: 4, area: 136.22, out: [{ type: "Terrasse", m2: 17.75 }, { type: "Dachterrasse", m2: 57.89 }], zone: "dach", kind: "Dachgeschoss, Neubau",
     program: "Vorraum, Abstellraum, WC/Dusche, Bad, Wohnküche, Zimmer 1, Zimmer 2, Zimmer 3", status: "frei" }
