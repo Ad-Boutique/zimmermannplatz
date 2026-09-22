@@ -1,30 +1,25 @@
 /* Coming soon: Bild links, Inhalt rechts */
-body.cs { background: var(--ivory); overflow: hidden; }
+body.cs { background: var(--ivory); }
 .cs__layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; }
-.cs__media { position: relative; overflow: hidden; background: var(--greige); min-height: 100svh; }
+.cs__media { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--greige); }
 .cs__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); animation: cs-zoom 18s var(--ease) forwards; }
 .cs__media figcaption { position: absolute; left: clamp(20px, 3vw, 40px); bottom: clamp(20px, 3vw, 40px); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ivory); text-shadow: 0 1px 10px rgba(0,0,0,0.45); }
 .cs__mark { position: absolute; right: clamp(20px, 3vw, 40px); top: clamp(20px, 3vw, 40px); width: clamp(40px, 4vw, 64px); }
 .cs__mark svg { fill: var(--ivory); filter: drop-shadow(0 1px 10px rgba(0,0,0,0.35)); }
 @keyframes cs-zoom { to { transform: scale(1); } }
 
-.cs__content { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(24px, 3.5vw, 56px) clamp(28px, 5vw, 96px); min-height: 100svh; }
+.cs__content { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: clamp(20px, 3vw, 44px) clamp(28px, 5vw, 96px); min-height: 100svh; }
 .cs__top { display: flex; justify-content: space-between; align-items: center; }
 .cs__top .brand svg { height: clamp(40px, 3.6vw, 56px); width: auto; fill: var(--olive); }
-.cs__body { padding: clamp(40px, 6vh, 80px) 0; max-width: 52ch; }
-.cs__status { color: var(--terra); margin-bottom: 26px; }
+.cs__body { padding: 16px 0; max-width: 50ch; }
+.cs__body .display-2 { font-size: clamp(2rem, 3.4vw, 3.9rem); }
 .cs__body .display-2 { margin-bottom: 28px; }
-.cs__text { color: var(--ink-soft); margin-bottom: 40px; }
-.cs__facts { border-top: 1px solid var(--line); margin-bottom: 44px; }
-.cs__facts li { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
-.cs__facts li span { color: var(--ink-soft); }
-.cs__facts li b { font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-.cs__formlead { font-size: 0.95rem; margin-bottom: 8px; }
+.cs__text { color: var(--ink-soft); margin-bottom: 36px; }
 .cs__row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; margin-bottom: 20px; }
 .cs__row .field { margin-bottom: 0; }
 .cs .field input { color: var(--ink); border-bottom-color: var(--line-strong); }
 .cs .field input:focus { border-bottom-color: var(--olive); }
-.cs .check { color: var(--ink-soft); margin-bottom: 14px; }
+.cs .check { color: var(--ink-soft); margin-bottom: 10px; font-size: 0.78rem; }
 .cs .check input:checked + .box { background: var(--olive); }
 .cs .check input:checked + .box::after { background: var(--ivory); }
 .cs .form__msg.is-ok { color: var(--olive); }
@@ -35,9 +30,8 @@ body.cs { background: var(--ivory); overflow: hidden; }
 [data-in].is-in { opacity: 1; transform: none; }
 
 @media (max-width: 900px) {
-  body.cs { overflow: auto; }
   .cs__layout { grid-template-columns: 1fr; min-height: auto; }
-  .cs__media { min-height: 56vh; }
+  .cs__media { position: relative; height: 56vh; }
   .cs__content { min-height: auto; padding-top: 28px; }
   .cs__body { padding: 40px 0 48px; max-width: none; }
   .cs__row { grid-template-columns: 1fr; gap: 18px; }
