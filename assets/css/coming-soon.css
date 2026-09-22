@@ -11,18 +11,22 @@ body.cs { background: var(--ivory); }
 .cs__content { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: clamp(20px, 3vw, 44px) clamp(28px, 5vw, 96px); min-height: 100svh; }
 .cs__top { display: flex; justify-content: space-between; align-items: center; }
 .cs__top .brand svg { height: clamp(40px, 3.6vw, 56px); width: auto; fill: var(--olive); }
-.cs__body { padding: 16px 0; max-width: 50ch; }
-.cs__body .display-2 { font-size: clamp(2rem, 3.4vw, 3.9rem); }
-.cs__body .display-2 { margin-bottom: 28px; }
-.cs__text { color: var(--ink-soft); margin-bottom: 36px; }
-.cs__row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; margin-bottom: 20px; }
-.cs__row .field { margin-bottom: 0; }
-.cs .field input { color: var(--ink); border-bottom-color: var(--line-strong); }
-.cs .field input:focus { border-bottom-color: var(--olive); }
-.cs .check { color: var(--ink-soft); margin-bottom: 10px; font-size: 0.78rem; }
-.cs .check input:checked + .box { background: var(--olive); }
-.cs .check input:checked + .box::after { background: var(--ivory); }
-.cs .form__msg.is-ok { color: var(--olive); }
+.cs__body { padding: 24px 0; max-width: 54ch; }
+.cs__body .display-2 { font-size: clamp(1.9rem, 3vw, 3.4rem); margin-bottom: 26px; }
+.cs__claim { color: var(--ink); font-size: clamp(1.15rem, 1.6vw, 1.5rem); margin-bottom: 32px; }
+.cs__facts { border-top: 1px solid var(--line); margin-bottom: 36px; }
+.cs__facts li { padding: 11px 0 11px 18px; border-bottom: 1px solid var(--line); font-size: 0.95rem; position: relative; }
+.cs__facts li::before { content: ""; position: absolute; left: 0; top: 1.15em; width: 7px; height: 1px; background: var(--terra); }
+.cs__sales { margin-bottom: 32px; }
+.cs__sales .label, .cs__contact .label { display: block; margin-bottom: 12px; }
+.cs__logos { display: flex; flex-wrap: wrap; gap: 14px; }
+.cs__logo { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; height: 64px; padding: 10px 18px; border: 1px solid var(--line-strong); color: var(--ink-soft); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; transition: border-color 0.4s var(--ease); }
+.cs__logo:hover { border-color: var(--olive); }
+.cs__logo img { max-height: 40px; width: auto; }
+.cs__contact { display: grid; gap: 4px; font-size: 0.95rem; }
+.cs__contact a { border-bottom: 1px solid var(--line-strong); transition: border-color 0.3s; }
+.cs__contact a:hover { border-color: var(--olive); }
+.cs__text { color: var(--ink-soft); margin-bottom: 22px; }
 .cs__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }
 .cs__foot a { margin-left: 22px; }
 
@@ -34,7 +38,5 @@ body.cs { background: var(--ivory); }
   .cs__media { position: relative; height: 56vh; }
   .cs__content { min-height: auto; padding-top: 28px; }
   .cs__body { padding: 40px 0 48px; max-width: none; }
-  .cs__row { grid-template-columns: 1fr; gap: 18px; }
-  .cs__row .btn { justify-self: start; }
-}
+    }
 @media (prefers-reduced-motion: reduce) { .cs__media img { animation: none; transform: none; } [data-in] { opacity: 1; transform: none; transition: none; } }

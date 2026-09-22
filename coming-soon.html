@@ -4,13 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zimmermannplatz 6</title>
-<meta name="description" content="Zimmermannplatz 6, 1090 Wien. 16 Wohnungen im sanierten Bestand und im neuen Dachgeschoss am Alsergrund. Verkaufsstart in Kürze.">
+<meta name="description" content="Zimmermannplatz 6, 1090 Wien. Wiener Gründerzeit trifft modernes Wohnen: sanierte Altbauwohnungen und neue Dachgeschosswohnungen am Alsergrund. Coming soon.">
 <meta name="robots" content="noindex">
-<meta name="z6-api" content="">
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=066643">
-<link rel="stylesheet" href="assets/css/coming-soon.css?v=066643">
+<link rel="stylesheet" href="assets/css/style.css?v=069961">
+<link rel="stylesheet" href="assets/css/coming-soon.css?v=069961">
 </head>
 <body class="cs">
 
@@ -32,26 +31,40 @@
   <section class="cs__content">
     <header class="cs__top">
       <a class="brand" href="index.html" aria-label="Zimmermannplatz 6"><svg viewBox="0 0 301.71 169.67"><use href="#wordmark"/></svg></a>
-      <span class="label">Wien 9, Alsergrund</span>
+      <span class="label">Coming soon</span>
     </header>
 
     <div class="cs__body">
-      <h1 class="display-2" data-in>Ein Haus am Platz.<br>Ein Dach über der Stadt.</h1>
-      <p class="lead cs__text" data-in>16 Wohnungen im sanierten Bestand und im neuen Dachgeschoss, 52 bis 160 m². Verkaufsstart in Kürze.</p>
-      <form class="cs__form" id="csForm" novalidate data-in>
-        <div class="cs__row">
-          <div class="field"><input type="email" id="csMail" name="email" placeholder=" " required autocomplete="email"><label for="csMail">E-Mail</label></div>
-          <button class="btn" type="submit">Vormerken <svg class="arr"><use href="#arrow"/></svg></button>
+      <h1 class="display-2" data-in>Zimmermannplatz 6.<br>Wiener Geschichte, neu gedacht.</h1>
+      <p class="cs__text" data-in>Am Zimmermannplatz 6 trifft Wiener Gründerzeit auf modernes Wohnen. Die bestehenden Altbauwohnungen werden hochwertig renoviert, historische Substanz und Fassade sorgfältig bewahrt. Darüber entstehen exklusive neue Dachgeschosswohnungen.</p>
+      <p class="cs__claim display-3" data-in>Historische Substanz. Zeitgemäße Architektur. Eine der begehrtesten Lagen Wiens.</p>
+
+      <ul class="cs__facts" data-in>
+        <li>1 Eckgeschäftslokal im EG</li>
+        <li>16 sanierte Altbauwohnungen, teils mit Außenfläche</li>
+        <li>4 Wohnungen im 1. DG mit Außenflächen</li>
+        <li>2 Wohnungen im 2. DG mit Dachterrassen</li>
+        <li>2- bis 5-Zimmer-Wohnungen</li>
+      </ul>
+
+      <div class="cs__sales" data-in>
+        <span class="label">Exklusivvertrieb</span>
+        <div class="cs__logos">
+          <a class="cs__logo" href="https://onerep.at" target="_blank" rel="noopener"><img src="assets/img/partner/one-real-estate-partner.svg" alt="ONE Real Estate Partner"></a>
+          <a class="cs__logo cs__logo--pending" href="#" data-logo="2"><span>Logo folgt</span></a>
         </div>
-        <input type="text" name="website" id="csWebsite" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
-        <label class="check"><input type="checkbox" id="csPrivacy" required><span class="box"></span><span>Ich stimme der Speicherung meiner E-Mail-Adresse für die Information zum Verkaufsstart zu.</span></label>
-        <div class="form__msg" id="csMsg"></div>
-      </form>
+      </div>
+
+      <div class="cs__contact" data-in>
+        <span class="label">Kontakt</span>
+        <a href="mailto:sales@zimmermannplatz6.at">sales@zimmermannplatz6.at</a>
+        <span><a href="tel:+4315853663">01 585 36 63</a> oder <a href="tel:+436605083635">0660 508 36 35</a></span>
+      </div>
     </div>
 
     <footer class="cs__foot">
       <span>Zimmermannplatz 6, 1090 Wien</span>
-      <span><a href="#">Impressum</a><a href="#">Datenschutz</a></span>
+      <span><a href="https://onerep.at/impressum.html" target="_blank" rel="noopener">Impressum</a></span>
     </footer>
   </section>
 </main>
@@ -59,19 +72,7 @@
 <script>
 (function () {
   var els = document.querySelectorAll("[data-in]");
-  els.forEach(function (el, i) { setTimeout(function () { el.classList.add("is-in"); }, 250 + i * 140); });
-  var f = document.getElementById("csForm"), msg = document.getElementById("csMsg");
-  f.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var mail = document.getElementById("csMail").value.trim();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { msg.className = "form__msg"; msg.textContent = "Bitte eine gültige E-Mail-Adresse angeben."; return; }
-    if (!document.getElementById("csPrivacy").checked) { msg.className = "form__msg"; msg.textContent = "Bitte der Speicherung zustimmen."; return; }
-    var api = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
-    msg.className = "form__msg"; msg.textContent = "Wird gesendet";
-    fetch(api + "api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ source: "coming-soon", email: mail, consent: true, website: document.getElementById("csWebsite").value }) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok || !d.ok) throw new Error(d.error || "Failed to fetch"); msg.className = "form__msg is-ok"; msg.textContent = "Danke. Sie hören als Erste von uns."; f.reset(); }); })
-      .catch(function (err) { msg.className = "form__msg"; msg.textContent = err.message === "Failed to fetch" ? "Die Vormerkung ist gerade nicht möglich. Bitte versuchen Sie es später noch einmal." : err.message; });
-  });
+  els.forEach(function (el, i) { setTimeout(function () { el.classList.add("is-in"); }, 250 + i * 120); });
 })();
 </script>
 </body>

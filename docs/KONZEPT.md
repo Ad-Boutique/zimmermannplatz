@@ -94,7 +94,9 @@ Jede Sektion hat genau einen Ausgang, immer zum Finder oder zum Kontakt:
 
 ## 5a. Coming-soon-Seite (coming-soon.html)
 
-Eigenständige Seite für die Zeit vor dem Verkaufsstart. Desktop zweigeteilt: links das Straßen-Rendering vollflächig mit langsamer Zoomfahrt und Z6-Marke, rechts auf Ivory Wortmarke, Status "Verkaufsstart in Kürze" in Terracotta, Headline, Kurztext, vier Fakten als Hairline-Liste (16 Wohnungen, 52 bis 160 m², 2 bis 4 Zimmer, Q1 2028) und ein E-Mail-Feld zum Vormerken mit Zustimmung. Mobil Bild oben, Inhalt darunter. noindex gesetzt, Versand-Endpoint offen. Für den Livegang als Startseite ausliefern (z. B. Umbenennen in index.html oder Redirect), die Hauptseite bleibt daneben erreichbar.
+Eigenständige Seite für die Zeit vor dem Verkaufsstart, Inhalt laut Vorgabe Vertrieb vom 22.09.2026. Desktop zweigeteilt: links das Straßen-Rendering vollflächig (bleibt beim Scrollen stehen), rechts auf Ivory Wortmarke, Headline "Zimmermannplatz 6. Wiener Geschichte, neu gedacht.", Beschreibungstext, Claim, fünf Fakten als Hairline-Liste, Exklusivvertrieb mit Logos, Kontakt (sales@zimmermannplatz6.at, 01 585 36 63, 0660 508 36 35), Impressum-Link auf onerep.at. Kein Formular. Mobil Bild oben, Inhalt darunter. noindex gesetzt. Für den Livegang als Startseite ausliefern (Umbenennen in index.html oder Redirect).
+
+Offen: zweites Vertriebslogo fehlt (Platzhalter "Logo folgt"), erstes Logo ist ONE Real Estate Partner von onerep.at. Der Text "16 sanierte Altbauwohnungen" stammt aus der Vertriebsvorgabe; laut Topographie sind es 10 sanierte Bestandswohnungen plus 6 im Dach, zusammen 16.
 
 ## 6. Offene Punkte, vor Livegang klären
 
