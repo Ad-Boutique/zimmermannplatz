@@ -74,7 +74,7 @@ Laufband 2 (Greige): "Penthäuser im Dach" als zweiter Einstieg in den Finder, v
 
 5 Wohnen: Zwei Typologien nebeneinander mit großen Zahlen (17 Bestand, 6 Dach). Collage der Materialien (Fischgrät, Putz, Stein, Grün, Dachdetail) driftet am Desktop mit Parallax, mobil als scrollgesteuertes horizontales Bildband mit versetzten Höhen und Bild-Parallax. Ausstattungsliste mit sechs Kapiteln, Hover tauscht das Bild in einer klebenden Bildtafel. Kleine Grafik "Durchstecker": Platz, Wohnung, Garten als Schnitt. Aufgabe: Fühlen, was man kauft.
 
-6 Wohnungsfinder: Filter für Zimmer und Lage im Haus als Hairline-Schalter (keine Pills), Sortierung nach Fläche. Liste in voller Breite mit Top, Geschoss, Zimmer, Wohnfläche, Außenfläche, Ausrichtung, Status (Gebäudeschnitt als Filter am 16.09. auf Kundenwunsch entfernt). Zeile öffnet Detail mit "Anfragen", das den Kontakt vorbelegt. Aufgabe: Conversion.
+6 Wohnungsfinder: Filter für Zimmer und Lage im Haus als Hairline-Schalter (keine Pills), Sortierung nach Fläche. Liste in voller Breite mit Top, Geschoss, Zimmer, Wohnfläche, Freifläche, Status, Detail mit Raumprogramm aus der Topographie (Gebäudeschnitt als Filter am 16.09. auf Kundenwunsch entfernt). Zeile öffnet Detail mit "Anfragen", das den Kontakt vorbelegt. Aufgabe: Conversion.
 
 7 Kontakt (Olive, Z6-Muster): Headline, Formular mit Underline-Feldern (Name, E-Mail, Telefon, Interesse, Nachricht, Datenschutz). Aufgabe: Lead.
 
@@ -94,7 +94,8 @@ Jede Sektion hat genau einen Ausgang, immer zum Finder oder zum Kontakt:
 
 ## 6. Offene Punkte, vor Livegang klären
 
-- [prüfen] Wohnungsliste: Der Finder läuft mit Beispieldaten (17 Bestandstops, 6 Penthäuser, Summen exakt 1.176 und 699 m²). Datei assets/js/units.js, Kopfzeile markiert. Echte Topliste des Bauträgers einsetzen.
+- Wohnungsliste: Seit 22.09.2026 exakt aus der Topographie VERS-02 vom 01.09.2026 (assets/js/units.js). 16 Wohnungen, die Teil der Sanierung bzw. des Dachausbaus sind: Top 2, 4, 5, 6, 7, 8, 10+11, 12, 14+15, 17 (Bestand, 1.461,55 m² inkl. DG) und Top 19 bis 24 (Dach). Nicht aufgenommen: Top 3, 9, 13, 16, 18 (unbefristet vermietet, nicht Teil der Sanierung) und Top 1 Geschäftslokal.
+- [Entscheidung] Widersprüche zwischen Bauträger-Briefing und Topographie, auf der Seite noch nach Briefing: "17 sanierte Altbauwohnungen" (Topographie: 10 sanierte Bestandswohnungen nach zwei Zusammenlegungen, 17 ist die Zahl aller Bestandstüren), "23 Wohnungen" (Topographie: 21 Wohnungen im Haus, davon 16 im Verkauf), "Alle Wohnungen mit Außenfläche" (Topographie: Top 5, 6, 7, 10+11, 12, 17 ohne Freifläche). Bitte mit Bauträger klären, dann Hero, Zahlenwand und Typologie-Texte anpassen.
 - [prüfen] U6-Station: Angabe "Alser Straße 220 m". Nach Lage des Platzes am Gürtel könnte auch Michelbeuern-AKH die nächste Station sein. Mit Bauträger abgleichen.
 - [prüfen] Jahr der historischen Aufnahme (auf der Seite "um 1900" ohne Jahreszahl formuliert).
 - [prüfen] Dachmaterial: Renderings zeigen bronzefarbene Metallhaut. Auf der Seite nur als Farbe benannt, nicht als Material.

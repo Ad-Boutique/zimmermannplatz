@@ -244,32 +244,36 @@
   const units = window.Z6_UNITS || [];
   const body = $("#unitsBody"); const result = $("#result"); const sumEl = $("#unitsSum");
   const state = { rooms: "all", zone: "all", level: null, sort: "top", open: null };
-  const levelName = (l) => l === 5 ? "Dachgeschoss" : `${l}. OG`;
   const statusLabel = { frei: "Verfügbar", reserviert: "Reserviert", verkauft: "Verkauft" };
   const statusClass = { frei: "", reserviert: "is-reserved", verkauft: "is-sold" };
+  const m2 = (n) => n.toFixed(2).replace(".", ",");
+  const outSum = (u) => u.out.reduce((s, o) => s + o.m2, 0);
+  const outShort = (u) => u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : `<span class="muted">keine</span>`;
+  const topSort = (t) => parseInt(t, 10);
 
   function filtered() {
     let list = units.filter((u) => (state.rooms === "all" || u.rooms === Number(state.rooms))
-      && (state.zone === "all" || (state.zone === "dach" ? u.level === 5 : u.level < 5))
+      && (state.zone === "all" || u.zone === state.zone)
       && (state.level === null || u.level === state.level));
     const s = state.sort;
-    list.sort((a, b) => s === "area-asc" ? a.area - b.area : s === "area-desc" ? b.area - a.area : s === "out-desc" ? b.out - a.out : a.top.localeCompare(b.top));
+    list.sort((a, b) => s === "area-asc" ? a.area - b.area : s === "area-desc" ? b.area - a.area : s === "out-desc" ? outSum(b) - outSum(a) : topSort(a.top) - topSort(b.top));
     return list;
   }
   function render() {
     const list = filtered();
     body.innerHTML = "";
-    if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="8">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
+    if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="7">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
     list.forEach((u) => {
       const tr = document.createElement("tr"); tr.className = "unit" + (state.open === u.top ? " is-open" : ""); tr.dataset.top = u.top;
-      tr.innerHTML = `<td class="top">${u.top}</td><td>${levelName(u.level)}</td><td>${u.rooms}</td><td><span class="num">${u.area}</span><span class="m2">m²</span></td><td>${u.outType} <span class="num">${u.out}</span><span class="m2">m²</span></td><td>${u.view}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
+      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${u.rooms}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
       tr.addEventListener("click", () => toggleDetail(u.top));
       body.appendChild(tr);
       if (state.open === u.top) {
         const d = document.createElement("tr"); d.className = "detail";
-        d.innerHTML = `<td colspan="8"><div class="detail__inner">
-          <dl><dt>Wohnfläche</dt><dd>${u.area} m²</dd><dt>${u.outType}</dt><dd>${u.out} m²</dd><dt>Zimmer</dt><dd>${u.rooms}</dd><dt>Ausrichtung</dt><dd>${u.view}</dd><dt>Geschoss</dt><dd>${levelName(u.level)}</dd></dl>
-          <p class="note">${u.level === 5 ? "Penthouse mit Langdielen, KNX Gebäudeautomation, Splitkühlung und Aufzug mit Penthouse-Steuerung." : "Sanierte Altbauwohnung mit Fischgrätparkett, Fußbodenheizung und Einzelraumregelung."}${u.view.includes("und") ? " Durchstecker mit Licht von zwei Seiten." : ""}</p>
+        const outRows = u.out.length ? u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("") : `<dt>Freifläche</dt><dd>keine</dd>`;
+        d.innerHTML = `<td colspan="7"><div class="detail__inner">
+          <dl><dt>Wohnfläche</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Zimmer</dt><dd>${u.rooms}</dd><dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Typ</dt><dd>${u.kind}</dd></dl>
+          <p class="note"><span class="label" style="display:block;margin-bottom:6px">Raumprogramm</span>${u.program}.<br><span class="muted">Einlagerungsraum im Keller zugeteilt.</span></p>
           <a class="btn btn--terra" href="#kontakt" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a></div></td>`;
         body.appendChild(d);
         const a = $("[data-inquire]", d);
@@ -279,7 +283,7 @@
     });
     result.innerHTML = `<b>${list.length}</b> von ${units.length} Wohnungen`;
     const sum = list.reduce((s, u) => s + u.area, 0);
-    sumEl.textContent = list.length ? `${list.length} Wohnungen, ${fmt(sum)} m² Wohnfläche` : "";
+    sumEl.textContent = list.length ? `${list.length} Wohnungen, ${m2(sum)} m² Wohnnutzfläche` : "";
     if (hasGsap) ScrollTrigger.refresh();
   }
   function toggleDetail(top) { state.open = state.open === top ? null : top; render(); }
@@ -302,8 +306,8 @@
   /* ---------- Contact form ---------- */
   const form = $("#contactForm"); const msg = $("#formMsg");
   function prefill(u) {
-    $("#fInterest").value = u.level === 5 ? "dach" : "bestand"; $("#fTop").value = u.top;
-    const ta = $("#fMsg"); ta.value = `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${u.area} m²). Bitte senden Sie mir Grundriss und Preis.`;
+    $("#fInterest").value = u.zone === "dach" ? "dach" : "bestand"; $("#fTop").value = u.top;
+    const ta = $("#fMsg"); ta.value = `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${m2(u.area)} m²). Bitte senden Sie mir Grundriss und Preis.`;
     ta.parentElement.classList.add("is-filled");
   }
   form.addEventListener("submit", (e) => {
