@@ -11,7 +11,7 @@
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/URWGothic-Demi.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=059930">
+<link rel="stylesheet" href="assets/css/style.css?v=060221">
 </head>
 <body>
 
@@ -57,7 +57,6 @@
   <a href="#lage">Lage</a>
   <a href="#wohnen">Wohnen</a>
   <a href="#wohnungen">Wohnungen</a>
-  <a href="#kontakt">Kontakt</a>
   <div class="mobile-menu__foot"><span>Zimmermannplatz 6</span><span>1090 Wien</span></div>
 </div>
 
@@ -419,55 +418,46 @@
   </div>
 </section>
 
-<!-- Contact -->
-<section class="section wrap theme-dark contact" id="kontakt">
-  <div class="section-rule"><span class="label">06</span><span class="label">Kontakt</span></div>
-  <div class="contact__grid">
-    <div class="contact__intro">
-      <h2 class="display-2" data-reveal="words">Sprechen wir über Ihre Wohnung.</h2>
-      <p data-reveal>Wir senden Ihnen Grundrisse, Ausstattungsbeschreibung und Preisliste und vereinbaren gerne einen Termin vor Ort.</p>
-      <div class="contact__details" data-reveal>
-        <div><div class="label">Adresse</div>Zimmermannplatz 6<br>1090 Wien</div>
-        <div><div class="label">Vertrieb</div>Ansprechperson folgt<br>+43 1 000 00 00</div>
-        <div><div class="label">E-Mail</div>office@zimmermannplatz6.at</div>
-      </div>
+</main>
+
+<!-- Anfrage-Modal -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__panel theme-dark" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" data-modal-close aria-label="Schließen"><span></span><span></span></button>
+    <div class="modal__head">
+      <div class="label" id="modalKicker">Anfrage</div>
+      <h2 class="display-3" id="modalTitle">Top</h2>
+      <p class="modal__facts" id="modalFacts"></p>
     </div>
-    <form class="contact__form" id="contactForm" novalidate data-reveal>
+    <form class="modal__form" id="inquiryForm" novalidate>
       <div class="field--row">
-        <div class="field"><input type="text" id="fName" name="name" placeholder=" " required autocomplete="name"><label for="fName">Name</label></div>
-        <div class="field"><input type="email" id="fMail" name="email" placeholder=" " required autocomplete="email"><label for="fMail">E-Mail</label></div>
+        <div class="field"><input type="text" id="qName" name="name" placeholder=" " required autocomplete="name"><label for="qName">Name</label></div>
+        <div class="field"><input type="email" id="qMail" name="email" placeholder=" " required autocomplete="email"><label for="qMail">E-Mail</label></div>
       </div>
-      <div class="field--row">
-        <div class="field"><input type="tel" id="fPhone" name="phone" placeholder=" " autocomplete="tel"><label for="fPhone">Telefon</label></div>
-        <div class="field is-filled">
-          <select id="fInterest" name="interest">
-            <option value="bestand">Wohnung im Bestand</option>
-            <option value="dach">Penthouse im Dach</option>
-            <option value="gewerbe">Gewerbefläche</option>
-            <option value="allgemein">Allgemeine Anfrage</option>
-          </select>
-          <label for="fInterest">Interesse</label>
-        </div>
-      </div>
-      <div class="field"><textarea id="fMsg" name="message" placeholder=" " rows="3"></textarea><label for="fMsg">Nachricht</label></div>
-      <input type="hidden" name="top" id="fTop">
-      <label class="check"><input type="checkbox" id="fPrivacy" required><span class="box"></span><span>Ich stimme zu, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Hinweise in der Datenschutzerklärung.</span></label>
+      <div class="field"><input type="tel" id="qPhone" name="phone" placeholder=" " autocomplete="tel"><label for="qPhone">Telefon</label></div>
+      <div class="field"><textarea id="qMsg" name="message" placeholder=" " rows="3"></textarea><label for="qMsg">Nachricht</label></div>
+      <input type="hidden" name="top" id="qTop">
+      <label class="check"><input type="checkbox" id="qPrivacy" required><span class="box"></span><span>Ich stimme zu, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Hinweise in der Datenschutzerklärung.</span></label>
       <div class="form__foot">
         <button class="btn" type="submit">Anfrage senden <svg class="arr"><use href="#arrow"/></svg></button>
-        <div class="form__msg" id="formMsg"></div>
+        <div class="form__msg" id="qFormMsg"></div>
       </div>
     </form>
+    <div class="modal__done" id="modalDone" hidden>
+      <p class="display-3">Danke für Ihre Anfrage.</p>
+      <p class="muted">Wir senden Ihnen Grundriss, Ausstattungsbeschreibung und Preis innerhalb eines Werktags.</p>
+      <button class="btn" data-modal-close style="margin-top:28px">Schließen</button>
+    </div>
   </div>
-</section>
-
-</main>
+</div>
 
 <footer class="footer">
   <div class="footer__mark" aria-hidden="true"><svg viewBox="0 0 301.71 169.67" preserveAspectRatio="xMidYMid meet" style="max-height:52vh"><use href="#wordmark"/></svg></div>
   <div class="footer__grid">
     <div class="footer__col"><div class="label">Projekt</div>Zimmermannplatz 6<br>1090 Wien, Alsergrund<br>Fertigstellung Q1 2028</div>
     <div class="footer__col"><div class="label">Navigation</div><a href="#projekt">Projekt</a><a href="#geschichte">Geschichte</a><a href="#lage">Lage</a><a href="#wohnen">Wohnen</a><a href="#wohnungen">Wohnungen</a></div>
-    <div class="footer__col"><div class="label">Kontakt</div><a href="mailto:office@zimmermannplatz6.at">office@zimmermannplatz6.at</a><a href="tel:+43100000000">+43 1 000 00 00</a></div>
+    <div class="footer__col"><div class="label">Anfragen</div>Anfragen zu einzelnen Wohnungen stellen Sie direkt im <a href="#wohnungen">Wohnungsfinder</a>.</div>
     <div class="footer__col"><div class="label">Hinweis</div>Alle Visualisierungen sind unverbindliche Darstellungen. Flächen und Ausstattung vorbehaltlich Planung und Behördenverfahren.</div>
   </div>
   <div class="footer__bottom">
@@ -479,7 +469,7 @@
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/vendor/lenis.min.js"></script>
-<script src="assets/js/units.js?v=059930"></script>
-<script src="assets/js/main.js?v=059930"></script>
+<script src="assets/js/units.js?v=060221"></script>
+<script src="assets/js/main.js?v=060221"></script>
 </body>
 </html>

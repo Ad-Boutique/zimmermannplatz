@@ -76,7 +76,7 @@ Laufband 2 (Greige): "Penthäuser im Dach" als zweiter Einstieg in den Finder, v
 
 6 Wohnungsfinder: Filter für Zimmer und Lage im Haus als Hairline-Schalter (keine Pills), Sortierung nach Fläche. Liste in voller Breite mit Top, Geschoss, Zimmer, Wohnfläche, Freifläche, Status, Detail mit Raumprogramm aus der Topographie (Gebäudeschnitt als Filter am 16.09. auf Kundenwunsch entfernt). Zeile öffnet Detail mit "Anfragen", das den Kontakt vorbelegt. Aufgabe: Conversion.
 
-7 Kontakt (Olive, Z6-Muster): Headline, Formular mit Underline-Feldern (Name, E-Mail, Telefon, Interesse, Nachricht, Datenschutz). Aufgabe: Lead.
+7 Anfrage-Pop-up (seit 22.09.2026 statt Kontakt-Sektion): Anfragen sind nur über den Wohnungsfinder möglich. "Anfragen" in der Detailzeile öffnet ein Modal auf Olive mit Z6-Muster, Top, Geschoss, Zimmer, Flächen und vorbelegter Nachricht. Felder: Name, E-Mail, Telefon, Nachricht, Datenschutz. Kein allgemeines Kontaktformular auf der Seite, Footer verweist auf den Finder. Aufgabe: qualifizierter Lead je Wohnung.
 
 Footer: übergroße Wortmarke in Ivory, kleine Versal-Navigation, Adresse, Impressum, Datenschutz, Hinweis zu Visualisierungen.
 
@@ -89,8 +89,12 @@ Jede Sektion hat genau einen Ausgang, immer zum Finder oder zum Kontakt:
 - Geschichte: Textlink am Ende der Zeitleiste
 - Lage: Laufband 2, vorgefiltert Dachgeschoss
 - Wohnen: Button "Alle Wohnungen"
-- Finder: "Anfragen" je Wohnung, Kontakt vorbelegt
-- Kontakt: Absenden
+- Finder: "Anfragen" je Wohnung öffnet das Pop-up, Wohnung vorbelegt
+- Pop-up: Absenden
+
+## 5a. Coming-soon-Seite (coming-soon.html)
+
+Eigenständige Seite für die Zeit vor dem Verkaufsstart. Desktop zweigeteilt: links das Straßen-Rendering vollflächig mit langsamer Zoomfahrt und Z6-Marke, rechts auf Ivory Wortmarke, Status "Verkaufsstart in Kürze" in Terracotta, Headline, Kurztext, vier Fakten als Hairline-Liste (16 Wohnungen, 52 bis 160 m², 2 bis 4 Zimmer, Q1 2028) und ein E-Mail-Feld zum Vormerken mit Zustimmung. Mobil Bild oben, Inhalt darunter. noindex gesetzt, Versand-Endpoint offen. Für den Livegang als Startseite ausliefern (z. B. Umbenennen in index.html oder Redirect), die Hauptseite bleibt daneben erreichbar.
 
 ## 6. Offene Punkte, vor Livegang klären
 
@@ -100,6 +104,6 @@ Jede Sektion hat genau einen Ausgang, immer zum Finder oder zum Kontakt:
 - [prüfen] Jahr der historischen Aufnahme (auf der Seite "um 1900" ohne Jahreszahl formuliert).
 - [prüfen] Dachmaterial: Renderings zeigen bronzefarbene Metallhaut. Auf der Seite nur als Farbe benannt, nicht als Material.
 - [prüfen] Bauträger, Ansprechperson, Telefon, E-Mail, Impressum, Datenschutz, Visualisierungs-Credit (Dateiname deutet auf Stix und Partner).
-- [prüfen] Formular-Versand: aktuell nur Frontend, Endpoint anbinden (siehe UNIO-Lead-Mailversand als Vorlage).
+- [prüfen] Formular-Versand für Anfrage-Pop-up und Coming-soon-Vormerkung: aktuell nur Frontend, Endpoint anbinden (siehe UNIO-Lead-Mailversand als Vorlage).
 - [prüfen] Lizenz ITC Avant Garde Gothic Pro für Web-Embedding.
 - Renderings liegen nur in 1111 x 833 px vor. Für Retina-Hero mindestens 2400 px Breite anfordern, idealerweise zusätzlich Innenraum-Renderings (Bestand mit Fischgrät, Penthouse mit Terrasse) und ein Hof-/Gartenbild.

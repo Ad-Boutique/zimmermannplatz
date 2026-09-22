@@ -274,10 +274,10 @@
         d.innerHTML = `<td colspan="7"><div class="detail__inner">
           <dl><dt>Wohnfläche</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Zimmer</dt><dd>${u.rooms}</dd><dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Typ</dt><dd>${u.kind}</dd></dl>
           <p class="note"><span class="label" style="display:block;margin-bottom:6px">Raumprogramm</span>${u.program}.<br><span class="muted">Einlagerungsraum im Keller zugeteilt.</span></p>
-          <a class="btn btn--terra" href="#kontakt" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a></div></td>`;
+          <a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a></div></td>`;
         body.appendChild(d);
         const a = $("[data-inquire]", d);
-        a.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); prefill(u); scrollToEl($("#kontakt")); });
+        a.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); prefill(u); openModal(); });
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
@@ -303,21 +303,38 @@
   }
   render();
 
-  /* ---------- Contact form ---------- */
-  const form = $("#contactForm"); const msg = $("#formMsg");
+  /* ---------- Inquiry modal ---------- */
+  const modal = $("#modal"); const qForm = $("#inquiryForm"); const qMsg = $("#qFormMsg"); const qDone = $("#modalDone");
+  let lastFocus = null;
   function prefill(u) {
-    $("#fInterest").value = u.zone === "dach" ? "dach" : "bestand"; $("#fTop").value = u.top;
-    const ta = $("#fMsg"); ta.value = `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${m2(u.area)} m²). Bitte senden Sie mir Grundriss und Preis.`;
-    ta.parentElement.classList.add("is-filled");
+    $("#modalTitle").textContent = `Top ${u.top}`;
+    $("#modalKicker").textContent = u.zone === "dach" ? "Anfrage Penthouse" : "Anfrage Wohnung";
+    const outs = u.out.length ? ", " + u.out.map((o) => `${o.type} ${m2(o.m2)} m²`).join(", ") : "";
+    $("#modalFacts").textContent = `${u.levelName}, ${u.rooms} Zimmer, ${m2(u.area)} m² Wohnnutzfläche${outs}.`;
+    $("#qTop").value = u.top;
+    const ta = $("#qMsg"); ta.value = `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${m2(u.area)} m²). Bitte senden Sie mir Grundriss und Preis.`;
   }
-  form.addEventListener("submit", (e) => {
+  function openModal() {
+    lastFocus = document.activeElement;
+    qForm.hidden = false; qDone.hidden = true; qMsg.textContent = "";
+    modal.classList.add("is-open"); modal.setAttribute("aria-hidden", "false"); document.body.classList.add("modal-open");
+    if (lenis) lenis.stop();
+    setTimeout(() => $("#qName").focus(), 450);
+  }
+  function closeModal() {
+    modal.classList.remove("is-open"); modal.setAttribute("aria-hidden", "true"); document.body.classList.remove("modal-open");
+    if (lenis) lenis.start();
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  $$("[data-modal-close]").forEach((el) => el.addEventListener("click", closeModal));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal(); });
+  qForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = $("#fName").value.trim(); const mail = $("#fMail").value.trim();
-    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { msg.className = "form__msg"; msg.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben."; return; }
-    if (!$("#fPrivacy").checked) { msg.className = "form__msg"; msg.textContent = "Bitte der Datenverarbeitung zustimmen."; return; }
+    const name = $("#qName").value.trim(); const mail = $("#qMail").value.trim();
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { qMsg.className = "form__msg"; qMsg.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben."; return; }
+    if (!$("#qPrivacy").checked) { qMsg.className = "form__msg"; qMsg.textContent = "Bitte der Datenverarbeitung zustimmen."; return; }
     /* Versand: Endpoint folgt. Aktuell nur Bestaetigung im Frontend. */
-    msg.className = "form__msg is-ok"; msg.textContent = "Danke. Wir melden uns innerhalb eines Werktags.";
-    form.reset(); $("#fInterest").parentElement.classList.add("is-filled");
+    qForm.hidden = true; qDone.hidden = false; qForm.reset();
   });
 
   window.addEventListener("load", () => { if (hasGsap) ScrollTrigger.refresh(); });
