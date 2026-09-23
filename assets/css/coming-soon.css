@@ -13,9 +13,9 @@ body.cs { background: var(--ivory); }
 
 /* Inhaltsspalte */
 .cs__content { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: clamp(20px, 3vw, 44px) clamp(28px, 5vw, 88px); min-height: 100svh; }
-.cs__top { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-.cs__top .brand svg { height: clamp(32px, 2.8vw, 42px); width: auto; fill: var(--olive); }
-.cs__top .label { font-size: 0.62rem; letter-spacing: 0.2em; }
+.cs__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+.cs__top .brand svg { height: clamp(52px, 5vw, 76px); width: auto; fill: var(--olive); }
+.cs__top .label { font-size: 0.62rem; letter-spacing: 0.2em; padding-top: 6px; }
 
 .cs__body { padding: 16px 0; max-width: 50ch; }
 
