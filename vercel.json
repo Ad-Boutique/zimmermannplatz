@@ -1,10 +1,20 @@
 {
   "rewrites": [
+    {
+      "source": "/((?!assets/|api/|favicon\\.ico).*)",
+      "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
+      "destination": "/coming-soon.html"
+    },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/coming-soon", "destination": "/coming-soon.html" }
   ],
   "headers": [
     { "source": "/api/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
-    { "source": "/admin.html", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }
+    { "source": "/admin.html", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "zimmermannplatz\\.ad\\.boutique" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ]
 }
