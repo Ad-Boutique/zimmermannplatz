@@ -1,4 +1,18 @@
 {
+  "redirects": [
+    {
+      "source": "/(projekt|admin)\\.html",
+      "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/assets/js/(.*)",
+      "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
+      "destination": "/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!assets/|api/|favicon\\.ico).*)",
