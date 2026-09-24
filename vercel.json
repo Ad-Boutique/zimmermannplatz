@@ -5,6 +5,9 @@
       "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
       "destination": "/coming-soon.html"
     },
+    { "source": "/", "destination": "/projekt.html" },
+    { "source": "/index.html", "destination": "/projekt.html" },
+    { "source": "/projekt", "destination": "/projekt.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/coming-soon", "destination": "/coming-soon.html" }
   ],
