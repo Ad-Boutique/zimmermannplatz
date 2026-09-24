@@ -34,11 +34,15 @@ Beide Domains zeigen auf dasselbe Vercel-Projekt. Die Trennung passiert in `verc
 | Domain | Was ausgeliefert wird |
 |---|---|
 | zimmermannplatz6.at und www.zimmermannplatz6.at | ausschließlich `coming-soon.html`, egal welcher Pfad aufgerufen wird. Ausgenommen sind nur `/assets/`, `/api/` und `/favicon.ico`, damit Bilder, Schriften und Stylesheets laden. Auch `/admin` und `/wohnungen` zeigen dort die Coming-soon-Seite |
-| zimmermannplatz.ad.boutique | die vollständige Website inklusive Wohnungsfinder und `/admin`, zusätzlich mit `X-Robots-Tag: noindex, nofollow`, damit die Arbeitsdomain nicht in Suchmaschinen landet |
+| zimmermannplatz.ad.boutique | die vollständige Website (`projekt.html`) inklusive Wohnungsfinder und `/admin`, zusätzlich mit `X-Robots-Tag: noindex, nofollow`, damit die Arbeitsdomain nicht in Suchmaschinen landet |
 
 Die Umleitung ist ein Rewrite, kein Redirect: Die aufgerufene Adresse bleibt stehen, ausgeliefert wird die Coming-soon-Seite.
 
-**Zum Launch der Vollsite**: In `vercel.json` den ersten Eintrag unter `rewrites` (den mit `zimmermannplatz6.at`) löschen und die `noindex`-Regel für `zimmermannplatz.ad.boutique` beibehalten. Dann ist die Vollsite unter der Hauptdomain live.
+**Warum es keine `index.html` gibt**: Vercel wendet Rewrites erst an, wenn kein statisches File auf den Pfad passt. Solange eine `index.html` existierte, wurde die Startseite immer daraus bedient und der Host-Rewrite übersprungen, die Vollsite war auf zimmermannplatz6.at sichtbar. Die Vollsite heißt deshalb `projekt.html` und wird per Rewrite auf `/` ausgeliefert. Eine `index.html` darf nicht wieder angelegt werden, solange das Host-Routing gilt.
+
+Edge-Middleware wäre die Alternative gewesen, scheitert hier aber: In einem Projekt ohne Framework gibt es kein `Response.rewrite`, dafür bräuchte es das Paket `@vercel/edge`. Der Weg über die Dateibenennung kommt ohne Laufzeitcode aus.
+
+**Zum Launch der Vollsite**: In `vercel.json` den ersten Eintrag unter `rewrites` (den mit `zimmermannplatz6.at`) löschen. Danach liefert auch die Hauptdomain über den Rewrite `/` zu `/projekt.html` die vollständige Website. Die `noindex`-Regel für `zimmermannplatz.ad.boutique` bleibt bestehen, und `coming-soon.html` bleibt als Datei erhalten.
 
 **Hinweis Sichtbarkeit**: `coming-soon.html` trägt `<meta name="robots" content="noindex">`. Damit ist zimmermannplatz6.at derzeit für Google gesperrt. Wenn das Projekt schon vor dem Verkaufsstart unter seinem Namen auffindbar sein soll, diese Zeile in `coming-soon.html` entfernen.
 
