@@ -27,6 +27,21 @@ Das Backend liegt im selben Repo unter `api/` und läuft als Vercel Serverless F
 
 Standard ist: Website und Backend laufen gemeinsam auf Vercel, dann bleiben die `<meta name="z6-api">`-Tags in `index.html` und `coming-soon.html` leer. Liegt die Website woanders, dort in beide Meta-Tags die Backend-URL mit Schrägstrich am Ende eintragen (z. B. `https://zimmermannplatz.vercel.app/`) und `ALLOWED_ORIGINS` setzen.
 
+## Domains und Routing
+
+Beide Domains zeigen auf dasselbe Vercel-Projekt. Die Trennung passiert in `vercel.json` über den Host:
+
+| Domain | Was ausgeliefert wird |
+|---|---|
+| zimmermannplatz6.at und www.zimmermannplatz6.at | ausschließlich `coming-soon.html`, egal welcher Pfad aufgerufen wird. Ausgenommen sind nur `/assets/`, `/api/` und `/favicon.ico`, damit Bilder, Schriften und Stylesheets laden. Auch `/admin` und `/wohnungen` zeigen dort die Coming-soon-Seite |
+| zimmermannplatz.ad.boutique | die vollständige Website inklusive Wohnungsfinder und `/admin`, zusätzlich mit `X-Robots-Tag: noindex, nofollow`, damit die Arbeitsdomain nicht in Suchmaschinen landet |
+
+Die Umleitung ist ein Rewrite, kein Redirect: Die aufgerufene Adresse bleibt stehen, ausgeliefert wird die Coming-soon-Seite.
+
+**Zum Launch der Vollsite**: In `vercel.json` den ersten Eintrag unter `rewrites` (den mit `zimmermannplatz6.at`) löschen und die `noindex`-Regel für `zimmermannplatz.ad.boutique` beibehalten. Dann ist die Vollsite unter der Hauptdomain live.
+
+**Hinweis Sichtbarkeit**: `coming-soon.html` trägt `<meta name="robots" content="noindex">`. Damit ist zimmermannplatz6.at derzeit für Google gesperrt. Wenn das Projekt schon vor dem Verkaufsstart unter seinem Namen auffindbar sein soll, diese Zeile in `coming-soon.html` entfernen.
+
 ## Datenschutz
 
 Gespeichert werden Name, E-Mail, Telefon, Nachricht, Zustimmung, Zeitpunkt, IP-Adresse und Browserkennung. IP und Browserkennung dienen der Missbrauchsabwehr und sollten in der Datenschutzerklärung genannt werden. Löschen einzelner Anfragen ist im Admin möglich.
