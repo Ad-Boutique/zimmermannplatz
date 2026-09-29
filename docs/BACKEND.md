@@ -4,7 +4,7 @@ Das Backend liegt im selben Repo unter `api/` und läuft als Vercel Serverless F
 
 ## Was es kann
 
-- `POST /api/inquiry`: nimmt Anfragen aus dem Wohnungsfinder (Quelle `finder`, mit Top und Wohnungsdaten) und Vormerkungen der Coming-soon-Seite (Quelle `coming-soon`) an, prüft E-Mail und Zustimmung, speichert in der Tabelle `inquiries`, sendet optional eine Benachrichtigung per Gmail. Honeypot-Feld gegen Bots.
+- `POST /api/inquiry`: nimmt Anfragen aus dem Wohnungsfinder (Quelle `finder`, mit Top und Wohnungsdaten), aus dem allgemeinen Kontaktformular (Quelle `kontakt`, mit Feld `interest`) und Vormerkungen der Coming-soon-Seite (Quelle `coming-soon`) an, prüft E-Mail und Zustimmung, bei Finder und Kontakt zusätzlich Name und Telefon, speichert in der Tabelle `inquiries`, sendet optional eine Benachrichtigung per Gmail. Honeypot-Feld gegen Bots.
 - `/admin`: Login mit Benutzername und Passwort, Liste aller Anfragen mit Filter nach Quelle, Volltextsuche, Status je Anfrage (neu, kontaktiert, termin, erledigt, abgesagt), interne Notiz, Löschen, CSV-Export.
 - `GET /api/admin/export?source=finder`: CSV mit Semikolon, UTF-8 mit BOM (öffnet in Excel direkt sauber). Nur angemeldet.
 
@@ -33,7 +33,7 @@ Beide Domains zeigen auf dasselbe Vercel-Projekt. Die Trennung passiert in `verc
 
 | Domain | Was ausgeliefert wird |
 |---|---|
-| zimmermannplatz6.at und www.zimmermannplatz6.at | ausschließlich `coming-soon.html`, egal welcher Pfad aufgerufen wird. Ausgenommen sind nur `/assets/`, `/api/` und `/favicon.ico`, damit Bilder, Schriften und Stylesheets laden. Auch `/admin` und `/wohnungen` zeigen dort die Coming-soon-Seite |
+| zimmermannplatz6.at und www.zimmermannplatz6.at | ausschließlich `coming-soon.html`, egal welcher Pfad aufgerufen wird. Ausgenommen sind nur `/assets/`, `/api/`, `/favicon.ico` und `/impressum`, damit Bilder, Schriften und Stylesheets laden. Auch `/admin` und `/wohnungen` zeigen dort die Coming-soon-Seite |
 | zimmermannplatz.ad.boutique | die vollständige Website (`projekt.html`) inklusive Wohnungsfinder und `/admin`, zusätzlich mit `X-Robots-Tag: noindex, nofollow`, damit die Arbeitsdomain nicht in Suchmaschinen landet |
 
 Die Umleitung ist ein Rewrite, kein Redirect: Die aufgerufene Adresse bleibt stehen, ausgeliefert wird die Coming-soon-Seite.
@@ -45,6 +45,10 @@ Edge-Middleware wäre die Alternative gewesen, scheitert hier aber: In einem Pro
 **Zum Launch der Vollsite**: In `vercel.json` den ersten Eintrag unter `rewrites` (den mit `zimmermannplatz6.at`) löschen. Danach liefert auch die Hauptdomain über den Rewrite `/` zu `/projekt.html` die vollständige Website. Die `noindex`-Regel für `zimmermannplatz.ad.boutique` bleibt bestehen, und `coming-soon.html` bleibt als Datei erhalten.
 
 **Hinweis Sichtbarkeit**: `coming-soon.html` trägt `<meta name="robots" content="noindex">`. Damit ist zimmermannplatz6.at derzeit für Google gesperrt. Wenn das Projekt schon vor dem Verkaufsstart unter seinem Namen auffindbar sein soll, diese Zeile in `coming-soon.html` entfernen.
+
+## Datenbank-Schema
+
+Die Tabelle `inquiries` legt sich beim ersten Aufruf selbst an. Die Spalte `interest` wird bei bestehenden Datenbanken automatisch per `ALTER TABLE ... ADD COLUMN IF NOT EXISTS` nachgezogen, es ist keine Migration von Hand nötig.
 
 ## Datenschutz
 

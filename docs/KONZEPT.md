@@ -76,9 +76,13 @@ Laufband 2 (Greige): "Penthäuser im Dach" als zweiter Einstieg in den Finder, v
 
 6 Wohnungsfinder: Filter für Zimmer und Lage im Haus als Hairline-Schalter (keine Pills), Sortierung nach Fläche. Liste in voller Breite mit Top, Geschoss, Zimmer, Wohnfläche, Freifläche, Status, Detail mit Raumprogramm aus der Topographie (Gebäudeschnitt als Filter am 16.09. auf Kundenwunsch entfernt). Zeile öffnet Detail mit "Anfragen", das den Kontakt vorbelegt. Aufgabe: Conversion.
 
-7 Anfrage-Pop-up (seit 22.09.2026 statt Kontakt-Sektion): Anfragen sind nur über den Wohnungsfinder möglich. "Anfragen" in der Detailzeile öffnet ein Modal auf Olive mit Z6-Muster, Top, Geschoss, Zimmer, Flächen und vorbelegter Nachricht. Felder: Name, E-Mail, Telefon, Nachricht, Datenschutz. Kein allgemeines Kontaktformular auf der Seite, Footer verweist auf den Finder. Aufgabe: qualifizierter Lead je Wohnung.
+7 Anfrage-Pop-up: "Anfragen" in der Detailzeile des Finders öffnet ein Modal auf Olive mit Z6-Muster. Titel "Anfrage für Top X", darunter Geschoss, Zimmer und Flächen, Nachricht vorbelegt. Felder: Name, E-Mail, Telefon (Pflicht), Nachricht, Datenschutz. Aufgabe: qualifizierter Lead je Wohnung. Kein Kicker über dem Titel (Eyebrow-Verbot).
 
-Footer: übergroße Wortmarke in Ivory, kleine Versal-Navigation, Adresse, Impressum, Datenschutz, Hinweis zu Visualisierungen.
+8 Kontakt (seit 29.09.2026 auf Kundenwunsch wieder da, Sektion 06): Olive mit Z6-Muster. Links Headline, Kurztext und Angaben in der Reihenfolge Exklusivvertrieb (Pia Estate, Elisabeth Rohr Real Estate), E-Mail, Telefon, Projektentwicklung (ZIMM 6). Das Maklerbüro steht bewusst vor dem Bauträger, damit kein Eindruck eines provisionsfreien Direktverkaufs entsteht. Rechts Formular: Name, E-Mail, Telefon (Pflicht), Interesse (Bestand, Dachgeschoss, Geschäftslokal, allgemein), Nachricht, Datenschutz. Quelle im Backend "kontakt".
+
+Footer: übergroße Wortmarke in Ivory, darunter fünf Spalten: Projekt, Navigation, Exklusivvertrieb mit Kontakt, Projektentwicklung ZIMM 6 (Logo folgt), Hinweis zu Visualisierungen. Unten Impressum (eigene Seite) und Datenschutz.
+
+Sektionsmarken: seit 29.09.2026 nur noch die Kapitelnummer als Randmarke auf der Haarlinie, die Caps-Zeile mit dem Sektionsnamen ist entfernt (Eyebrow-Verbot laut Daniel vom 28.09.2026).
 
 ## 5. CTA-Logik
 
@@ -91,10 +95,11 @@ Jede Sektion hat genau einen Ausgang, immer zum Finder oder zum Kontakt:
 - Wohnen: Button "Alle Wohnungen"
 - Finder: "Anfragen" je Wohnung öffnet das Pop-up, Wohnung vorbelegt
 - Pop-up: Absenden
+- Navigation und Footer: Kontakt führt zur Kontaktsektion mit allgemeinem Formular
 
 ## 5a. Coming-soon-Seite (coming-soon.html)
 
-Eigenständige Seite für die Zeit vor dem Verkaufsstart, Inhalt laut Vorgabe Vertrieb vom 22.09.2026. Desktop zweigeteilt: links das Straßen-Rendering vollflächig (bleibt beim Scrollen stehen), rechts auf Ivory Wortmarke, Headline "Zimmermannplatz 6. Wiener Geschichte, neu gedacht.", Beschreibungstext, Claim, fünf Fakten als Hairline-Liste, Exklusivvertrieb mit Logos, Kontakt (sales@zimmermannplatz6.at, +43 1 585 36 63, +43 660 508 36 35), Impressum-Link auf onerep.at. Kein Formular. Mobil Bild oben, Inhalt darunter. noindex gesetzt. Seit 24.09.2026 gelöst über Host-Routing in vercel.json: zimmermannplatz6.at liefert für jeden Pfad die Coming-soon-Seite, die Vollsite läuft auf zimmermannplatz.ad.boutique (noindex). Details in docs/BACKEND.md.
+Eigenständige Seite für die Zeit vor dem Verkaufsstart, Inhalt laut Vorgabe Vertrieb vom 22.09.2026. Desktop zweigeteilt: links das Straßen-Rendering vollflächig (bleibt beim Scrollen stehen), rechts auf Ivory Wortmarke, Headline "Zimmermannplatz 6. Wiener Geschichte, neu gedacht.", Beschreibungstext, Claim, fünf Fakten als Hairline-Liste, Exklusivvertrieb mit Logos, darunter Kontakt (sales@zimmermannplatz6.at, +43 1 585 36 63, +43 660 508 36 35) und daneben Projektentwicklung ZIMM 6 (Logo folgt, bis dahin der Firmenname), Impressum-Link auf die eigene Seite impressum.html. Kein Formular. Mobil Bild oben, Inhalt darunter. noindex gesetzt. Seit 24.09.2026 gelöst über Host-Routing in vercel.json: zimmermannplatz6.at liefert für jeden Pfad die Coming-soon-Seite, die Vollsite läuft auf zimmermannplatz.ad.boutique (noindex). Details in docs/BACKEND.md.
 
 Vertriebslogos: Pia Estate links (verlinkt auf piaestate.com), Elisabeth Rohr Real Estate rechts (verlinkt auf rohr-real-estate.com), auf gleiche Versalhöhe gebracht (Pia 13 px, Rohr 28 px Bildhöhe). [prüfen] Das gelieferte Pia-Logo hat ein Haus-Icon in RGB 235/235/220, praktisch identisch mit der Ivory-Grundfläche der Seite, es ist dort unsichtbar. Verwendet wird daher vorerst nur die Wortmarke (assets/img/partner/pia-estate-wortmarke.png), die vollständige Datei liegt unter pia-estate.png. Für die Icon-Variante eine Logoversion für helle Hintergründe anfordern. Wortlaut der Wohnungsliste am 22.09. an die Topographie angepasst (10 sanierte Altbauwohnungen, 4 im 1. DG, 2 Penthäuser im 2. DG, 2 bis 5 Zimmer). Top 23 zählt im Finder mit 5 Zimmern, weil die separate Küche mit 21,90 m² als Raum gilt.
 
@@ -105,7 +110,12 @@ Vertriebslogos: Pia Estate links (verlinkt auf piaestate.com), Elisabeth Rohr Re
 - [prüfen] U6-Station: Angabe "Alser Straße 220 m". Nach Lage des Platzes am Gürtel könnte auch Michelbeuern-AKH die nächste Station sein. Mit Bauträger abgleichen.
 - [prüfen] Jahr der historischen Aufnahme (auf der Seite "um 1900" ohne Jahreszahl formuliert).
 - [prüfen] Dachmaterial: Renderings zeigen bronzefarbene Metallhaut. Auf der Seite nur als Farbe benannt, nicht als Material.
-- [prüfen] Bauträger, Ansprechperson, Telefon, E-Mail, Impressum, Datenschutz, Visualisierungs-Credit (Dateiname deutet auf Stix und Partner).
+- Projektentwicklung: ZIMM 6 Immobilienentwicklungs GmbH, Karl-Popper-Straße 4, 1100 Wien, FN 671155v, ATU83027323 (Kundenangabe 29.09.2026).
+- [offen] Logo ZIMM 6: kommt vom Kunden, dann in coming-soon.html (Klasse cs__devname) und im Footer von projekt.html (Klasse dev-name) den Firmennamen ersetzen.
+- [offen] Impressum: weitere Unternehmensdaten kommen vom Kunden. Fehlend: Geschäftsführung, Unternehmensgegenstand, E-Mail von ZIMM 6, gegebenenfalls Gewerbe, Gewerbebehörde und Kammer, sowie die Klärung, wer Medieninhaber der Website ist (ZIMM 6 oder onerep GmbH). Das Firmenbuchgericht Handelsgericht Wien ist aus dem Sitz Wien abgeleitet und zu bestätigen.
+- [offen] Datenschutzerklärung: nötig, sobald das Formular live ist; muss die Speicherung von IP-Adresse und Browserkennung nennen. Der Link im Footer der Vollsite zeigt noch ins Leere.
+- [offen] Englische Version: Kunde wünscht einen Kostenvoranschlag.
+- [prüfen] Visualisierungs-Credit (Dateiname deutet auf Stix und Partner).
 - Formular-Versand: Backend unter api/ (Vercel Functions, Neon Postgres, Admin mit Login und CSV unter /admin) ist gebaut. Einrichtung laut docs/BACKEND.md: Vercel-Import, Datenbank anlegen, Env-Vars setzen.
 - [prüfen] Lizenz ITC Avant Garde Gothic Pro für Web-Embedding.
 - Renderings liegen nur in 1111 x 833 px vor. Für Retina-Hero mindestens 2400 px Breite anfordern, idealerweise zusätzlich Innenraum-Renderings (Bestand mit Fischgrät, Penthouse mit Terrasse) und ein Hof-/Gartenbild.
