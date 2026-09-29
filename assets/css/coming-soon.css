@@ -50,7 +50,8 @@ body.cs { background: var(--ivory); }
 .cs__contact { display: grid; gap: 5px; font-size: 0.9rem; align-content: start; }
 .cs__dev { display: grid; gap: 5px; align-content: start; }
 .cs__dev .label { display: block; font-size: 0.62rem; letter-spacing: 0.2em; margin-bottom: 14px; }
-.cs__devname { font-size: 0.9rem; line-height: 1.45; color: var(--ink); max-width: 22ch; }
+/* ZIMM 6: Navy-Original auf Ivory; Breite so gewaehlt, dass die Wortmarke neben den Vertriebslogos nicht dominiert */
+.cs__devlogo { display: block; width: 176px; max-width: 100%; height: auto; }
 .cs__contact a { color: var(--ink); transition: color 0.3s; }
 .cs__contact a:hover { color: var(--terra); }
 
