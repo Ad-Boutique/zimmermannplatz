@@ -305,11 +305,22 @@
 
   /* ---------- Inquiry modal ---------- */
   const API_BASE = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
+  const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  function checkPerson(name, mail, phone, consent) {
+    if (!name || !EMAIL_RE.test(mail)) return "Bitte Name und eine gültige E-Mail-Adresse angeben.";
+    if (!phone) return "Bitte eine Telefonnummer angeben, damit wir Sie zurückrufen können.";
+    if (!consent) return "Bitte der Datenverarbeitung zustimmen.";
+    return "";
+  }
+  function sendInquiry(payload) {
+    return fetch(API_BASE + "api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+      .then(async (r) => { const d = await r.json().catch(() => ({})); if (!r.ok || !d.ok) throw new Error(d.error || "Failed to fetch"); return d; });
+  }
+  const sendError = (err) => err.message === "Failed to fetch" ? "Der Versand ist gerade nicht möglich. Bitte versuchen Sie es später noch einmal." : err.message;
   const modal = $("#modal"); const qForm = $("#inquiryForm"); const qMsg = $("#qFormMsg"); const qDone = $("#modalDone");
   let lastFocus = null;
   function prefill(u) {
-    $("#modalTitle").textContent = `Top ${u.top}`;
-    $("#modalKicker").textContent = u.zone === "dach" ? "Anfrage Penthouse" : "Anfrage Wohnung";
+    $("#modalTitle").textContent = `Anfrage für Top ${u.top}`;
     const outs = u.out.length ? ", " + u.out.map((o) => `${o.type} ${m2(o.m2)} m²`).join(", ") : "";
     $("#modalFacts").textContent = `${u.levelName}, ${u.rooms} Zimmer, ${m2(u.area)} m² Wohnnutzfläche${outs}.`;
     $("#qTop").value = u.top;
@@ -331,16 +342,32 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal(); });
   qForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = $("#qName").value.trim(); const mail = $("#qMail").value.trim();
-    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { qMsg.className = "form__msg"; qMsg.textContent = "Bitte Name und eine gültige E-Mail-Adresse angeben."; return; }
-    if (!$("#qPrivacy").checked) { qMsg.className = "form__msg"; qMsg.textContent = "Bitte der Datenverarbeitung zustimmen."; return; }
+    const name = $("#qName").value.trim(); const mail = $("#qMail").value.trim(); const phone = $("#qPhone").value.trim();
+    const problem = checkPerson(name, mail, phone, $("#qPrivacy").checked);
+    if (problem) { qMsg.className = "form__msg"; qMsg.textContent = problem; return; }
     const btn = $("button[type=submit]", qForm); btn.disabled = true; qMsg.className = "form__msg"; qMsg.textContent = "Wird gesendet";
-    const payload = { source: "finder", top: $("#qTop").value, unit_summary: $("#modalFacts").textContent, name, email: mail, phone: $("#qPhone").value.trim(), message: $("#qMsg").value.trim(), consent: true, website: $("#qWebsite").value };
-    fetch(API_BASE + "api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
-      .then(async (r) => { const d = await r.json().catch(() => ({})); if (!r.ok || !d.ok) throw new Error(d.error || "Failed to fetch"); qForm.hidden = true; qDone.hidden = false; qForm.reset(); })
-      .catch((err) => { qMsg.textContent = err.message === "Failed to fetch" ? "Der Versand ist gerade nicht möglich. Bitte versuchen Sie es später noch einmal." : err.message; })
+    sendInquiry({ source: "finder", top: $("#qTop").value, unit_summary: $("#modalFacts").textContent, name, email: mail, phone, message: $("#qMsg").value.trim(), consent: true, website: $("#qWebsite").value })
+      .then(() => { qForm.hidden = true; qDone.hidden = false; qForm.reset(); })
+      .catch((err) => { qMsg.textContent = sendError(err); })
       .finally(() => { btn.disabled = false; });
   });
+
+  /* ---------- Allgemeines Kontaktformular ---------- */
+  const cForm = $("#contactForm");
+  if (cForm) {
+    const cMsg = $("#cFormMsg");
+    cForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = $("#cName").value.trim(); const mail = $("#cMail").value.trim(); const phone = $("#cPhone").value.trim();
+      const problem = checkPerson(name, mail, phone, $("#cPrivacy").checked);
+      if (problem) { cMsg.className = "form__msg"; cMsg.textContent = problem; return; }
+      const btn = $("button[type=submit]", cForm); btn.disabled = true; cMsg.className = "form__msg"; cMsg.textContent = "Wird gesendet";
+      sendInquiry({ source: "kontakt", name, email: mail, phone, interest: $("#cInterest").value, message: $("#cMsg").value.trim(), consent: true, website: $("#cWebsite").value })
+        .then(() => { cMsg.className = "form__msg is-ok"; cMsg.textContent = "Danke. Der Exklusivvertrieb meldet sich innerhalb eines Werktags bei Ihnen."; cForm.reset(); })
+        .catch((err) => { cMsg.className = "form__msg"; cMsg.textContent = sendError(err); })
+        .finally(() => { btn.disabled = false; });
+    });
+  }
 
   window.addEventListener("load", () => { if (hasGsap) ScrollTrigger.refresh(); });
 })();

@@ -2,36 +2,96 @@
   "redirects": [
     {
       "source": "/(projekt|admin)\\.html",
-      "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?zimmermannplatz6\\.at"
+        }
+      ],
       "destination": "/",
       "permanent": false
     },
     {
       "source": "/assets/js/(.*)",
-      "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?zimmermannplatz6\\.at"
+        }
+      ],
       "destination": "/",
       "permanent": false
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!assets/|api/|favicon\\.ico).*)",
-      "has": [{ "type": "host", "value": "(www\\.)?zimmermannplatz6\\.at" }],
+      "source": "/((?!assets/|api/|favicon\\.ico|impressum).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?zimmermannplatz6\\.at"
+        }
+      ],
       "destination": "/coming-soon.html"
     },
-    { "source": "/", "destination": "/projekt.html" },
-    { "source": "/index.html", "destination": "/projekt.html" },
-    { "source": "/projekt", "destination": "/projekt.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/coming-soon", "destination": "/coming-soon.html" }
+    {
+      "source": "/impressum",
+      "destination": "/impressum.html"
+    },
+    {
+      "source": "/",
+      "destination": "/projekt.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/projekt.html"
+    },
+    {
+      "source": "/projekt",
+      "destination": "/projekt.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/coming-soon",
+      "destination": "/coming-soon.html"
+    }
   ],
   "headers": [
-    { "source": "/api/(.*)", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
-    { "source": "/admin.html", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/admin.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "zimmermannplatz\\.ad\\.boutique" }],
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+      "has": [
+        {
+          "type": "host",
+          "value": "zimmermannplatz\\.ad\\.boutique"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ]
 }

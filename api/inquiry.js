@@ -1,11 +1,13 @@
 /* POST /api/inquiry
-   Nimmt Anfragen aus dem Wohnungsfinder (source "finder") und Vormerkungen der Coming-soon-Seite (source "coming-soon") an,
-   speichert sie in der Datenbank und benachrichtigt per Mail, wenn konfiguriert. */
+   Nimmt Anfragen aus dem Wohnungsfinder (source "finder"), aus dem allgemeinen Kontaktformular (source "kontakt")
+   und Vormerkungen der Coming-soon-Seite (source "coming-soon") an, speichert sie in der Datenbank und
+   benachrichtigt per Mail, wenn konfiguriert. Finder und Kontakt verlangen Name und Telefon. */
 const { getSql, ensureSchema } = require("./_lib/db");
 const { readJson, json, cors, clientIp } = require("./_lib/http");
 const { notify } = require("./_lib/mail");
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const SOURCES = ["finder", "kontakt", "coming-soon"];
 const clip = (v, n) => (v == null ? null : String(v).trim().slice(0, n) || null);
 
 module.exports = async (req, res) => {
@@ -15,18 +17,22 @@ module.exports = async (req, res) => {
   try { body = await readJson(req); } catch (e) { return json(res, 400, { ok: false, error: "Ungueltige Daten" }); }
 
   if (body.website) return json(res, 200, { ok: true, id: 0 }); /* Honeypot, stumm akzeptieren */
-  const source = body.source === "coming-soon" ? "coming-soon" : "finder";
+  const source = SOURCES.includes(body.source) ? body.source : "finder";
+  const needsPerson = source !== "coming-soon";
   const email = clip(body.email, 200);
   if (!email || !EMAIL.test(email)) return json(res, 422, { ok: false, error: "Bitte eine gueltige E-Mail-Adresse angeben." });
   if (!body.consent) return json(res, 422, { ok: false, error: "Bitte der Datenverarbeitung zustimmen." });
   const name = clip(body.name, 200);
-  if (source === "finder" && !name) return json(res, 422, { ok: false, error: "Bitte einen Namen angeben." });
+  if (needsPerson && !name) return json(res, 422, { ok: false, error: "Bitte einen Namen angeben." });
+  const phone = clip(body.phone, 60);
+  if (needsPerson && !phone) return json(res, 422, { ok: false, error: "Bitte eine Telefonnummer angeben, damit wir Sie zurueckrufen koennen." });
 
   const record = {
     source, email, name,
     top: clip(body.top, 20),
     unit_summary: clip(body.unit_summary, 300),
-    phone: clip(body.phone, 60),
+    phone,
+    interest: clip(body.interest, 80),
     message: clip(body.message, 4000),
     consent: true,
     ip: clip(clientIp(req), 60),
@@ -36,8 +42,8 @@ module.exports = async (req, res) => {
   try {
     await ensureSchema();
     const sql = getSql();
-    const rows = await sql`INSERT INTO inquiries (source, top, unit_summary, name, email, phone, message, consent, ip, user_agent)
-      VALUES (${record.source}, ${record.top}, ${record.unit_summary}, ${record.name}, ${record.email}, ${record.phone}, ${record.message}, ${record.consent}, ${record.ip}, ${record.user_agent})
+    const rows = await sql`INSERT INTO inquiries (source, top, unit_summary, name, email, phone, interest, message, consent, ip, user_agent)
+      VALUES (${record.source}, ${record.top}, ${record.unit_summary}, ${record.name}, ${record.email}, ${record.phone}, ${record.interest}, ${record.message}, ${record.consent}, ${record.ip}, ${record.user_agent})
       RETURNING id`;
     const id = rows[0].id;
     let delivered = false;

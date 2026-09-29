@@ -16,10 +16,10 @@ module.exports = async (req, res) => {
       const source = url.searchParams.get("source") || "";
       const q = (url.searchParams.get("q") || "").trim();
       const like = q ? `%${q}%` : null;
-      const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, message, consent, status, note, mail_delivered
+      const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, interest, message, consent, status, note, mail_delivered
         FROM inquiries
         WHERE (${source} = '' OR source = ${source})
-          AND (${like}::text IS NULL OR name ILIKE ${like} OR email ILIKE ${like} OR top ILIKE ${like} OR message ILIKE ${like})
+          AND (${like}::text IS NULL OR name ILIKE ${like} OR email ILIKE ${like} OR top ILIKE ${like} OR interest ILIKE ${like} OR message ILIKE ${like})
         ORDER BY created_at DESC LIMIT 2000`;
       return json(res, 200, { ok: true, rows, statuses: STATUS });
     }

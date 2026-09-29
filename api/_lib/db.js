@@ -32,6 +32,8 @@ async function ensureSchema() {
     user_agent TEXT,
     mail_delivered BOOLEAN
   )`;
+  /* Spalte fuer das Interesse aus dem allgemeinen Kontaktformular, nachtraeglich ergaenzt */
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS interest TEXT`;
   ensured = true;
 }
 

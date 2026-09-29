@@ -1,7 +1,8 @@
 /* Coming soon: Bild links, Inhalt rechts */
 body.cs { background: var(--ivory); }
 
-.cs__layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; }
+/* minmax(0, 1fr) statt 1fr: sonst blaeht die Mindestbreite innerer Raster die Spalte auf und die Seite laeuft mobil seitlich ueber */
+.cs__layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 100svh; }
 
 /* Bild */
 .cs__media { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--greige); }
@@ -45,7 +46,11 @@ body.cs { background: var(--ivory); }
 .cs__logo img { display: block; width: auto; height: 28px; }
 .cs__logo img[alt="Pia Estate"] { height: 13px; }
 
-.cs__contact { display: grid; gap: 5px; font-size: 0.9rem; }
+.cs__bottom { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 24px 32px; max-width: 420px; }
+.cs__contact { display: grid; gap: 5px; font-size: 0.9rem; align-content: start; }
+.cs__dev { display: grid; gap: 5px; align-content: start; }
+.cs__dev .label { display: block; font-size: 0.62rem; letter-spacing: 0.2em; margin-bottom: 14px; }
+.cs__devname { font-size: 0.9rem; line-height: 1.45; color: var(--ink); max-width: 22ch; }
 .cs__contact a { color: var(--ink); transition: color 0.3s; }
 .cs__contact a:hover { color: var(--terra); }
 
@@ -63,7 +68,7 @@ body.cs { background: var(--ivory); }
 @keyframes cs-in { to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
-  .cs__layout { grid-template-columns: 1fr; min-height: auto; }
+  .cs__layout { grid-template-columns: minmax(0, 1fr); min-height: auto; }
   .cs__media { position: relative; height: 52vh; }
   .cs__content { min-height: auto; padding-top: 26px; }
   .cs__body { padding: 32px 0 40px; max-width: none; }

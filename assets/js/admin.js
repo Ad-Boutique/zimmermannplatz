@@ -8,7 +8,7 @@
   const state = { source: "", q: "", open: null, rows: [], statuses: [] };
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fmtDate = (d) => { const x = new Date(d); const p = (n) => String(n).padStart(2, "0"); return `${p(x.getDate())}.${p(x.getMonth() + 1)}.${x.getFullYear()} ${p(x.getHours())}:${p(x.getMinutes())}`; };
-  const srcLabel = { finder: "Wohnungsfinder", "coming-soon": "Vormerkung" };
+  const srcLabel = { finder: "Wohnungsfinder", kontakt: "Kontaktformular", "coming-soon": "Vormerkung" };
 
   async function api(path, opts = {}) {
     const r = await fetch(API + path, { credentials: "same-origin", headers: { "Content-Type": "application/json" }, ...opts });
@@ -42,7 +42,7 @@
       if (state.open === r.id) {
         const d = document.createElement("tr"); d.className = "detail";
         d.innerHTML = `<td colspan="8"><div class="detail__inner adm__detail" style="grid-template-columns:1fr 1fr">
-          <dl><dt>Wohnung</dt><dd>${esc(r.unit_summary) || "Vormerkung ohne Wohnung"}</dd><dt>Nachricht</dt><dd>${esc(r.message) || "keine"}</dd><dt>Zustimmung</dt><dd>${r.consent ? "ja" : "nein"}</dd><dt>Mail zugestellt</dt><dd>${r.mail_delivered == null ? "unbekannt" : (r.mail_delivered ? "ja" : "nein")}</dd></dl>
+          <dl><dt>Wohnung</dt><dd>${esc(r.unit_summary) || (r.source === "kontakt" ? "allgemeine Anfrage" : "Vormerkung ohne Wohnung")}</dd><dt>Interesse</dt><dd>${esc(r.interest) || "keine Angabe"}</dd><dt>Nachricht</dt><dd>${esc(r.message) || "keine"}</dd><dt>Zustimmung</dt><dd>${r.consent ? "ja" : "nein"}</dd><dt>Mail zugestellt</dt><dd>${r.mail_delivered == null ? "unbekannt" : (r.mail_delivered ? "ja" : "nein")}</dd></dl>
           <div><span class="label">Interne Notiz</span><textarea data-note="${r.id}" placeholder="Notiz">${esc(r.note)}</textarea>
             <div class="row"><button class="textlink" data-save="${r.id}">Notiz speichern</button><button class="textlink danger" data-del="${r.id}">Anfrage löschen</button></div></div></div></td>`;
         $("[data-save]", d).addEventListener("click", async () => { try { await api("inquiries", { method: "PATCH", body: JSON.stringify({ id: r.id, note: $("[data-note]", d).value }) }); r.note = $("[data-note]", d).value; $("#listMsg").textContent = "Notiz gespeichert."; } catch (err) { alert(err.message); } });

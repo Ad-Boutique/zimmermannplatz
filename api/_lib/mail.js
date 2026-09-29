@@ -5,12 +5,14 @@ async function notify(inquiry) {
   if (!user || !pass || !to) return false;
   const nodemailer = require("nodemailer");
   const transporter = nodemailer.createTransport({ service: "gmail", auth: { user, pass } });
-  const isFinder = inquiry.source === "finder";
-  const subject = isFinder ? `Anfrage Zimmermannplatz 6, Top ${inquiry.top}` : "Vormerkung Zimmermannplatz 6 (Coming soon)";
+  const subject = inquiry.source === "finder" ? `Anfrage Zimmermannplatz 6, Top ${inquiry.top}`
+    : inquiry.source === "kontakt" ? "Kontaktanfrage Zimmermannplatz 6"
+    : "Vormerkung Zimmermannplatz 6 (Coming soon)";
   const lines = [
     `Quelle: ${inquiry.source}`,
     inquiry.top ? `Top: ${inquiry.top}` : null,
     inquiry.unit_summary ? `Wohnung: ${inquiry.unit_summary}` : null,
+    inquiry.interest ? `Interesse: ${inquiry.interest}` : null,
     `Name: ${inquiry.name || ""}`,
     `E-Mail: ${inquiry.email}`,
     `Telefon: ${inquiry.phone || ""}`,
