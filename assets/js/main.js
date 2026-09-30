@@ -281,9 +281,9 @@
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
-    result.innerHTML = `<b>${list.length}</b> von ${units.length} Wohnungen`;
+    result.innerHTML = `<b>${list.length}</b> von ${units.length} verfügbaren Wohnungen`;
     const sum = list.reduce((s, u) => s + u.area, 0);
-    sumEl.textContent = list.length ? `${list.length} Wohnungen, ${m2(sum)} m² Wohnnutzfläche` : "";
+    sumEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "Wohnung" : "Wohnungen"}, ${m2(sum)} m² Wohnnutzfläche` : "";
     if (hasGsap) ScrollTrigger.refresh();
   }
   function toggleDetail(top) { state.open = state.open === top ? null : top; render(); }
