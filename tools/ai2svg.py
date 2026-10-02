@@ -158,9 +158,16 @@ def note_box(k):
     for e in notes[k]["els"]: b = [min(b[0], e["bbox"][0]), min(b[1], e["bbox"][1]), max(b[2], e["bbox"][2]), max(b[3], e["bbox"][3])]
     for t in notes[k]["txt"]: b = [min(b[0], t["x"]), min(b[1], t["y"] - t["size"]*0.8), max(b[2], t["x"] + len(t["t"])*t["size"]*0.52), max(b[3], t["y"] + t["size"]*0.2)]
     return b
-# Ziel: A2 oben links an die Ecke, 1. Bezirk unten rechts an die Ecke (Abstand zur Maskenkante am Rand)
+# Platzierung der Grafik behalten, solange die Hinweise den Radius nicht beruehren (Datei vom 02.10.2026, 11:40).
+# Nur wenn ein Hinweis auf dem Kreis liegt, wird er in seine Kartenecke geschoben.
+# Am Bildschirm wachsen die Hinweise vom Kreis weg (style.css: A2 mit Ursprung unten rechts, 1. Bezirk oben links).
+rb = radius[0]["bbox"]; rcx, rcy, rr = (rb[0]+rb[2]) / 2, (rb[1]+rb[3]) / 2, (rb[2]-rb[0]) / 2
+def clearance(b):
+    nx = min(max(rcx, b[0]), b[2]); ny = min(max(rcy, b[1]), b[3])
+    return math.hypot(nx - rcx, ny - rcy) - rr
 ba, bc = note_box("a2"), note_box("city")
-note_shift = {"a2": (90 - ba[0], 120 - ba[1]), "city": (W - 90 - bc[2], H - 100 - bc[3])}
+note_shift = {"a2": (0, 0) if clearance(ba) > 0 else (90 - ba[0], 120 - ba[1]),
+              "city": (0, 0) if clearance(bc) > 0 else (W - 90 - bc[2], H - 100 - bc[3])}
 
 def svg_el(e, extra=""):
     attrs = ['d="%s"' % e["d"], 'fill="%s"' % e["fill"]]
@@ -198,4 +205,4 @@ report = {"size_kb": round(len(svg.encode()) / 1024, 1), "base": len(base), "rad
           "home_bbox": [round(v) for v in hb], "home_ivory": len(home_ivory), "colors": sorted({e["fill"] for e in elements} | {e["stroke"] for e in elements})}
 report["ivory_in_base"] = [[round(v) for v in e["bbox"]] for e in base if e["fill"] == IVORY]
 print(json.dumps(report, ensure_ascii=False))
-print(json.dumps({"tram_angle_deg": round(math.degrees(tram_angle), 2), "arrow_rotation_deg": round(math.degrees(rot), 2), "heads": len(heads), "note_shift": {k: [round(v) for v in s] for k, s in note_shift.items()}}))
+print(json.dumps({"clearance": [round(clearance(ba)), round(clearance(bc))], "tram_angle_deg": round(math.degrees(tram_angle), 2), "arrow_rotation_deg": round(math.degrees(rot), 2), "heads": len(heads), "note_shift": {k: [round(v) for v in s] for k, s in note_shift.items()}}))

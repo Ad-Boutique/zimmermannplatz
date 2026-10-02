@@ -226,7 +226,7 @@ ul { padding: 0; list-style: none; }
 /* minmax(0, 1fr), damit innere Inhalte die Spalten nicht aufblaehen */
 .loc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 48px; align-items: center; }
 .loc__stage { grid-column: 1 / span 7; display: flex; justify-content: center; }
-.loc__frame { position: relative; margin: 0; width: 100%; aspect-ratio: 2550 / 3300; overflow: hidden; }
+.loc__frame { position: relative; margin: 0; width: 100%; aspect-ratio: 2982.6 / 3481.5; overflow: hidden; }
 .loc__map { position: absolute; inset: 0; will-change: transform; }
 .loc__map > svg, .loc__fallback { display: block; width: 100%; height: 100%; }
 .lmap { font-family: var(--font); overflow: visible; }
@@ -234,10 +234,10 @@ ul { padding: 0; list-style: none; }
 .lmap__pinbody { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 0.45s var(--ease), opacity 0.45s var(--ease); }
 .lmap.has-focus .lmap__pin:not(.is-on) .lmap__pinbody { opacity: 0.28; }
 .lmap__pin.is-on .lmap__pinbody { transform: scale(1.22); }
-/* Wegezeit-Hinweise sind fuer Print gesetzt, am Bildschirm vergroessert und an ihrer Kartenecke verankert (tools/ai2svg.py schiebt sie in die Ecken, ausserhalb des Radius) */
+/* Wegezeit-Hinweise sind fuer Print gesetzt und liegen knapp ausserhalb des Radius; am Bildschirm vergroessert, wachsen sie vom Kreis weg (Ursprung an der kreisnahen Ecke) */
 .lmap__notebody { transform-box: fill-box; }
-.lmap__note[data-note="a2"] .lmap__notebody { transform-origin: 0 0; transform: scale(1.45); }
-.lmap__note[data-note="city"] .lmap__notebody { transform-origin: 100% 100%; transform: scale(1.5); }
+.lmap__note[data-note="a2"] .lmap__notebody { transform-origin: 100% 100%; transform: scale(1.45); }
+.lmap__note[data-note="city"] .lmap__notebody { transform-origin: 0 0; transform: scale(1.5); }
 .loc__side { grid-column: 9 / span 4; }
 .loc__side .display-3 { margin-bottom: 32px; }
 .loc__legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
