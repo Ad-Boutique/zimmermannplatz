@@ -47,10 +47,10 @@ Kurz-Logo Z6 als Designelement
 
 Motion
 - Lenis Smooth Scroll, GSAP ScrollTrigger
-- Wort-Masken-Reveal für Headlines, Fade-Up für Fließtext, Buchstaben-Zusammenfinden für die Geschichts-Headline
+- Wort-Masken-Reveal für alle Headlines (die Geschichts-Headline seit 02.10.2026 ebenfalls, das Buchstaben-Zusammenfinden stach laut Kunde zu sehr heraus), Fade-Up für Fließtext
 - Hero: Bild startet eingerückt und wächst beim Scrollen auf volle Breite (gepinnt)
 - Parallax auf allen großen Bildern, Collage-Elemente mit eigener Geschwindigkeit
-- Damals/Heute: gepinnte Sektion, Scroll steuert den Wischer zwischen historischer Aufnahme und Rendering
+- Damals/Heute: gepinnte Sektion (Desktop), Scroll steuert den Wischer zwischen historischer Aufnahme und Rendering. Seit 02.10.2026 steht zuerst rund ein Drittel der Strecke nur die historische Aufnahme, dann wischt das Rendering herein (Kundenwunsch); mobil dieselbe Pause ohne Anheften
 - Zähler für Kennzahlen
 - prefers-reduced-motion wird respektiert (keine Pins, keine Scrubs)
 
@@ -60,7 +60,7 @@ Motion
 
 Header: Wortmarke links, fünf Anker, rechts ein Hairline-Button "Wohnungsfinder". Wechselt über dunklen Sektionen automatisch auf Ivory.
 
-1 Hero: Headline in zwei Zeilen auf Ivory, rechts ein kurzer Absatz mit den drei wichtigsten Fakten. Darunter das Skyline-Rendering, das beim Scrollen auf volle Breite wächst. Aufgabe: Ort und Anspruch in drei Sekunden.
+1 Hero: Headline in zwei Zeilen auf Ivory (seit 02.10.2026 "Historische Substanz. Moderne Architektur.", eigene etwas kleinere Größe, damit jeder Satz in eine Zeile passt), rechts ein kurzer Absatz mit den drei wichtigsten Fakten. Darunter das Skyline-Rendering, das beim Scrollen auf volle Breite wächst. Aufgabe: Ort und Anspruch in drei Sekunden.
 
 2 Projekt: Statement der Broschüre (Urban Living at its Finest) auf Deutsch, daneben die Zahlenwand: ca. 2.000 m², 23 Wohnungen, 6 Penthäuser, 2 bis 5 Zimmer, 125 m² Gewerbe, alle mit Außenfläche. Darunter eine Dreier-Collage der Renderings mit Parallax. Aufgabe: Substanz beweisen.
 

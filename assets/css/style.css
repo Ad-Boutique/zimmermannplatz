@@ -145,7 +145,7 @@ ul { padding: 0; list-style: none; }
 /* ---------- Hero ---------- */
 .hero { padding-top: clamp(140px, 18vw, 240px); min-height: 100svh; position: relative; }
 .hero__top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 32px; align-items: end; }
-.hero__title { grid-column: 1 / span 9; }
+.hero__title { grid-column: 1 / span 9; font-size: clamp(2.4rem, 6.6vw, 7.4rem); }
 .hero__aside { grid-column: 10 / span 3; max-width: 34ch; }
 .hero__aside p { margin-bottom: 22px; }
 .hero__meta { display: flex; justify-content: space-between; padding: 22px 0 0; margin-top: clamp(40px, 6vw, 80px); border-top: 1px solid var(--line); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); }

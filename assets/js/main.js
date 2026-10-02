@@ -209,9 +209,19 @@
   /* ---------- Then / Now ---------- */
   const tnNow = $("#thennowNow"); const tnLine = $("#thennowLine");
   if (tnNow && hasGsap && !reduced) {
+    /* Erst steht die historische Aufnahme eine Weile (leere Strecke am Anfang), dann wischt das Rendering herein.
+       Desktop: Bild bleibt dafuer stehen. Mobil: ohne Anheften, dieselbe Pause beim Durchscrollen. */
     const st = { p: 0 };
-    gsap.to(st, { p: 100, ease: "none", scrollTrigger: { trigger: "#thennow", start: "top 70%", end: "bottom 45%", scrub: 0.8 },
-      onUpdate() { tnNow.style.clipPath = `inset(0 0 0 ${100 - st.p}%)`; tnLine.style.left = `${100 - st.p}%`; } });
+    const draw = () => { tnNow.style.clipPath = `inset(0 0 0 ${100 - st.p}%)`; tnLine.style.left = `${100 - st.p}%`; };
+    const build = (trig) => {
+      st.p = 0; draw();
+      const tl = gsap.timeline({ scrollTrigger: trig });
+      tl.to({}, { duration: 1.2 }).to(st, { p: 100, ease: "none", duration: 2, onUpdate: draw }).to({}, { duration: 0.3 });
+      return () => { st.p = 0; draw(); };
+    };
+    const tnMM = gsap.matchMedia();
+    tnMM.add("(min-width: 1024px) and (min-height: 640px)", () => build({ trigger: "#thennow", start: "top 12%", end: () => "+=" + Math.round(window.innerHeight * 1.6), pin: true, scrub: 0.8, invalidateOnRefresh: true }));
+    tnMM.add("(max-width: 1023px), (max-height: 639px)", () => build({ trigger: "#thennow", start: "top 75%", end: "bottom 15%", scrub: 0.8 }));
   } else if (tnNow) { tnNow.style.clipPath = "inset(0 0 0 50%)"; tnLine.style.left = "50%"; }
 
   /* timeline progress */
