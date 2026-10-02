@@ -226,9 +226,7 @@ ul { padding: 0; list-style: none; }
 /* minmax(0, 1fr), damit innere Inhalte die Spalten nicht aufblaehen */
 .loc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 48px; align-items: center; }
 .loc__stage { grid-column: 1 / span 7; display: flex; justify-content: center; }
-.loc__frame { position: relative; margin: 0; width: 100%; aspect-ratio: 2550 / 3300; overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, #000, #000 97%, transparent), linear-gradient(to bottom, transparent, #000 3%, #000 97%, transparent);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, #000, #000 97%, transparent), linear-gradient(to bottom, transparent, #000 3%, #000 97%, transparent); mask-composite: intersect; }
+.loc__frame { position: relative; margin: 0; width: 100%; aspect-ratio: 2550 / 3300; overflow: hidden; }
 .loc__map { position: absolute; inset: 0; will-change: transform; }
 .loc__map > svg, .loc__fallback { display: block; width: 100%; height: 100%; }
 .lmap { font-family: var(--font); overflow: visible; }
