@@ -27,6 +27,8 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 02.10.2026 Lagekarte aus der neuen Illustrator-Datei (größere Zeichenfläche, Hinweise außerhalb des Radius, rundum ohne Verlauf), live geprüft
+
 - 02.10.2026 Karten-Feedback: Verlauf links entfernt, Hinweise aus dem Radius in die Ecken, Pfeil parallel zur Alser Straße, Pin 6 Viktor Frankl Museum, nach Freigabe live geprüft
 - 02.10.2026 Figma-Datei mit allen Anzeigen und Texten: https://www.figma.com/design/ya9oWiNi55qLiPHUJc1Min/Zimmermannplatz, Texte zusätzlich in `docs/ANZEIGENTEXTE.txt`
 
