@@ -27,7 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
-- 02.10.2026 Qualitätscheck Karte: feine Linien als Haarlinie, Karte wirkt nicht mehr doppelt (lokal, wartet auf Freigabe)
+- 02.10.2026 Qualitätscheck Karte: Ursache für die doppelte Karte war die Reihenfolge der angehefteten Sektionen (Karte startete um die Länge des Damals-Heute-Pins zu früh), behoben; zusätzlich feine Linien als Haarlinie (lokal, wartet auf Freigabe)
 
 - 02.10.2026 Kundenfeedback: Hero "Historische Substanz. Moderne Architektur.", KPI "2-4", Damals/Heute länger historisch (Desktop angeheftet), Geschichts-Headline mit Wort-Reveal (lokal, wartet auf Freigabe)
 
@@ -66,6 +66,9 @@ Stand 02.10.2026
 - Englische Version (KV beim Kunden)
 
 ## Lehren
+
+- Mehrere angeheftete Sektionen: die weiter oben liegende braucht die höhere `refreshPriority` (Damals/Heute 2, Karte 1), sonst rechnet die untere ihren Start ohne den Pin-Abstand der oberen und hängt mitten in der Zeitleiste; die Karte erschien dadurch doppelt (02.10.2026)
+- Feine 1-pt-Linien in verkleinerten SVG-Karten als Haarlinie zeichnen (`vector-effect: non-scaling-stroke`)
 
 - Vercel wendet Rewrites erst an, wenn kein statisches File passt; deshalb keine `index.html`
 - Äußere Raster mit `minmax(0, 1fr)`, sonst Überlauf mobil
