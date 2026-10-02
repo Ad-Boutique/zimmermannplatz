@@ -42,7 +42,7 @@ Kurz-Logo Z6 als Designelement
 - Preloader: Z6 wird von unten aufgebaut, Zähler in Terracotta, dann hebt sich der Vorhang
 - Trennzeichen im Laufband
 - Feines Flächenmuster (Z6 gekachelt, 6 Prozent Deckkraft) hinter der Zahlenwand und in der Kontakt-Sektion
-- Marker auf der Radius-Karte
+- Marker auf der Lagekarte (Z6-Pin)
 - Wasserzeichen im Wohnungsfinder
 
 Motion
@@ -68,7 +68,8 @@ Laufband 1 (Olive): "Wohnung finden" mit Z6 als Trenner, das gesamte Band ist de
 
 3 Geschichte: Headline findet sich aus verstreuten Buchstaben. Text zu Alsergrund, AKH, Universität, Georg von Zimmermann. Damals/Heute-Wischer mit der historischen Aufnahme (Wien IX, Zimmermannplatz) und dem Straßen-Rendering. Zeitleiste als Hairline mit fünf Stationen bis Fertigstellung Q1 2028. Aufgabe: Herkunft als Wert.
 
-4 Lage: Radius-Karte statt Stadtplan: drei Ringe (3, 5, 12 Minuten) um den Z6-Marker, Orte auf den Ringen nach Himmelsrichtung. Rechts Kategorien (Mobilität, Grün, Medizin, Bildung, Alltag) mit Fahrzeiten. Hover auf eine Kategorie hebt die Pins hervor. Der Prosa-Text steht darunter. Aufgabe: Alltag greifbar machen, ohne Google-Maps-Bruch im Design.
+4 Lage (seit 02.10.2026 Kartenfahrt): Grundlage ist die Designer-Karte `map-zimmermannplatz-6.ai`, mit `tools/ai2svg.py` verlustfrei in `assets/img/lage-karte.svg` übersetzt (Gruppen Basis, Radius, Hinweise, Pins 1 bis 6, Z6-Pin). Desktop ab 1024 px Breite und 640 px Höhe: Die Sektion bleibt 2,4 Bildschirmhöhen stehen; die Karte zoomt vom Z6 auf, der gestrichelte Radius zeichnet sich, Pins 1 bis 6 erscheinen nacheinander, die Legende rechts läuft im Takt mit und markiert den aktiven Ort, am Ende erscheinen die Hinweise A2 und 1. Bezirk. Danach heben Hover oder Tippen auf Legende oder Pin den Ort hervor. Mobil dieselbe Abfolge beim Durchscrollen ohne Anheften, Legende unter der Karte. Ohne JavaScript oder bei reduzierter Bewegung steht die fertige Karte. Die frühere Radius-Grafik und die Kategorienliste sind entfallen.
+   Legende (Vorschlag aus Abgleich mit OpenStreetMap, vom Kunden zu bestätigen): 1 U6 Alser Straße (220 m, 3 Minuten), 2 St. Anna Kinderspital, 3 Wiener Privatklinik, 4 AKH Wien, 5 U6 Michelbeuern-AKH, 6 Straßenbahn 43 und 44 (12 Minuten zur Universität und zum Schottentor). [prüfen] Pin 6 liegt an der Haltestelle Lange Gasse, rund 580 m entfernt; das Briefing nennt die Straßenbahn in 350 m.
 
 Laufband 2 (Greige): "Penthäuser im Dach" als zweiter Einstieg in den Finder, vorgefiltert auf Dachgeschoss.
 

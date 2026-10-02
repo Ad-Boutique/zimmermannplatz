@@ -12,7 +12,7 @@
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/URWGothic-Demi.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=769374">
+<link rel="stylesheet" href="assets/css/style.css?v=926544">
 </head>
 <body>
 
@@ -169,87 +169,26 @@
 <!-- Location -->
 <section class="section wrap location" id="lage">
   <div class="section-rule"><span class="label">03</span></div>
+  <div class="loc" id="loc">
+    <div class="loc__stage">
+      <figure class="loc__frame" id="locFrame">
+        <div class="loc__map" id="locMap"><img class="loc__fallback" src="assets/img/lage-karte.svg" alt="Lagekarte Zimmermannplatz 6 mit U6 Alser Straße, St. Anna Kinderspital, Wiener Privatklinik, AKH Wien, U6 Michelbeuern-AKH und Straßenbahn 43 und 44" width="2550" height="3300"></div>
+      </figure>
+    </div>
+    <div class="loc__side">
+      <h2 class="display-3" data-reveal>Drei Minuten zur U6. Zwölf zur Universität.</h2>
+      <ol class="loc__legend" id="locLegend" aria-label="Orte auf der Karte">
+          <li><button type="button" class="loc__item" data-pin="1"><span class="loc__n" aria-hidden="true">1</span><span class="loc__txt"><b>U6 Alser Straße</b><small>220 m, 3 Minuten zu Fuß</small></span></button></li>
+          <li><button type="button" class="loc__item" data-pin="2"><span class="loc__n" aria-hidden="true">2</span><span class="loc__txt"><b>St. Anna Kinderspital</b><small>Kinderklinik</small></span></button></li>
+          <li><button type="button" class="loc__item" data-pin="3"><span class="loc__n" aria-hidden="true">3</span><span class="loc__txt"><b>Wiener Privatklinik</b><small>Privatklinik</small></span></button></li>
+          <li><button type="button" class="loc__item" data-pin="4"><span class="loc__n" aria-hidden="true">4</span><span class="loc__txt"><b>AKH Wien</b><small>Universitätsklinikum</small></span></button></li>
+          <li><button type="button" class="loc__item" data-pin="5"><span class="loc__n" aria-hidden="true">5</span><span class="loc__txt"><b>U6 Michelbeuern-AKH</b><small>U-Bahn</small></span></button></li>
+          <li><button type="button" class="loc__item" data-pin="6"><span class="loc__n" aria-hidden="true">6</span><span class="loc__txt"><b>Straßenbahn 43 und 44</b><small>12 Minuten zur Universität und zum Schottentor</small></span></button></li>
+      </ol>
+      <p class="loc__note">Schematische Darstellung, Wege und Zeiten gerundet.</p>
+    </div>
+  </div>
   <div class="grid">
-    <div class="location__map" data-reveal>
-      <svg class="radius" id="radiusMap" viewBox="0 0 720 720" role="img" aria-label="Schematische Karte der Umgebung mit Fußwegzeiten">
-        <circle class="ring" cx="360" cy="360" r="110"/>
-        <circle class="ring" cx="360" cy="360" r="200"/>
-        <circle class="ring" cx="360" cy="360" r="300"/>
-        <text class="ring-label" x="366" y="256">3 Min</text>
-        <text class="ring-label" x="366" y="166">5 Min</text>
-        <text class="ring-label" x="366" y="66">12 Min</text>
-        <text class="north" x="352" y="22">N</text>
-        <line x1="360" y1="28" x2="360" y2="46" stroke="#8e8170" stroke-width="1"/>
-
-        <g class="pin pin--key" data-cat="mobil"><circle cx="262" cy="330" r="3.5"/><text x="150" y="324">U6 Alser Straße</text><text class="sub" x="150" y="338">220 m, 3 Min</text></g>
-        <g class="pin" data-cat="mobil"><circle cx="300" cy="500" r="3.5"/><text x="218" y="522">Straßenbahn 43, 44</text><text class="sub" x="218" y="536">350 m, 5 Min</text></g>
-        <g class="pin pin--key" data-cat="mobil"><circle cx="612" cy="480" r="3.5"/><text x="560" y="504">Schottentor</text><text class="sub" x="560" y="518">12 Min Straßenbahn</text></g>
-
-        <g class="pin pin--key" data-cat="medizin"><circle cx="230" cy="420" r="3.5"/><text x="128" y="446">AKH Wien</text><text class="sub" x="128" y="460">Universitätsklinikum</text></g>
-        <g class="pin" data-cat="medizin"><circle cx="330" cy="440" r="3.5"/><text x="340" y="452">St. Anna Kinderspital</text></g>
-        <g class="pin" data-cat="medizin"><circle cx="440" cy="250" r="3.5"/><text x="448" y="246">Wiener Privatklinik</text></g>
-
-        <g class="pin" data-cat="gruen"><circle cx="420" cy="400" r="3.5"/><text x="428" y="414">Viktor-Frankl-Park</text></g>
-        <g class="pin pin--key" data-cat="gruen"><circle cx="560" cy="250" r="3.5"/><text x="568" y="244">Liechtensteinpark</text><text class="sub" x="568" y="258">Palais Liechtenstein</text></g>
-        <g class="pin" data-cat="gruen"><circle cx="470" cy="530" r="3.5"/><text x="478" y="548">Altes AKH</text><text class="sub" x="478" y="562">Campus und Höfe</text></g>
-
-        <g class="pin pin--key" data-cat="bildung"><circle cx="640" cy="420" r="3.5"/><text x="598" y="408">Universität Wien</text><text class="sub" x="598" y="394">12 Min Straßenbahn</text></g>
-        <g class="pin" data-cat="bildung"><circle cx="300" cy="580" r="3.5"/><text x="212" y="602">Medizinische Universität</text></g>
-
-        <g class="pin pin--key" data-cat="alltag"><circle cx="520" cy="340" r="3.5"/><text x="528" y="336">Servitenviertel</text><text class="sub" x="528" y="350">Cafés, Buchhandlungen</text></g>
-        <g class="pin" data-cat="alltag"><circle cx="560" cy="170" r="3.5"/><text x="568" y="166">Liechtensteinstraße</text><text class="sub" x="568" y="180">Geschäfte, Apotheken</text></g>
-        <g class="pin" data-cat="alltag"><circle cx="420" cy="300" r="3.5"/><text x="428" y="296">Währinger Straße</text></g>
-
-        <circle class="center-ring" cx="360" cy="360" r="14"/>
-        <circle class="center" cx="360" cy="360" r="5"/>
-        <g transform="translate(346 372) scale(0.34)"><use href="#z6" width="78.65" height="97.18" fill="#45442d"/></g>
-      </svg>
-      <div class="map-note">Schematische Darstellung, Richtungen und Zeiten gerundet</div>
-    </div>
-    <div class="location__side">
-      <h2 class="display-3" data-reveal style="margin-bottom:32px">Drei Minuten zur U6. Zwölf zur Universität.</h2>
-      <div class="cats" id="cats" data-reveal>
-        <div class="cat" data-cat="mobil">
-          <div class="cat__head"><span class="cat__title">Mobilität</span><span class="cat__count">3 Orte</span></div>
-          <ul>
-            <li><b>U6 Alser Straße</b><span>220 m, 3 Min</span></li>
-            <li><b>Straßenbahn 43 und 44</b><span>350 m, 5 Min</span></li>
-            <li><b>Schottentor, Innenstadt</b><span>12 Min</span></li>
-          </ul>
-        </div>
-        <div class="cat" data-cat="gruen">
-          <div class="cat__head"><span class="cat__title">Grün</span><span class="cat__count">3 Orte</span></div>
-          <ul>
-            <li><b>Viktor-Frankl-Park</b><span>zu Fuß</span></li>
-            <li><b>Liechtensteinpark</b><span>zu Fuß</span></li>
-            <li><b>Altes AKH</b><span>zu Fuß</span></li>
-          </ul>
-        </div>
-        <div class="cat" data-cat="medizin">
-          <div class="cat__head"><span class="cat__title">Medizin</span><span class="cat__count">3 Orte</span></div>
-          <ul>
-            <li><b>AKH Wien</b><span>nebenan</span></li>
-            <li><b>St. Anna Kinderspital</b><span>zu Fuß</span></li>
-            <li><b>Wiener Privatklinik</b><span>zu Fuß</span></li>
-          </ul>
-        </div>
-        <div class="cat" data-cat="bildung">
-          <div class="cat__head"><span class="cat__title">Bildung</span><span class="cat__count">2 Orte</span></div>
-          <ul>
-            <li><b>Universität Wien</b><span>12 Min</span></li>
-            <li><b>Medizinische Universität</b><span>zu Fuß</span></li>
-          </ul>
-        </div>
-        <div class="cat" data-cat="alltag">
-          <div class="cat__head"><span class="cat__title">Alltag</span><span class="cat__count">3 Orte</span></div>
-          <ul>
-            <li><b>Servitenviertel</b><span>zu Fuß</span></li>
-            <li><b>Liechtensteinstraße</b><span>zu Fuß</span></li>
-            <li><b>Währinger Straße</b><span>zu Fuß</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
     <div class="location__prose">
       <p class="display-3" data-reveal>Der Alsergrund ist ein lebhaftes Abbild urbanen Lebens.</p>
       <p class="muted" data-reveal>In unmittelbarer Nähe liegen die belebte Liechtensteinstraße und das charmante Servitenviertel mit Geschäften, Banken, Apotheken, Buchhandlungen und Cafés. Der Viktor-Frankl-Park, der Liechtensteinpark und das Alte AKH sind Rückzugsorte für Läufer und spielende Kinder. Zahlreiche Bildungseinrichtungen und Universitäten liegen in Gehweite oder wenige Stationen entfernt.</p>
@@ -515,7 +454,7 @@
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/vendor/lenis.min.js"></script>
-<script src="assets/js/units.js?v=769374"></script>
-<script src="assets/js/main.js?v=769374"></script>
+<script src="assets/js/units.js?v=926544"></script>
+<script src="assets/js/main.js?v=926544"></script>
 </body>
 </html>

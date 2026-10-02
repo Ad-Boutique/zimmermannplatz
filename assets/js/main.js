@@ -220,14 +220,127 @@
     gsap.fromTo(tlp, { width: "0%" }, { width: "100%", ease: "none", scrollTrigger: { trigger: "#timeline", start: "top 75%", end: "bottom 60%", scrub: 0.6 } });
   } else if (tlp) tlp.style.width = "100%";
 
-  /* ---------- Radius map ---------- */
-  const map = $("#radiusMap");
-  $$("#cats .cat").forEach((cat) => {
-    const on = () => { map.classList.add("has-focus"); $$(".pin", map).forEach((p) => p.classList.toggle("is-on", p.dataset.cat === cat.dataset.cat)); $$("#cats .cat").forEach((c) => c.classList.toggle("is-on", c === cat)); };
-    const off = () => { map.classList.remove("has-focus"); $$(".pin", map).forEach((p) => p.classList.remove("is-on")); cat.classList.remove("is-on"); };
-    cat.addEventListener("mouseenter", on); cat.addEventListener("mouseleave", off);
-    cat.addEventListener("click", () => { map.classList.contains("has-focus") && cat.classList.contains("is-on") ? off() : on(); });
-  });
+  /* ---------- Lage: Kartenfahrt ----------
+     Die Karte (assets/img/lage-karte.svg, erzeugt mit tools/ai2svg.py) wird inline geladen, damit Pins,
+     Radius und Hinweise einzeln animierbar sind. Desktop: Sektion bleibt stehen, Karte zoomt vom Z6 auf,
+     Radius zeichnet sich, Pins 1 bis 6 erscheinen nacheinander mit der Legende. Mobil: dieselbe Abfolge
+     beim Durchscrollen, ohne Anheften. Ohne JavaScript oder bei reduzierter Bewegung: fertige Karte. */
+  const locMap = $("#locMap");
+  const locItems = $$("#locLegend .loc__item");
+  function initLocMap(svg) {
+    const pins = $$(".lmap__pin", svg);
+    const home = $(".lmap__home", svg);
+    const radius = $(".lmap__radius path", svg);
+    const notes = $$(".lmap__note", svg);
+    const vb = svg.viewBox.baseVal;
+    const [hx, hy] = home.dataset.tip.split(" ").map(Number);
+    locMap.style.transformOrigin = `${(hx / vb.width) * 100}% ${(hy / vb.height) * 100}%`;
+    const byNum = (n) => pins.find((p) => p.dataset.pin === String(n));
+
+    /* Hervorheben: Legende und Pin gegenseitig */
+    function focus(n) {
+      svg.classList.toggle("has-focus", !!n);
+      pins.forEach((p) => p.classList.toggle("is-on", p.dataset.pin === String(n)));
+      locItems.forEach((it) => it.classList.toggle("is-on", it.dataset.pin === String(n)));
+    }
+    let pinned = null;
+    locItems.forEach((it) => {
+      it.addEventListener("mouseenter", () => focus(it.dataset.pin));
+      it.addEventListener("mouseleave", () => focus(pinned));
+      it.addEventListener("focus", () => focus(it.dataset.pin));
+      it.addEventListener("blur", () => focus(pinned));
+      it.addEventListener("click", () => { pinned = pinned === it.dataset.pin ? null : it.dataset.pin; focus(pinned); });
+    });
+    pins.forEach((p) => {
+      p.addEventListener("mouseenter", () => focus(p.dataset.pin));
+      p.addEventListener("mouseleave", () => focus(pinned));
+      p.addEventListener("click", () => { pinned = pinned === p.dataset.pin ? null : p.dataset.pin; focus(pinned); });
+    });
+
+    /* Legende im Takt der Pins: gesehene Eintraege voll, aktueller Eintrag markiert */
+    function legendState(count, current) {
+      locItems.forEach((it) => {
+        const n = Number(it.dataset.pin);
+        it.classList.toggle("is-seen", n <= count);
+        if (!pinned) it.classList.toggle("is-on", n === current);
+      });
+    }
+    const showAll = () => { legendState(pins.length, 0); };
+    if (!hasGsap || reduced) { showAll(); return; }
+    $("#loc").classList.add("loc--anim");
+
+    /* Radius zeichnen: Maske mit derselben Linie, deren Strich von 0 auf voll laeuft */
+    let radiusLen = 0, maskLine = null;
+    if (radius) {
+      radiusLen = radius.getTotalLength();
+      const NS = "http://www.w3.org/2000/svg";
+      const defs = document.createElementNS(NS, "defs");
+      const mask = document.createElementNS(NS, "mask");
+      mask.setAttribute("id", "lmapRadiusMask"); mask.setAttribute("maskUnits", "userSpaceOnUse");
+      mask.setAttribute("x", 0); mask.setAttribute("y", 0); mask.setAttribute("width", vb.width); mask.setAttribute("height", vb.height);
+      maskLine = radius.cloneNode();
+      maskLine.removeAttribute("stroke-dasharray");
+      maskLine.setAttribute("stroke", "#fff"); maskLine.setAttribute("stroke-width", "40"); maskLine.setAttribute("fill", "none");
+      maskLine.style.strokeDasharray = radiusLen; maskLine.style.strokeDashoffset = radiusLen;
+      mask.appendChild(maskLine); defs.appendChild(mask); svg.insertBefore(defs, svg.firstChild);
+      radius.parentNode.setAttribute("mask", "url(#lmapRadiusMask)");
+    }
+
+    function build(tl, zoomFrom, zoomEnd) {
+      /* Zeitachse in Einheiten 0 bis 10 */
+      tl.fromTo(locMap, { scale: zoomFrom }, { scale: 1, duration: zoomEnd, ease: "power2.inOut" }, 0);
+      tl.fromTo(home, { scale: 0.6, opacity: 0, transformOrigin: "50% 100%" }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(2)" }, 0);
+      if (maskLine) tl.to(maskLine, { strokeDashoffset: 0, duration: zoomEnd, ease: "none" }, 0.3);
+      const step = (8.6 - zoomEnd) / pins.length;
+      pins.forEach((p, i) => {
+        tl.fromTo(p, { opacity: 0, scale: 0.4, y: 24, transformOrigin: "50% 100%" }, { opacity: 1, scale: 1, y: 0, duration: step * 0.8, ease: "back.out(2.2)" }, zoomEnd + i * step);
+      });
+      tl.fromTo(notes, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.25, ease: "power2.out" }, 8.6);
+      tl.to({}, { duration: 0.4 }, 9.6);
+      return { step, zoomEnd };
+    }
+    function progressToLegend(tl, timing) {
+      const t = tl.time();
+      if (t >= 8.6) { legendState(pins.length, 0); return; }
+      const count = Math.max(0, Math.min(pins.length, Math.floor((t - timing.zoomEnd) / timing.step + 0.5)));
+      legendState(count, count);
+    }
+
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px) and (min-height: 640px)", () => {
+      const tl = gsap.timeline({ defaults: { ease: "none" } });
+      const timing = build(tl, 2.3, 3.8);
+      tl.eventCallback("onUpdate", () => progressToLegend(tl, timing));
+      ScrollTrigger.create({
+        trigger: "#loc", start: "center center", end: () => "+=" + Math.round(window.innerHeight * 2.4),
+        pin: true, scrub: 0.8, animation: tl, refreshPriority: 1, invalidateOnRefresh: true
+      });
+      legendState(0, 0);
+      return () => { gsap.set([locMap, home, ...pins, ...notes], { clearProps: "all" }); if (maskLine) maskLine.style.strokeDashoffset = 0; showAll(); };
+    });
+    mm.add("(max-width: 1023px), (max-height: 639px)", () => {
+      const tl = gsap.timeline({ defaults: { ease: "none" } });
+      const timing = build(tl, 1.35, 2.4);
+      tl.eventCallback("onUpdate", () => progressToLegend(tl, timing));
+      ScrollTrigger.create({ trigger: "#locFrame", start: "top 92%", end: "bottom 30%", scrub: 0.6, animation: tl });
+      legendState(0, 0);
+      return () => { gsap.set([locMap, home, ...pins, ...notes], { clearProps: "all" }); if (maskLine) maskLine.style.strokeDashoffset = 0; showAll(); };
+    });
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  }
+  if (locMap) {
+    fetch("assets/img/lage-karte.svg", { cache: "no-cache" })
+      .then((r) => { if (!r.ok) throw new Error("Karte nicht geladen"); return r.text(); })
+      .then((txt) => {
+        const tmp = document.createElement("div"); tmp.innerHTML = txt.trim();
+        const svg = tmp.querySelector("svg"); if (!svg) throw new Error("keine SVG");
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        locMap.replaceChildren(svg);
+        initLocMap(svg);
+      })
+      .catch(() => { locItems.forEach((it) => it.classList.add("is-seen")); });
+  }
 
   /* ---------- Spec list image swap ---------- */
   const specImgs = $$("#specMedia img"); const specCap = $("#specCaption");

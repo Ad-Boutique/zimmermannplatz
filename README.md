@@ -9,7 +9,9 @@ One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien (17 sanierte Altbauw
 - `coming-soon.html`: Vorab-Seite
 - `impressum.html`: Impressum für beide Domains, erreichbar unter `/impressum`
 - `admin.html` plus `api/`: Anfrage-Backend mit Login und CSV-Export (Vercel Functions, Neon Postgres), Einrichtung in `docs/BACKEND.md`
+- `tools/ai2svg.py`: übersetzt die Lagekarte aus Illustrator in `assets/img/lage-karte.svg`. Neue Kartenversion: `python3 tools/ai2svg.py <datei.ai> assets/img/lage-karte.svg`
 - `docs/KONZEPT.md`: Konzept, Sektionslogik, offene Punkte
+- `STATUS.md`, `Fahrplan.md`, `CLAUDE.md`: Arbeitsstand, Etappen und Regeln für die Zusammenarbeit
 - `docs/branding.pdf`: Brand-Broschüre (ad boutique, 2609)
 
 Schrift: ITC Avant Garde Gothic Pro laut Branding. Im Prototyp eingebettet ist URW Gothic (freier Klon, AGPL/GPL mit Font-Exception) aus den urw-base35-Fonts. Vor Livegang durch die lizenzierte ITC-Schrift ersetzen (Pfade in `style.css`, `@font-face`).
