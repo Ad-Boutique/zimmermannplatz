@@ -24,7 +24,7 @@ Award-fähiger One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien. Die 
 | 3 | Coming Soon und Domain-Routing | erledigt, live |
 | 4 | Backend für Anfragen | gebaut, Env-Vars in Vercel prüfen |
 | 5 | ZIMM6, Impressum, Kontakt, Zahlen | erledigt, live |
-| 6 | Lagekarte als Kartenfahrt | lokal fertig, wartet auf Freigabe |
+| 6 | Lagekarte als Kartenfahrt | erledigt, live |
 | 7 | Launch der Vollsite | offen: Renderings, Datenschutz, Impressum vollständig |
 
 ## Geparkt

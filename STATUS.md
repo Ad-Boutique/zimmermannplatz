@@ -11,9 +11,11 @@ Stand 02.10.2026
 - [x] Mobil: Abfolge beim Durchscrollen, Legende unter der Karte, kein seitlicher Überlauf
 - [x] Ohne JavaScript und bei reduzierter Bewegung: fertige Karte
 - [x] Lokal geprüft: Desktop 1440 x 900, Mobil 375 x 812, keine Konsolenfehler
-- [ ] Freigabe durch Daniel, dann Push
+- [x] Freigabe durch Daniel, gepusht und live geprüft am 02.10.2026 (Commit f8d7bca)
 
 ## Erledigt
+
+- 02.10.2026 Lagekarte als Kartenfahrt, live auf zimmermannplatz.ad.boutique
 
 - 30.09.2026 Zahlen vereinheitlicht nach Kundenvorgabe (21 Wohneinheiten, 15 Bestand, 6 Dachgeschoss davon 2 Penthäuser, 1 Geschäftslokal, 2 bis 4 Zimmer, 50 bis 160 m²)
 - 29.09.2026 ZIMM6 als Projektentwicklung mit Logo, eigenes Impressum, Kontaktformular, Faktenabgleich
