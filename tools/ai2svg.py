@@ -182,6 +182,8 @@ def svg_text(t, fill):
 
 out = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s" class="lmap" role="img" aria-labelledby="lmapTitle">' % (f(W), f(H)),
        '<title id="lmapTitle">Lagekarte Zimmermannplatz 6 mit U6 Alser Straße, St. Anna Kinderspital, Wiener Privatklinik, AKH Wien, U6 Michelbeuern-AKH und Viktor Frankl Museum</title>',
+       # Feine Linien (1 pt) waeren am Bildschirm nur ca. 0,2 px dick und zerfielen in blasse Doppelstriche; als Haarlinie zeichnen
+       '<style>.lmap__base path[stroke-width="1"]{vector-effect:non-scaling-stroke;stroke-width:.8px}</style>',
        '<g class="lmap__base" fill="none" stroke-linecap="butt">'] + [svg_el(e) for e in base] + ['</g>']
 out += ['<g class="lmap__radius">'] + [svg_el(e) for e in radius] + ['</g>']
 out += ['<g class="lmap__notes">']

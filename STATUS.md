@@ -27,6 +27,8 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 02.10.2026 Qualitätscheck Karte: feine Linien als Haarlinie, Karte wirkt nicht mehr doppelt (lokal, wartet auf Freigabe)
+
 - 02.10.2026 Kundenfeedback: Hero "Historische Substanz. Moderne Architektur.", KPI "2-4", Damals/Heute länger historisch (Desktop angeheftet), Geschichts-Headline mit Wort-Reveal (lokal, wartet auf Freigabe)
 
 - 02.10.2026 Lagekarte aus der neuen Illustrator-Datei (größere Zeichenfläche, Hinweise außerhalb des Radius, rundum ohne Verlauf), live geprüft
