@@ -12,7 +12,7 @@ Stand 02.10.2026
 - [x] Statics-Entwürfe Batch 1 (sechs Exekutionen) plus Story-Formate und Saison-Beispiele, veröffentlicht als Seite https://claude.ai/artifact/B8L4fVH8YcTzbZtcWumZja
 - [x] Doku: `docs/META-AD-KONZEPT.md`, Kundendokument `docs/creative-strategy-zimmermannplatz6.md`
 - [x] `.vercelignore`: docs, tools und interne Markdown-Dateien werden nicht mehr ausgeliefert (wirkt nach dem Push)
-- [ ] Freigabe Daniel, danach Push
+- [x] Freigabe Daniel, gepusht am 02.10.2026
 
 ## Vorherige Etappe: Lagekarte als Kartenfahrt
 
@@ -27,10 +27,10 @@ Stand 02.10.2026
 
 ## Erledigt
 
-- 02.10.2026 Karten-Feedback: Verlauf links entfernt, Hinweise aus dem Radius in die Ecken, Pfeil parallel zur Alser Straße, Pin 6 Viktor Frankl Museum (lokal, wartet auf Freigabe)
+- 02.10.2026 Karten-Feedback: Verlauf links entfernt, Hinweise aus dem Radius in die Ecken, Pfeil parallel zur Alser Straße, Pin 6 Viktor Frankl Museum, nach Freigabe live geprüft
 - 02.10.2026 Figma-Datei mit allen Anzeigen und Texten: https://www.figma.com/design/ya9oWiNi55qLiPHUJc1Min/Zimmermannplatz, Texte zusätzlich in `docs/ANZEIGENTEXTE.txt`
 
-- 02.10.2026 Meta-Ad-Konzept (lokal committet, wartet auf Freigabe)
+- 02.10.2026 Meta-Ad-Konzept, gepusht (docs per .vercelignore nicht öffentlich, live geprüft: 404)
 
 - 02.10.2026 Lagekarte als Kartenfahrt, live auf zimmermannplatz.ad.boutique
 
