@@ -257,6 +257,7 @@ Routing: Leads in Echtzeit in den Anfragen-Admin der Website (Quelle "meta") und
 - Auf jedem Motiv: Z6-Zeichen oder Wortmarke, "Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate", bei Visualisierungen "Visualisierung, unverbindlich"
 - Farben laut Marke: Ivory, Greige, Bronze, Deep Olive als Fläche und Schrift, Terracotta nur als Akzent
 - Sechs Exekutions-Familien, damit die Anzeigen eines Batches sich klar unterscheiden: Rendering, Typo-Fakten, Lagekarte, Material, Damals und Heute, Wohnungs-Steckbrief
+- Bearbeitbare Anzeigen liegen in Figma: https://www.figma.com/design/ya9oWiNi55qLiPHUJc1Min/Zimmermannplatz (Seiten Feed, Stories, Saison, Texte, Assets; Farben als Variablen, Textstile mit Didact Gothic als Ersatz für ITC Avant Garde Gothic Pro). Alle Texte zum Kopieren in `docs/ANZEIGENTEXTE.txt`
 - Material heute: drei Außen-Renderings (nur 1111 px breit, für Statics reicht es knapp), Materialbilder, historische Aufnahme, Lagekarte. Für die Kapitel 3 bis 6 fehlen Innen-Renderings (Fischgrät im Bestand, Penthouse mit Terrasse), Renderings in mindestens 2400 px, Baustellen- und später Wohnungsfotos
 
 ## 10. Kampagnenstruktur und Steuerung
@@ -295,7 +296,7 @@ Routing: Leads in Echtzeit in den Anfragen-Admin der Website (Quelle "meta") und
 - HWB und fGEE vom Bauträger
 - Kaufrahmen-Spannen und Freigabe der Formularfragen durch den Vertrieb
 - Anbindung der Meta-Leads an den Anfragen-Admin (Etappe nach Freigabe), Test-Lead
-- Gehzeit zum AKH, Verkehrsmittel für "5 Minuten in den 1. Bezirk", Straßenbahn 43 und 44 (Pin 6) bestätigen
+- Gehzeit zum AKH und Verkehrsmittel für "5 Minuten in den 1. Bezirk" bestätigen
 - Baustart-Termin für den Auftakt, später Termin der Dachgleiche und der Übergabe
 - Drei Fragen an den Vertrieb für die Zielgruppen: Wer hat bisher angefragt? Wer fragt an und kauft nicht, und warum? Was ist der häufigste Auslöser?
 - Innen-Renderings und größere Renderings für Kapitel 3; Baustellenfotos ab Kapitel 5

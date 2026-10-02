@@ -27,6 +27,9 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 02.10.2026 Karten-Feedback: Verlauf links entfernt, Hinweise aus dem Radius in die Ecken, Pfeil parallel zur Alser Straße, Pin 6 Viktor Frankl Museum (lokal, wartet auf Freigabe)
+- 02.10.2026 Figma-Datei mit allen Anzeigen und Texten: https://www.figma.com/design/ya9oWiNi55qLiPHUJc1Min/Zimmermannplatz, Texte zusätzlich in `docs/ANZEIGENTEXTE.txt`
+
 - 02.10.2026 Meta-Ad-Konzept (lokal committet, wartet auf Freigabe)
 
 - 02.10.2026 Lagekarte als Kartenfahrt, live auf zimmermannplatz.ad.boutique
@@ -40,7 +43,6 @@ Stand 02.10.2026
 
 - Meta: Werbebudget bestätigen (Empfehlung 1.000 € pro Monat zusätzlich zum Honorar, Angebot nennt ab 500 €), Werbekonto mit Seite und Instagram durch ZIMM 6, HWB und fGEE, Kaufrahmen-Spannen für das Formular, Vertriebsinterview mit drei Fragen
 
-- Legende der Karte bestätigen, vor allem Pin 6 (Haltestelle Lange Gasse rund 580 m, Briefing nennt 350 m)
 - Impressum: Geschäftsführung, Unternehmensgegenstand, E-Mail ZIMM6, Gewerbe und Behörde, Medieninhaber
 - Datenschutzerklärung
 - Offizielle Negativ- und Vektorversion des ZIMM6-Logos

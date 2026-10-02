@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2550 3300" class="lmap" role="img" aria-labelledby="lmapTitle">
-<title id="lmapTitle">Lagekarte Zimmermannplatz 6 mit U6 Alser Straße, St. Anna Kinderspital, Wiener Privatklinik, AKH Wien, U6 Michelbeuern-AKH und Straßenbahn 43 und 44</title>
+<title id="lmapTitle">Lagekarte Zimmermannplatz 6 mit U6 Alser Straße, St. Anna Kinderspital, Wiener Privatklinik, AKH Wien, U6 Michelbeuern-AKH und Viktor Frankl Museum</title>
 <g class="lmap__base" fill="none" stroke-linecap="butt">
 <path d="M1838.2 0.1 L1839.7 2.2 C1833.7 17 1852.9 21.9 1858.2 5.9 L1913.7 39.6 C1904.1 57.2 1894 74.6 1883.2 91.7 C1897.9 101.1 1912.6 110.5 1927.3 119.9 L1906.1 156.4 C1895.3 149.9 1884.4 143.3 1873.4 136.7 C1850.4 122.7 1827.6 108.7 1805 94.7 C1813.1 81 1821.1 67.3 1829.2 53.6 C1824.2 50.6 1819.2 47.6 1814.3 44.6 L1765.5 125.4 C1747.1 115 1728.6 104.7 1710.1 94.4 C1729.1 62.7 1748.1 31.3 1767.2 0.1 L1838.2 0.1 Z" fill="none" stroke="#45442d" stroke-width="1"/>
 <path d="M1606 0.1 C1605.2 2.4 1603.2 4.3 1600.7 6.2 L1585.4 17.9 L1518.8 58.5 L1459.1 87.2 L1253.5 167.8 L1179.5 203.3 L1101.5 248 L1011.1 309.1 L956.5 352.3 L902.7 400.2 L865.1 439.4 C835.1 473 804.4 509.3 773.4 548.2 C742.5 586.9 714.2 624.8 688.2 661.5 L685.3 660.8 C677.2 660.9 678.6 658.2 682.4 652.6 C677.1 649.8 686.8 635.4 692.3 637.4 C693.5 634.5 694.8 633.7 696.2 634.9 C696.6 634.9 697.3 634.8 697.9 634.4 C699.5 633.6 700.1 632 700.3 631.6 L702.3 629.8 C704 626.1 706.2 622.6 709 619.3 L707.6 618 C706.9 617.5 706.3 616.9 706.3 616.3 C705.8 612.2 731.1 579.4 735.7 573.5 C783.8 512.3 838.8 448.9 893.6 393.7 L898.2 394.4 C897.2 393.3 895.9 391.3 896.6 390.6 C952.5 335.4 1028.9 280.8 1095.6 238.9 C1198.7 174.1 1314.9 129.5 1429.6 87.2 C1435.2 85.1 1440.9 83 1446.5 80.9 C1495 59.2 1541.5 34.9 1585.3 4 L1595.8 0.1 L1606 0.1 Z" fill="none" stroke="#45442d" stroke-width="1"/>
@@ -249,7 +249,7 @@
 <path d="M2469.1 1692.2 C2469.1 2472.5 1836.5 3105.1 1056.1 3105.1 C275.8 3105.1 -356.8 2472.5 -356.8 1692.2 C-356.8 911.9 275.8 279.3 1056.1 279.3 C1836.5 279.3 2469.1 911.9 2469.1 1692.2 Z" fill="none" stroke="#b86a55" stroke-width="3" stroke-linecap="round" stroke-dasharray="12 12"/>
 </g>
 <g class="lmap__notes">
-<g class="lmap__note" data-note="a2"><g class="lmap__notebody">
+<g class="lmap__note" data-note="a2" transform="translate(-131.4 -87.3)"><g class="lmap__notebody">
 <path d="M279 293.3 L268.8 293.4 C267 286.2 267 279.5 269.5 273.4 C269.5 273.4 275.9 273.4 280.9 269.9 C285.8 266.5 291.4 248.6 294.9 247.4 C298.5 246.3 326.9 246.7 329.6 247.2 C332.3 247.8 339.7 262.1 346.1 265.9 C352.4 269.7 371.2 268.5 371.2 268.5 C379 275.2 382.6 283 379.5 292.6 L369.1 292.7" fill="none" stroke="#b86a55" stroke-width="3"/>
 <path d="M343.8 292.9 L304.6 293.1" fill="none" stroke="#b86a55" stroke-width="3"/>
 <path d="M337.1 268.1 L328.2 254.3 L310.5 254.4 L310.7 268.5 L337.1 268.1 Z" fill="none" stroke="#b86a55" stroke-width="3"/>
@@ -262,7 +262,7 @@
 <text x="267.9" y="356.6" font-size="30" font-weight="500" fill="#b86a55">ca. 10 min</text>
 <text x="267.9" y="392.6" font-size="30" font-weight="500" fill="#b86a55">zur A2</text>
 </g></g>
-<g class="lmap__note" data-note="city"><g class="lmap__notebody">
+<g class="lmap__note" data-note="city" transform="translate(193.1 125.6)"><g class="lmap__notebody">
 <path d="M1999.6 2947.8 C1998.5 2950.6 1995.2 2951.9 1992.2 2950.7 C1989.3 2949.6 1987.8 2946.5 1989 2943.7 C1990.2 2940.9 1993.5 2939.6 1996.4 2940.8 C1999.3 2941.9 2000.8 2945 1999.6 2947.8 Z" fill="none" stroke="#b86a55" stroke-width="3"/>
 <path d="M2031.3 2947.5 C2030.2 2950.3 2026.8 2951.6 2023.9 2950.4 C2021 2949.3 2019.5 2946.1 2020.7 2943.4 C2021.8 2940.6 2025.1 2939.3 2028.1 2940.4 C2031 2941.6 2032.5 2944.7 2031.3 2947.5 Z" fill="none" stroke="#b86a55" stroke-width="3"/>
 <path d="M2039.1 2960.7 L1981 2959.7 C1979.6 2959.7 1978.5 2958.6 1978.5 2957.3 L1978.6 2888.1 C1978.6 2886.8 1979.7 2885.7 1981.1 2885.7 L2039.2 2886.7 C2040.6 2886.7 2041.7 2887.8 2041.7 2889.1 L2041.6 2958.4 C2041.6 2959.7 2040.5 2960.7 2039.1 2960.7 Z" fill="none" stroke="#b86a55" stroke-width="3"/>
@@ -280,9 +280,9 @@
 <path d="M2091.4 2956.6 L2104.5 2929.4" fill="none" stroke="#b86a55" stroke-width="3"/>
 <path d="M2093.9 2916.2 L2109 2916.8" fill="none" stroke="#b86a55" stroke-width="3"/>
 <path d="M2135.4 2916.3 L2147.3 2912" fill="none" stroke="#b86a55" stroke-width="3"/>
-<path d="M2080 2832.8 L2251.1 2911.4" fill="none" stroke="#b86a55" stroke-width="3"/>
-<path d="M2250.5 2911.4 L2236.2 2911.7" fill="none" stroke="#b86a55" stroke-width="3"/>
-<path d="M2241.1 2899.3 L2250.6 2910.8" fill="none" stroke="#b86a55" stroke-width="3"/>
+<path d="M2080 2832.8 L2266.9 2855.3" fill="none" stroke="#b86a55" stroke-width="3"/>
+<path d="M2266.4 2855.5 L2252.8 2860.1" fill="none" stroke="#b86a55" stroke-width="3"/>
+<path d="M2253.7 2846.8 L2266.3 2854.9" fill="none" stroke="#b86a55" stroke-width="3"/>
 <text x="1976.5" y="3032.4" font-size="30" font-weight="500" fill="#b86a55">ca. 5 min in den</text>
 <text x="1976.5" y="3068.4" font-size="30" font-weight="500" fill="#b86a55">1. Bezirk</text>
 </g></g>

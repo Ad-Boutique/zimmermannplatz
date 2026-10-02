@@ -14,6 +14,7 @@ Award-fähiger One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien. Die 
 | 29.09.2026 | Kontaktformular zusätzlich zum Finder, ZIMM6 als Projektentwicklung |
 | 30.09.2026 | Verbindliche Kundenzahlen auf allen Seiten |
 | 02.10.2026 | Lagekarte als Kartenfahrt statt Radius-Grafik |
+| 02.10.2026 | Karte: Pin 6 ist das Viktor Frankl Museum; Hinweise außerhalb des Radius, kein Verlauf links |
 | 02.10.2026 | Meta-Kampagne nach Creative Strategy: drei Zielgruppen, 14-Tage-Kadenz, ein Test zur Zeit, Ziel-CPA 20 € |
 
 ## Etappen

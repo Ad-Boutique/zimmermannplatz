@@ -1,0 +1,219 @@
+ZIMMERMANNPLATZ 6, META-ANZEIGENTEXTE
+Stand 02.10.2026, ad.boutique. Quelle: docs/META-AD-KONZEPT.md. Figma: https://www.figma.com/design/ya9oWiNi55qLiPHUJc1Min/Zimmermannplatz
+Platzhalter in eckigen Klammern vor dem Start ersetzen. HWB und fGEE sind Pflicht in jeder Anzeige (Energieausweis-Vorlage-Gesetz).
+
+########################################
+BATCH 1, EIGENNUTZER, MASTER M1
+Anzeigengruppe: Z6_Test_01_Eigennutzer_Master
+Anzeigen: Eigennutzer_BOF_Master_AltbauU6_Static_V1 bis V6 (Feed 4:5, Story 9:16 für V1 und V6)
+Formular: Unterlagen
+########################################
+
+Primärtext:
+Eigentum am Zimmermannplatz, 1090 Wien: sanierte Altbauwohnungen mit 2 bis 4 Zimmern und Fischgrätparkett, 220 m zur U6 Alser Straße. Wärmepumpe, Fußboden-Heizung und -Kühlung, neuer Lift. Fertigstellung Q1 2028. Grundrisse und Preise im Formular anfordern. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+Altbauwohnung kaufen im Alsergrund
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Angebot anfordern
+
+########################################
+PENTHOUSE, MASTER M4
+Anzeigengruppe: Z6_Test_03_Penthouse_Master
+Anzeige: Penthouse_BOF_Master_NurZwei_Static_V1
+Formular: Penthouse
+########################################
+
+Primärtext:
+Nur zwei Penthäuser am Zimmermannplatz: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 76,75 m². Lift mit Penthouse-Steuerung, KNX, Kühlung. Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+Penthouse kaufen im 9. Bezirk
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Angebot anfordern
+
+########################################
+VORSORGE, MASTER M5
+Anzeigengruppe: Z6_Test_02_Vorsorge_Master
+Anzeige: Vorsorge_BOF_Master_AKH_Static_V1
+Formular: Unterlagen
+########################################
+
+Primärtext:
+Eigentumswohnungen mit 2 Zimmern und rund 52 bis 55 m² am Zimmermannplatz, 1090 Wien. AKH, MedUni und Universität in der Nähe, 220 m zur U6. Saniertes Haus mit Wärmepumpe und Lift, Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+2-Zimmer-Eigentum beim AKH
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Angebot anfordern
+
+########################################
+WINTER, A03 ALTBAU OHNE GAS
+Anzeigengruppe: Z6_Test_04_Eigennutzer_Haus
+Anzeige: Eigennutzer_MOF_Haus_OhneGas_Static_V1
+Formular: Unterlagen
+########################################
+
+Primärtext:
+Im sanierten Gründerzeithaus am Zimmermannplatz kommt die Wärme aus einer Wärmepumpe, über den Fußboden, in jeder Wohnung. Im Sommer kühlt derselbe Boden. Altbauwohnungen mit 2 bis 4 Zimmern in 1090 Wien. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+Warmer Boden. Keine Gastherme.
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Mehr dazu
+
+########################################
+SOMMER, A11 DER BODEN KÜHLT MIT
+Anzeige: Eigennutzer_MOF_Saison_Kuehlung_Static_V1
+Einsatz: Hitzetage Juni bis August 2027
+Formular: Unterlagen
+########################################
+
+Primärtext:
+An heißen Tagen nimmt der Fußboden die Wärme auf, im Dach hilft außenliegender Sonnenschutz. Altbau- und Dachgeschosswohnungen am Zimmermannplatz, 1090 Wien. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+Der Boden kühlt mit
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Mehr dazu
+
+########################################
+JAHRESSTART, A10
+Anzeige: Eigennutzer_BOF_Saison_Jahresstart_Static_V1
+Einsatz: erste Jännerhälfte 2027
+Formular: Unterlagen
+########################################
+
+Primärtext:
+Die Wohnungen am Zimmermannplatz sind im ersten Quartal 2028 fertig. Wer jetzt entscheidet, plant den Einzug in Ruhe. Altbau und Dachgeschoss, 2 bis 4 Zimmer, 1090 Wien. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+2027 entscheiden, 2028 einziehen
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Angebot anfordern
+
+########################################
+SEMESTERSTART, A20 STUDIENPLATZ FIX
+Anzeige: Vorsorge_MOF_Saison_Studienplatz_Static_V1
+Einsatz: August bis Oktober 2027, Geo Österreich
+Formular: Unterlagen
+########################################
+
+Primärtext:
+Wenn das Studium in Wien beginnt, ist eine eigene Wohnung oft die ruhigere Lösung als jedes Semester eine neue Miete. 2 Zimmer am Zimmermannplatz, 220 m zur U6, AKH und Universität in der Nähe. HWB [x] kWh/m²a, fGEE [x].
+
+Headline:
+Studienplatz in Wien. Die Wohnung dazu.
+
+Beschreibung:
+Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate
+
+Button:
+Mehr dazu
+
+########################################
+WEITERE MASTER-BOTSCHAFTEN (noch ohne Motiv)
+########################################
+
+M2 Headline: Dachgeschoss kaufen in 1090 Wien
+M2 Primärtext: Neubauwohnungen im neuen Dach eines Gründerzeithauses am Zimmermannplatz: 2 bis 4 Zimmer mit Loggia, Balkon oder Terrasse, KNX und Kühlung. 3 Minuten zur U6. Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
+
+M3 Headline: Altbau-Eigentum ohne Gas, 1090 Wien
+M3 Primärtext: Wohnungen im sanierten Gründerzeithaus am Zimmermannplatz, versorgt über eine Wärmepumpe, alle mit Fußboden-Heizung und -Kühlung. 2 bis 4 Zimmer, 50 bis 160 m², 3 Minuten zur U6. HWB [x] kWh/m²a, fGEE [x].
+
+M6 Headline: Eigentum am Zimmermannplatz 6
+M6 Primärtext: Gründerzeithaus mit neuem Dach in 1090 Wien: Altbau- und Dachgeschosswohnungen mit 2 bis 4 Zimmern, 50 bis 160 m². Wärmepumpe, neuer Lift, Garten im Hof, 3 Minuten zur U6. HWB [x] kWh/m²a, fGEE [x].
+
+########################################
+LEAD-FORMULAR "UNTERLAGEN" (Eigennutzer und Vorsorge)
+Typ: Höheres Interesse, mit Überprüfungsschritt
+########################################
+
+Intro, Headline:
+Grundrisse und Preise zu Zimmermannplatz 6
+
+Intro, Text:
+16 verfügbare Wohnungen im sanierten Altbau und im neuen Dachgeschoss, 2 bis 4 Zimmer. Der Exklusivvertrieb sendet Ihnen Grundriss, Ausstattung und Preis und meldet sich persönlich.
+
+Frage 1: Welche Wohnung interessiert Sie?
+Altbau im Bestand / Dachgeschoss / Penthouse / Noch offen
+
+Frage 2: Wie viele Zimmer suchen Sie?
+2 / 3 / 4
+
+Frage 3: Wofür kaufen Sie?
+Zum Selbstbewohnen / Als Anlage / Für ein Familienmitglied
+
+Frage 4: Ihr ungefährer Kaufrahmen
+bis 600.000 € / 600.000 bis 1 Mio. € / 1 bis 1,5 Mio. € / über 1,5 Mio. € [Spannen mit dem Vertrieb abstimmen]
+
+Kontaktfelder:
+Vorname, Nachname, E-Mail, Telefon (Pflicht)
+
+Datenschutz:
+Link zur Datenschutzerklärung der Website [URL]
+
+Abschluss, Headline:
+Danke für Ihre Anfrage.
+
+Abschluss, Text:
+Wir senden Ihnen Grundriss, Ausstattung und Preis innerhalb eines Werktags.
+
+Abschluss, Button:
+Anrufen, +43 1 585 36 63
+
+########################################
+LEAD-FORMULAR "PENTHOUSE"
+Typ: Höheres Interesse, mit Überprüfungsschritt
+########################################
+
+Intro, Headline:
+Die zwei Penthäuser am Zimmermannplatz
+
+Intro, Text:
+Top 23 und Top 24 im 2. Dachgeschoss, 160 und 136 m², jeweils mit Terrasse und Dachterrasse. Wir senden Ihnen die Unterlagen und vereinbaren gern ein persönliches Gespräch.
+
+Frage 1: Welches Penthouse interessiert Sie?
+Top 23 / Top 24 / Beide
+
+Frage 2: Wann möchten Sie entscheiden?
+In den nächsten 3 Monaten / In 6 Monaten / Später
+
+Frage 3: Wie dürfen wir Sie kontaktieren?
+Telefon / E-Mail / Persönliches Treffen
+
+Kontaktfelder:
+Vorname, Nachname, E-Mail, Telefon (Pflicht)
+
+Datenschutz:
+Link zur Datenschutzerklärung der Website [URL]
+
+Abschluss, Text:
+Danke. Pia Estate oder Elisabeth Rohr Real Estate meldet sich persönlich innerhalb eines Werktags.
+
+Abschluss, Button:
+Anrufen, +43 660 508 36 35

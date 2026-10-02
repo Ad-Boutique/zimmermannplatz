@@ -129,6 +129,39 @@ notes = {"a2": {"els": [], "txt": []}, "city": {"els": [], "txt": []}}
 for e in icons: notes[side(center(e["bbox"])[1])]["els"].append(e)
 for t in notes_txt: notes[side(t["y"])]["txt"].append(t)
 
+# Feinschliff laut Kundenfeedback 02.10.2026:
+# 1) Pfeil zum 1. Bezirk parallel zur Strassenbahnlinie (Alser Strasse, unterste breite Strasse) drehen
+# 2) Hinweise in die Kartenecken setzen, damit die Schrift am Bildschirm (vergroessert) nicht auf dem Radius liegt
+import re
+def nums(d): v = [float(x) for x in re.findall(r"-?\d+\.?\d*", d)]; return list(zip(v[0::2], v[1::2]))
+streets = [e for e in base if e["stroke"] == BRONZE and 10 <= e["lw"] <= 20]
+tram = max((e for e in streets if e["bbox"][3] > H * 0.75), key=lambda e: e["bbox"][2])
+tp_ = [p for p in nums(tram["d"]) if p[0] > W * 0.5]
+mx = sum(p[0] for p in tp_) / len(tp_); my = sum(p[1] for p in tp_) / len(tp_)
+tram_angle = math.atan(sum((x-mx)*(y-my) for x, y in tp_) / sum((x-mx)**2 for x, y in tp_))
+line_re = re.compile(r"^M(-?[\d.]+) (-?[\d.]+) L(-?[\d.]+) (-?[\d.]+)$")
+lines = [(e, [float(v) for v in line_re.match(e["d"]).groups()]) for e in notes["city"]["els"] if line_re.match(e["d"])]
+shaft, sv = max(lines, key=lambda l: math.hypot(l[1][2]-l[1][0], l[1][3]-l[1][1]))
+(ax, ay), (bx, by) = sorted([(sv[0], sv[1]), (sv[2], sv[3])])
+tip = (bx, by)
+heads = [e for e, v in lines if e is not shaft and min(math.hypot(v[0]-tip[0], v[1]-tip[1]), math.hypot(v[2]-tip[0], v[3]-tip[1])) < 20]
+rot = tram_angle - math.atan2(by - ay, bx - ax)
+def turn(x, y):
+    c, s_ = math.cos(rot), math.sin(rot)
+    return ax + (x-ax)*c - (y-ay)*s_, ay + (x-ax)*s_ + (y-ay)*c
+for e in [shaft] + heads:
+    p = [turn(*q) for q in nums(e["d"])]
+    e["d"] = "M%s %s L%s %s" % (f(p[0][0]), f(p[0][1]), f(p[1][0]), f(p[1][1]))
+    e["bbox"] = [min(q[0] for q in p), min(q[1] for q in p), max(q[0] for q in p), max(q[1] for q in p)]
+def note_box(k):
+    b = [1e9, 1e9, -1e9, -1e9]
+    for e in notes[k]["els"]: b = [min(b[0], e["bbox"][0]), min(b[1], e["bbox"][1]), max(b[2], e["bbox"][2]), max(b[3], e["bbox"][3])]
+    for t in notes[k]["txt"]: b = [min(b[0], t["x"]), min(b[1], t["y"] - t["size"]*0.8), max(b[2], t["x"] + len(t["t"])*t["size"]*0.52), max(b[3], t["y"] + t["size"]*0.2)]
+    return b
+# Ziel: A2 oben links an die Ecke, 1. Bezirk unten rechts an die Ecke (Abstand zur Maskenkante am Rand)
+ba, bc = note_box("a2"), note_box("city")
+note_shift = {"a2": (90 - ba[0], 120 - ba[1]), "city": (W - 90 - bc[2], H - 100 - bc[3])}
+
 def svg_el(e, extra=""):
     attrs = ['d="%s"' % e["d"], 'fill="%s"' % e["fill"]]
     if e["stroke"] != "none":
@@ -141,12 +174,13 @@ def svg_text(t, fill):
     return '<text x="%s" y="%s" font-size="%s" font-weight="%d" fill="%s">%s</text>' % (f(t["x"]), f(t["y"]), f(t["size"]), t["weight"], fill, t["t"])
 
 out = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s" class="lmap" role="img" aria-labelledby="lmapTitle">' % (f(W), f(H)),
-       '<title id="lmapTitle">Lagekarte Zimmermannplatz 6 mit U6 Alser Straße, St. Anna Kinderspital, Wiener Privatklinik, AKH Wien, U6 Michelbeuern-AKH und Straßenbahn 43 und 44</title>',
+       '<title id="lmapTitle">Lagekarte Zimmermannplatz 6 mit U6 Alser Straße, St. Anna Kinderspital, Wiener Privatklinik, AKH Wien, U6 Michelbeuern-AKH und Viktor Frankl Museum</title>',
        '<g class="lmap__base" fill="none" stroke-linecap="butt">'] + [svg_el(e) for e in base] + ['</g>']
 out += ['<g class="lmap__radius">'] + [svg_el(e) for e in radius] + ['</g>']
 out += ['<g class="lmap__notes">']
 for k in ("a2", "city"):
-    out += ['<g class="lmap__note" data-note="%s"><g class="lmap__notebody">' % k] + [svg_el(e) for e in notes[k]["els"]] + [svg_text(t, TERRA) for t in notes[k]["txt"]] + ['</g></g>']
+    dx, dy = note_shift[k]
+    out += ['<g class="lmap__note" data-note="%s" transform="translate(%s %s)"><g class="lmap__notebody">' % (k, f(dx), f(dy))] + [svg_el(e) for e in notes[k]["els"]] + [svg_text(t, TERRA) for t in notes[k]["txt"]] + ['</g></g>']
 out += ['</g>', '<g class="lmap__pins">']
 for g in pin_groups:
     b = g["el"]["bbox"]; tip = ((b[0]+b[2]) / 2, b[3])
@@ -164,3 +198,4 @@ report = {"size_kb": round(len(svg.encode()) / 1024, 1), "base": len(base), "rad
           "home_bbox": [round(v) for v in hb], "home_ivory": len(home_ivory), "colors": sorted({e["fill"] for e in elements} | {e["stroke"] for e in elements})}
 report["ivory_in_base"] = [[round(v) for v in e["bbox"]] for e in base if e["fill"] == IVORY]
 print(json.dumps(report, ensure_ascii=False))
+print(json.dumps({"tram_angle_deg": round(math.degrees(tram_angle), 2), "arrow_rotation_deg": round(math.degrees(rot), 2), "heads": len(heads), "note_shift": {k: [round(v) for v in s] for k, s in note_shift.items()}}))

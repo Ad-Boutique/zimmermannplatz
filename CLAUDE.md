@@ -14,6 +14,7 @@
 - Gestaltung: keine Eyebrows, keine Pills, keine Gedankenstriche, keine Trennpunkte, Hairlines statt Boxen, Sie-Form.
 - Farben: Ivory, Greige, Bronze, Terracotta nur als Akzent, Deep Olive als Schrift und dunkle Fläche.
 - Lagekarte nie von Hand in der SVG ändern, sondern die Illustrator-Datei neu übersetzen: `python3 tools/ai2svg.py <datei.ai> assets/img/lage-karte.svg`.
+- Anzeigen bearbeitbar in Figma (Datei Zimmermannplatz, ya9oWiNi55qLiPHUJc1Min), Texte in `docs/ANZEIGENTEXTE.txt`; bei Textänderungen beides gleich halten.
 - Anzeigentexte: immer kaufen oder Eigentum nennen, Exklusivvertrieb auf jedem Motiv, HWB und fGEE im Primärtext, keine Renditen oder Mietpreise, keine Links außer Datenschutz im Formular.
 - `docs/`, `tools/` und interne Markdown-Dateien sind per `.vercelignore` vom Deployment ausgenommen.
 - Nach Änderungen an CSS oder JS die `?v=`-Parameter in den HTML-Dateien hochzählen.
