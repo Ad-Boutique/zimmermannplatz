@@ -14,6 +14,7 @@ Award-fähiger One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien. Die 
 | 29.09.2026 | Kontaktformular zusätzlich zum Finder, ZIMM6 als Projektentwicklung |
 | 30.09.2026 | Verbindliche Kundenzahlen auf allen Seiten |
 | 02.10.2026 | Lagekarte als Kartenfahrt statt Radius-Grafik |
+| 02.10.2026 | Meta-Kampagne nach Creative Strategy: drei Zielgruppen, 14-Tage-Kadenz, ein Test zur Zeit, Ziel-CPA 20 € |
 
 ## Etappen
 
@@ -26,6 +27,8 @@ Award-fähiger One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien. Die 
 | 5 | ZIMM6, Impressum, Kontakt, Zahlen | erledigt, live |
 | 6 | Lagekarte als Kartenfahrt | erledigt, live |
 | 7 | Launch der Vollsite | offen: Renderings, Datenschutz, Impressum vollständig |
+| 8 | Meta-Ad-Konzept | erledigt, wartet auf Freigabe |
+| 9 | Meta-Leads in den Admin, Batch 1 reinzeichnen, Kampagnenstart | offen: Werbekonto, Budget, HWB und fGEE, Datenschutz |
 
 ## Geparkt
 
