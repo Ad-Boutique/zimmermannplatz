@@ -76,12 +76,14 @@ async function allRealties(diag) {
 /* Pruefung der aelteren Justimmo REST API (Basic Auth mit api-Benutzer), falls die Zugangsdaten dafuer ausgestellt sind */
 async function legacyCheck(diag) {
   const auth = "Basic " + Buffer.from(ID() + ":" + SECRET()).toString("base64");
-  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/list?limit=2"]) {
+  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/objekt/ids", "https://api.justimmo.at/rest/v1/projekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/ids", "https://api.justimmo.at/rest/v1/objekt/list?limit=2&culture=de"]) {
     const r = await fetch(path, { headers: { Authorization: auth } });
     const text = await r.text();
     /* nur Elementnamen, keine Werte: die Antwort kann Preise und Kontakte enthalten */
     const tags = r.ok ? [...new Set((text.match(/<([a-zA-Z_][\w.-]*)/g) || []).map((t) => t.slice(1)))].slice(0, 120) : null;
-    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), status: r.status, contentType: r.headers.get("content-type"), tags, error: r.ok ? null : text.slice(0, 200) });
+    const count = (text.match(/<count>(\d+)<\/count>/) || [])[1] || null;
+    const ids = path.includes("/ids") && r.ok ? text.replace(/\s+/g, " ").slice(0, 300) : null; /* nur Kennungen */
+    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), status: r.status, contentType: r.headers.get("content-type"), count, ids, tags, error: r.ok ? null : text.slice(0, 200) });
   }
 }
 
