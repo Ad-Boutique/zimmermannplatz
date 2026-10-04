@@ -73,9 +73,22 @@ async function allRealties(diag) {
   return items;
 }
 
+/* Zugangsdaten je Konto: Standard = Zimmermannplatz 6. Voruebergehend auch Am Waldrain (JUSTIMMO_WALDRAIN_CLIENT_ID/_SECRET),
+   nur um den zweiten Zugang zu pruefen; die echte Waldrain-Anbindung gehoert ins Waldrain-Repo. */
+function creds(account) {
+  if (account === "waldrain") return { id: (process.env.JUSTIMMO_WALDRAIN_CLIENT_ID || "").trim(), secret: (process.env.JUSTIMMO_WALDRAIN_CLIENT_SECRET || "").trim() };
+  return { id: ID(), secret: SECRET() };
+}
+
 /* Pruefung der aelteren Justimmo REST API (Basic Auth mit api-Benutzer), falls die Zugangsdaten dafuer ausgestellt sind */
-async function legacyCheck(diag) {
-  const auth = "Basic " + Buffer.from(ID() + ":" + SECRET()).toString("base64");
+async function legacyCheck(diag, account) {
+  const c = creds(account);
+  if (!c.id || !c.secret) { diag.push({ step: "legacy", account: account || "zimmermannplatz", error: "Zugangsdaten fehlen in Vercel" }); return; }
+  const auth = "Basic " + Buffer.from(c.id + ":" + c.secret).toString("base64");
+  /* OAuth-Business-API mit denselben Daten, nur Status */
+  const ob = new URLSearchParams({ grant_type: "client_credentials", client_id: c.id, client_secret: c.secret });
+  const o = await fetch(AUTH_URL, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" }, body: ob });
+  diag.push({ step: "oauth", account: account || "zimmermannplatz", status: o.status });
   for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/objekt/ids", "https://api.justimmo.at/rest/v1/projekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/ids", "https://api.justimmo.at/rest/v1/objekt/list?limit=2&culture=de"]) {
     const r = await fetch(path, { headers: { Authorization: auth } });
     const text = await r.text();
@@ -83,8 +96,8 @@ async function legacyCheck(diag) {
     const tags = r.ok ? [...new Set((text.match(/<([a-zA-Z_][\w.-]*)/g) || []).map((t) => t.slice(1)))].slice(0, 120) : null;
     const count = (text.match(/<count>(\d+)<\/count>/) || [])[1] || null;
     const ids = path.includes("/ids") && r.ok ? text.replace(/\s+/g, " ").slice(0, 300) : null; /* nur Kennungen */
-    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), status: r.status, contentType: r.headers.get("content-type"), count, ids, tags, error: r.ok ? null : text.slice(0, 200) });
+    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), account: account || "zimmermannplatz", status: r.status, contentType: r.headers.get("content-type"), count, ids, tags, error: r.ok ? null : text.slice(0, 200) });
   }
 }
 
-module.exports = { configured, getToken, apiGet, allRealties, legacyCheck, ID };
+module.exports = { configured, getToken, apiGet, allRealties, legacyCheck, ID, creds };

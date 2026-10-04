@@ -37,6 +37,11 @@ module.exports = async (req, res) => {
   if (!configured()) return json(res, 503, { ok: false, error: "Justimmo nicht konfiguriert" });
   const probe = req.query && (req.query.probe === "1" || req.query.probe === "true");
   const diag = [];
+  if (probe && req.query.account === "waldrain") {
+    res.setHeader("Cache-Control", "no-store");
+    try { await legacyCheck(diag, "waldrain"); } catch (x) { diag.push({ step: "legacy", error: x.message }); }
+    return json(res, 200, { ok: true, account: "waldrain", diag });
+  }
   try {
     const items = await allRealties(diag);
     if (probe) {
