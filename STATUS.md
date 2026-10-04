@@ -27,7 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
-- 04.10.2026 "Made by Ad Boutique" im Footer, Abschnitt "Website und Marketing" im Impressum mit Links und JSON-LD, Impressum indexierbar (lokal, wartet auf Freigabe)
+- 04.10.2026 "Made by Ad Boutique" im Footer, Abschnitt "Website und Marketing" im Impressum mit Links und JSON-LD, Impressum indexierbar, live geprüft
 
 - 02.10.2026 Qualitätscheck Karte: Ursache für die doppelte Karte war die Reihenfolge der angehefteten Sektionen (Karte startete um die Länge des Damals-Heute-Pins zu früh), behoben; zusätzlich feine Linien als Haarlinie, live geprüft in 1612 x 1151
 
