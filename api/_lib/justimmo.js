@@ -89,14 +89,22 @@ async function legacyCheck(diag, account) {
   const ob = new URLSearchParams({ grant_type: "client_credentials", client_id: c.id, client_secret: c.secret });
   const o = await fetch(AUTH_URL, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" }, body: ob });
   diag.push({ step: "oauth", account: account || "zimmermannplatz", status: o.status });
-  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/objekt/ids", "https://api.justimmo.at/rest/v1/projekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/ids", "https://api.justimmo.at/rest/v1/objekt/list?limit=2&culture=de"]) {
+  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/objekt/ids", "https://api.justimmo.at/rest/v1/projekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/ids", "https://api.justimmo.at/rest/v1/objekt/list?limit=100&culture=de&alleProjektObjekte=1"]) {
     const r = await fetch(path, { headers: { Authorization: auth } });
     const text = await r.text();
     /* nur Elementnamen, keine Werte: die Antwort kann Preise und Kontakte enthalten */
     const tags = r.ok ? [...new Set((text.match(/<([a-zA-Z_][\w.-]*)/g) || []).map((t) => t.slice(1)))].slice(0, 120) : null;
     const count = (text.match(/<count>(\d+)<\/count>/) || [])[1] || null;
     const ids = path.includes("/ids") && r.ok ? text.replace(/\s+/g, " ").slice(0, 300) : null; /* nur Kennungen */
-    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), account: account || "zimmermannplatz", status: r.status, contentType: r.headers.get("content-type"), count, ids, tags, error: r.ok ? null : text.slice(0, 200) });
+    /* Je Objekt nur unkritische Felder (keine Preise, keine Kontakte) */
+    const pick = (b, n) => ((b.match(new RegExp("<" + n + "(?:\\s[^>]*)?>([\\s\\S]*?)</" + n + ">")) || [])[1] || "").replace(/<!\[CDATA\[|\]\]>/g, "").trim();
+    const objekte = r.ok ? (text.match(/<immobilie(?:\s[^>]*)?>[\s\S]*?<\/immobilie>/g) || []).slice(0, 40).map((b) => {
+      b = b.replace(/<kontaktperson>[\s\S]*?<\/kontaktperson>/g, "").replace(/<anhaenge>[\s\S]*?<\/anhaenge>/g, "");
+      return { id: pick(b, "objektnr_intern") || pick(b, "id"), nr: pick(b, "objektnr_extern") || pick(b, "objektnummer"), titel: pick(b, "objekttitel").slice(0, 80),
+        projekt_id: pick(b, "projekt_id"), status: pick(b, "status"), status_id: pick(b, "status_id"), tuer: pick(b, "tuernummer"), etage: pick(b, "etage"),
+        strasse: pick(b, "strasse"), wohnflaeche: pick(b, "wohnflaeche"), zimmer: pick(b, "anzahl_zimmer") };
+    }) : null;
+    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), account: account || "zimmermannplatz", status: r.status, count, ids, objekte: objekte && objekte.length ? objekte : undefined, tags: objekte && objekte.length ? undefined : tags, error: r.ok ? null : text.slice(0, 200) });
   }
 }
 
