@@ -49,6 +49,8 @@ Stand 02.10.2026
 
 ## Offen beim Owner
 
+- Justimmo: Objekte für den API-Benutzer freigeben lassen (REST API liefert 0 Objekte), klären ob REST API oder Business API (dann OAuth-Client und Tenant-ID nötig); Passwort nach Einrichtung erneuern lassen
+
 - Meta: Werbebudget bestätigen (Empfehlung 1.000 € pro Monat zusätzlich zum Honorar, Angebot nennt ab 500 €), Werbekonto mit Seite und Instagram durch ZIMM 6, HWB und fGEE, Kaufrahmen-Spannen für das Formular, Vertriebsinterview mit drei Fragen
 
 - Impressum: Geschäftsführung, Unternehmensgegenstand, E-Mail ZIMM6, Gewerbe und Behörde, Medieninhaber

@@ -57,3 +57,10 @@ Gespeichert werden Name, E-Mail, Telefon, Nachricht, Zustimmung, Zeitpunkt, IP-A
 ## Ohne Datenbank testen
 
 Ohne `DATABASE_URL` antwortet `POST /api/inquiry` mit Fehler 500 und die Formulare zeigen "gerade nicht möglich". Login funktioniert bereits, die Liste meldet dann "Datenbankfehler".
+
+## Justimmo (Wohnungsdaten, im Aufbau seit 04.10.2026)
+
+- Ziel: Der Wohnungsfinder zeigt Status und Daten der Einheiten direkt aus Justimmo (Account Elisabeth Rohr Real Estate). Zugang von Justimmo eigens für Zimmermannplatz 6 eingerichtet und auf dessen Objekte beschränkt (Ticket 1080761, Kilian Burns).
+- Env in Vercel (Production und Preview, Typ Secret): `JUSTIMMO_CLIENT_ID` (Benutzername api-…), `JUSTIMMO_CLIENT_SECRET` (Passwort). Optional `JUSTIMMO_TENANT_ID`, `JUSTIMMO_SCOPE` für die Business API.
+- Code: `api/_lib/justimmo.js` (Anmeldung, Abruf, Rate Limit 10 Anfragen pro Sekunde beachtet), `api/units.js` (Ausgabe für den Finder, 5 Minuten CDN-Cache, ohne Preise und Kontakte). `GET /api/units?probe=1` ist vorübergehend eine Feldübersicht ohne vertrauliche Werte und wird nach der Zuordnung entfernt.
+- Stand 04.10.2026: Die gelieferten Zugangsdaten gelten für die ältere REST API (`https://api.justimmo.at/rest/v1/`, Basic Auth, XML), nicht für die OAuth-Business-API (dort `invalid_client`). Anmeldung an der REST API funktioniert, `objekt/list`, `objekt/ids`, `projekt/list` und `projekt/ids` liefern aber 0 Einträge. Die Objekte müssen in Justimmo für diesen API-Benutzer freigegeben werden. Der Finder nutzt bis dahin weiter `assets/js/units.js`.
