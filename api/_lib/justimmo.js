@@ -7,14 +7,19 @@ const API_URL = "https://api.justimmo.at/v1";
 
 let cached = null; /* { token, exp } pro warmer Function-Instanz */
 
+const ID = () => (process.env.JUSTIMMO_CLIENT_ID || "").trim();
+const SECRET = () => (process.env.JUSTIMMO_CLIENT_SECRET || "").trim();
 function configured() {
-  return Boolean(process.env.JUSTIMMO_CLIENT_ID && process.env.JUSTIMMO_CLIENT_SECRET);
+  return Boolean(ID() && SECRET());
 }
 
-async function requestToken(grantType) {
-  const body = new URLSearchParams({ grant_type: grantType, client_id: process.env.JUSTIMMO_CLIENT_ID, client_secret: process.env.JUSTIMMO_CLIENT_SECRET });
-  if (process.env.JUSTIMMO_SCOPE) body.set("scope", process.env.JUSTIMMO_SCOPE);
-  const r = await fetch(AUTH_URL, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" }, body });
+async function requestToken(grantType, basic) {
+  const body = new URLSearchParams({ grant_type: grantType });
+  const headers = { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" };
+  if (basic) headers.Authorization = "Basic " + Buffer.from(ID() + ":" + SECRET()).toString("base64");
+  else { body.set("client_id", ID()); body.set("client_secret", SECRET()); }
+  if (process.env.JUSTIMMO_SCOPE) body.set("scope", process.env.JUSTIMMO_SCOPE.trim());
+  const r = await fetch(AUTH_URL, { method: "POST", headers, body });
   const text = await r.text();
   let data = {}; try { data = JSON.parse(text); } catch (e) { /* kein JSON */ }
   return { status: r.status, data, text: text.slice(0, 300) };
@@ -24,9 +29,9 @@ async function requestToken(grantType) {
 async function getToken(diag) {
   if (cached && cached.exp > Date.now() + 30000) return cached.token;
   let last = null;
-  for (const grant of ["client_credentials", "clientCredentials"]) {
-    const t = await requestToken(grant);
-    if (diag) diag.push({ step: "token", grant, status: t.status, error: t.data.error || null, hint: t.data.error_description || t.data.message || (t.status >= 400 ? t.text : null) });
+  for (const [grant, basic] of [["client_credentials", false], ["client_credentials", true]]) {
+    const t = await requestToken(grant, basic);
+    if (diag) diag.push({ step: "token", grant, basic, status: t.status, error: t.data.error || null, hint: t.data.error_description || t.data.message || (t.status >= 400 ? t.text : null) });
     if (t.status === 200 && t.data.access_token) {
       cached = { token: t.data.access_token, exp: Date.now() + (Number(t.data.expires_in) || 300) * 1000 };
       return cached.token;
@@ -68,4 +73,16 @@ async function allRealties(diag) {
   return items;
 }
 
-module.exports = { configured, getToken, apiGet, allRealties };
+/* Pruefung der aelteren Justimmo REST API (Basic Auth mit api-Benutzer), falls die Zugangsdaten dafuer ausgestellt sind */
+async function legacyCheck(diag) {
+  const auth = "Basic " + Buffer.from(ID() + ":" + SECRET()).toString("base64");
+  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/list?limit=2"]) {
+    const r = await fetch(path, { headers: { Authorization: auth } });
+    const text = await r.text();
+    /* nur Elementnamen, keine Werte: die Antwort kann Preise und Kontakte enthalten */
+    const tags = r.ok ? [...new Set((text.match(/<([a-zA-Z_][\w.-]*)/g) || []).map((t) => t.slice(1)))].slice(0, 120) : null;
+    diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), status: r.status, contentType: r.headers.get("content-type"), tags, error: r.ok ? null : text.slice(0, 200) });
+  }
+}
+
+module.exports = { configured, getToken, apiGet, allRealties, legacyCheck, ID };

@@ -6,7 +6,7 @@
    zeigt, welche Felder Justimmo liefert, als Pfade mit Typen. Werte nur fuer unkritische Felder
    (Kennungen, Status, Geschoss, Tuer, Zimmer, Flaechen, Typ), nie fuer Preise, Personen oder Texte. */
 const { json } = require("./_lib/http");
-const { configured, allRealties } = require("./_lib/justimmo");
+const { configured, allRealties, legacyCheck, ID } = require("./_lib/justimmo");
 
 const SECRET_KEYS = /price|cost|fund|fee|commission|provision|contact|vendor|owner|seller|buyer|broker|employee|user|person|note|description|text|remark|email|phone|mobile|fax|iban|bank|land_?register|link|url|file|image|picture|document/i;
 const SHOW_VALUES = /(^|\.)(id|.*_id|catalogue_number|plain|display|number|door|door_number|stair|staircase|floor.*|top|unit.*|status.*|realty_status|marketing_type|type.*|subtype.*|title|name|project.*|parent.*|rooms|bathrooms|toilets|area|areas|.*_area|count|updated_at|created_at|zip|city|street|house_number|availability.*|available.*|reserved.*|sold.*)$/i;
@@ -56,6 +56,7 @@ module.exports = async (req, res) => {
     return json(res, 200, { ok: true, source: "justimmo", count: units.length, units });
   } catch (e) {
     res.setHeader("Cache-Control", "no-store");
+    if (probe) { try { await legacyCheck(diag); } catch (x) { diag.push({ step: "legacy", error: x.message }); } diag.push({ step: "id-format", length: ID().length, prefix: ID().slice(0, 4) }); }
     return json(res, e.status || 500, { ok: false, error: e.message, detail: probe ? e.detail || null : undefined, diag: probe ? diag : undefined });
   }
 };
