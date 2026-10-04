@@ -89,7 +89,7 @@ async function legacyCheck(diag, account) {
   const ob = new URLSearchParams({ grant_type: "client_credentials", client_id: c.id, client_secret: c.secret });
   const o = await fetch(AUTH_URL, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" }, body: ob });
   diag.push({ step: "oauth", account: account || "zimmermannplatz", status: o.status });
-  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/objekt/ids", "https://api.justimmo.at/rest/v1/projekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/ids", "https://api.justimmo.at/rest/v1/objekt/list?limit=100&culture=de&alleProjektObjekte=1"]) {
+  for (const path of ["https://api.justimmo.at/rest/v1/objekt/list?limit=2", "https://api.justimmo.at/rest/v1/objekt/ids", "https://api.justimmo.at/rest/v1/projekt/list?limit=2", "https://api.justimmo.at/rest/v1/projekt/ids", "https://api.justimmo.at/rest/v1/objekt/list?limit=100&culture=de&alleProjektObjekte=1", ...[4, 5, 6, 7, 8, 11].map((sid) => "https://api.justimmo.at/rest/v1/objekt/list?limit=100&alleProjektObjekte=1&filter%5Bstatus_id%5D=" + sid), "https://api.justimmo.at/rest/v1/objekt/list?limit=100&alleProjektObjekte=1&filter%5Bzip_code%5D=1090"]) {
     const r = await fetch(path, { headers: { Authorization: auth } });
     const text = await r.text();
     /* nur Elementnamen, keine Werte: die Antwort kann Preise und Kontakte enthalten */
