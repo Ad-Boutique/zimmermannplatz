@@ -27,6 +27,8 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 05.10.2026 Justimmo aktiv: neuer Zugang liefert Top 19 bis 24, `/api/units` live (unsichtbar), Finder lädt Status und Preis daraus, Rückfall auf Listendaten; getestet mit echten, simulierten (reserviert, verkauft) und fehlenden Daten (Finder lokal, wartet auf Freigabe)
+
 - 05.10.2026 Textfreigabe des Kunden (Word, rote Änderungen) auf der Homepage umgesetzt: 15 Wohneinheiten und 9 Altbauwohnungen, neue Texte in Projekt, Geschichte, Lage, Wohnen, Laufband, Grafik; Tippfehler behutsam korrigiert, live
 
 - 05.10.2026 Wohnungsfinder mit Verkaufsplänen (Bild, Vollbild, PDF, Gesamt-PDF) und Kaufpreisen wie bei Am Waldrain; alle Flächen und Preise neu aus Preisliste 30.09.2026 und Verkaufsplänen 01.10.2026, Top 12 entfällt, Geschäftslokal Top 1 neu; Sicherheitscheck `tools/check-units.py` (287 Prüfungen, 0 Fehler) und Browser-Check (240 Prüfungen, 0 Fehler); Ad-Texte, Figma und Konzeptseite angepasst, live geprüft (128 Live-Prüfungen ohne Fehler)
@@ -55,7 +57,7 @@ Stand 02.10.2026
 
 - Coming-soon-Seite: noch 21 Wohneinheiten und 15 Altbauwohnungen; an die neuen Zahlen anpassen? Kennzahl Wohnen "9 Bestand": war "Generalrenovierung" als Beschriftung gemeint?
 
-- Justimmo: Objekte für den API-Benutzer freigeben lassen (REST API liefert 0 Objekte), klären ob REST API oder Business API (dann OAuth-Client und Tenant-ID nötig); Passwort nach Einrichtung erneuern lassen
+- Justimmo: Bestandswohnungen und Geschäftslokal für den API-Benutzer freigeben und Türnummern pflegen lassen; alten Zugang api-128974 deaktivieren lassen
 
 - Meta: Werbebudget bestätigen (Empfehlung 1.000 € pro Monat zusätzlich zum Honorar, Angebot nennt ab 500 €), Werbekonto mit Seite und Instagram durch ZIMM 6, HWB und fGEE, Kaufrahmen-Spannen für das Formular, Vertriebsinterview mit drei Fragen
 

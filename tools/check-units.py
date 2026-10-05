@@ -84,6 +84,12 @@ for top, u in units.items():
     ok(h.replace("/", " / ") in t or h in t.replace(" ", "") or ("0 - " + h) in t, "Top %s Raumhöhe %s nicht im Plan" % (top, u["height"]))
 
 ok(os.path.exists(os.path.join(ROOT, "assets/plaene/zimmermannplatz-6-verkaufsplaene-gesamt.pdf")), "Gesamt-PDF fehlt")
+# Flaechen-Tabelle der Justimmo-Zuordnung (api/units.js) muss mit dem Finder uebereinstimmen
+api = open(os.path.join(ROOT, "api/units.js"), encoding="utf-8").read()
+fl = dict((k, float(v)) for k, v in re.findall(r'"([\d+]+)":\s*([\d.]+)', api[api.find("const FLAECHE"):api.find("const STATUS")]))
+ok(set(fl) == set(units), "api/units.js FLAECHE: Einheiten weichen ab %s" % sorted(set(fl) ^ set(units)))
+for top, u in units.items():
+    ok(abs(fl.get(top, -1) - u["area"]) < 0.005, "api/units.js FLAECHE Top %s %s statt %s" % (top, fl.get(top), u["area"]))
 print("Prüfungen: %d, Fehler: %d" % (checks, len(errors)))
 for e in errors: print("  FEHLER", e)
 sys.exit(1 if errors else 0)

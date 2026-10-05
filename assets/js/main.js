@@ -406,7 +406,7 @@
         d.innerHTML = `<td colspan="8"><div class="detail__inner">
           <button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>
           <div class="detail__facts">
-            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>${isShop(u) ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Raumhöhe</dt><dd>${u.height}</dd><dt>Typ</dt><dd>${u.kind}</dd><dt>Kaufpreis</dt><dd>${showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
+            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>${isShop(u) ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Raumhöhe</dt><dd>${u.height}</dd><dt>Typ</dt><dd>${u.kind}</dd><dt>Kaufpreis</dt><dd>${u.status === "verkauft" ? "verkauft" : showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
             <div class="detail__actions">
               ${u.status === "verkauft" ? "" : `<a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a>`}
               <a class="textlink" href="${planPdf(u)}" download>Verkaufsplan als PDF</a>
@@ -420,7 +420,9 @@
       }
     });
     const avail = units.filter((u) => u.status !== "verkauft").length;
-    result.innerHTML = `<b>${list.length}</b> von ${avail} verfügbaren Einheiten`;
+    result.innerHTML = list.length === units.length && avail === units.length
+      ? `<b>${avail}</b> von ${units.length} verfügbaren Einheiten`
+      : `<b>${list.length}</b> ${list.length === 1 ? "Einheit" : "Einheiten"} angezeigt, ${avail} von ${units.length} verfügbar`;
     const sum = list.reduce((s, u) => s + u.area, 0);
     sumEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "Einheit" : "Einheiten"}, ${m2(sum)} m² Nutzfläche` : "";
     if (hasGsap) ScrollTrigger.refresh();
@@ -463,6 +465,30 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePlan(); });
   }
   render();
+
+  /* Status und Kaufpreise aus Justimmo (api/units). Nur Einheiten, die Justimmo liefert und deren Flaeche stimmt,
+     werden ueberschrieben; alle anderen behalten die geprueften Listendaten. Faellt die Schnittstelle aus, bleibt alles wie es ist. */
+  const srcEl = $("#unitsSource");
+  (function liveUnits() {
+    const base = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
+    const ctrl = window.AbortController ? new AbortController() : null;
+    if (ctrl) setTimeout(() => ctrl.abort(), 6000);
+    fetch(base + "api/units", ctrl ? { signal: ctrl.signal } : {})
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || !d.ok || !d.units) return;
+        let n = 0;
+        units.forEach((u) => {
+          const j = d.units[u.top];
+          if (!j || !statusLabel[j.status]) return;
+          u.status = j.status; u.price = j.price; n++;
+        });
+        if (!n) return;
+        if (srcEl) srcEl.textContent = `Status und Kaufpreise von ${n} Einheiten tagesaktuell aus dem Vertriebssystem, übrige laut Preisliste vom 30.09.2026. Flächen laut Verkaufsplänen vom 01.10.2026, vorbehaltlich Ausführung`;
+        render();
+      })
+      .catch(() => {});
+  })();
 
   /* ---------- Inquiry modal ---------- */
   const API_BASE = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
