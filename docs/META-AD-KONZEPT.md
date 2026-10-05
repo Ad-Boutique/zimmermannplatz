@@ -4,9 +4,9 @@ Lead-Formular und Statics, Abverkauf von 15 verfügbaren Wohnungen, November 202
 
 ## 1. Ausgangslage und Ziel
 
-Gründerzeit-Eckhaus am Zimmermannplatz, 1090 Wien Alsergrund. 21 Wohneinheiten: 15 Altbauwohnungen im Bestand und 6 Neubauwohnungen im Dachgeschoss, davon 2 Penthäuser, zusätzlich 1 Geschäftslokal. 2 bis 4 Zimmer, 50 bis 160 m². Baustart Q4 2026, Fertigstellung Q1 2028. Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate, Projektentwicklung ZIMM 6.
+Gründerzeit-Eckhaus am Zimmermannplatz, 1090 Wien Alsergrund. 15 Wohneinheiten: 9 Altbauwohnungen im Bestand (generalsaniert) und 6 Neubauwohnungen im Dachgeschoss, davon 2 Penthäuser, zusätzlich 1 Geschäftslokal. 2 bis 4 Zimmer, 50 bis 160 m². Baustart Q4 2026, Fertigstellung Q1 2028. Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate, Projektentwicklung ZIMM 6.
 
-Im Verkauf sind 16 Wohnungen: 9 sanierte Altbauwohnungen (Top 2, 4, 5, 6, 7, 8, 10+11, 14+15, 17), 4 Wohnungen im 1. Dachgeschoss (Top 19 bis 22) und 2 Penthäuser im 2. Dachgeschoss (Top 23 und 24). 5 Bestandswohnungen sind unbefristet vermietet und nicht im Verkauf. Deshalb nie "15 sanierte Wohnungen" schreiben.
+Im Verkauf sind 15 Wohnungen und das Geschäftslokal: 9 sanierte Altbauwohnungen (Top 2, 4, 5, 6, 7, 8, 10+11, 14+15, 17), 4 Wohnungen im 1. Dachgeschoss (Top 19 bis 22) und 2 Penthäuser im 2. Dachgeschoss (Top 23 und 24). 5 weitere Bestandswohnungen sind unbefristet vermietet und nicht im Verkauf; sie zählen seit der Textfreigabe vom 05.10.2026 nicht mehr zu den Wohneinheiten.
 
 Ziel: 15 Wohnungen in 18 Monaten, also knapp ein Verkauf pro Monat. Das Geschäftslokal läuft nicht über diese Kampagne (anderer Käufer, anderer Weg, siehe Warteliste).
 

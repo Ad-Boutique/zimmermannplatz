@@ -27,6 +27,8 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 05.10.2026 Textfreigabe des Kunden (Word, rote Änderungen) auf der Homepage umgesetzt: 15 Wohneinheiten und 9 Altbauwohnungen, neue Texte in Projekt, Geschichte, Lage, Wohnen, Laufband, Grafik; Tippfehler behutsam korrigiert (lokal, wartet auf Freigabe)
+
 - 05.10.2026 Wohnungsfinder mit Verkaufsplänen (Bild, Vollbild, PDF, Gesamt-PDF) und Kaufpreisen wie bei Am Waldrain; alle Flächen und Preise neu aus Preisliste 30.09.2026 und Verkaufsplänen 01.10.2026, Top 12 entfällt, Geschäftslokal Top 1 neu; Sicherheitscheck `tools/check-units.py` (287 Prüfungen, 0 Fehler) und Browser-Check (240 Prüfungen, 0 Fehler); Ad-Texte, Figma und Konzeptseite angepasst (lokal, wartet auf Freigabe)
 
 - 04.10.2026 "Made by Ad Boutique" im Footer, Abschnitt "Website und Marketing" im Impressum mit Links und JSON-LD, Impressum indexierbar, live geprüft
@@ -50,6 +52,8 @@ Stand 02.10.2026
 - 22.09.2026 Wohnungsfinder mit Topographie-Daten, Anfrage-Backend mit Admin und CSV
 
 ## Offen beim Owner
+
+- Coming-soon-Seite: noch 21 Wohneinheiten und 15 Altbauwohnungen; an die neuen Zahlen anpassen? Kennzahl Wohnen "9 Bestand": war "Generalrenovierung" als Beschriftung gemeint?
 
 - Justimmo: Objekte für den API-Benutzer freigeben lassen (REST API liefert 0 Objekte), klären ob REST API oder Business API (dann OAuth-Client und Tenant-ID nötig); Passwort nach Einrichtung erneuern lassen
 
