@@ -102,7 +102,8 @@ async function legacyCheck(diag, account) {
       b = b.replace(/<kontaktperson>[\s\S]*?<\/kontaktperson>/g, "").replace(/<anhaenge>[\s\S]*?<\/anhaenge>/g, "");
       return { id: pick(b, "objektnr_intern") || pick(b, "id"), nr: pick(b, "objektnr_extern") || pick(b, "objektnummer"), titel: pick(b, "objekttitel").slice(0, 80),
         projekt_id: pick(b, "projekt_id"), status: pick(b, "status"), status_id: pick(b, "status_id"), tuer: pick(b, "tuernummer"), etage: pick(b, "etage"),
-        strasse: pick(b, "strasse"), wohnflaeche: pick(b, "wohnflaeche"), zimmer: pick(b, "anzahl_zimmer") };
+        strasse: pick(b, "strasse"), wohnflaeche: pick(b, "wohnflaeche"), zimmer: pick(b, "anzahl_zimmer"),
+        kaufpreis: pick(b, "kaufpreis"), freiflaechen: ["balkon_terrasse_flaeche", "terrasse_flaeche", "balkons_flaeche", "loggias_flaeche", "gartenflaeche", "kellerflaeche"].map((k) => k + "=" + pick(b, k)).filter((x) => !x.endsWith("=")).join(", ") };
     }) : null;
     diag.push({ step: "legacy " + path.replace("https://api.justimmo.at", ""), account: account || "zimmermannplatz", status: r.status, count, ids, objekte: objekte && objekte.length ? objekte : undefined, tags: objekte && objekte.length ? undefined : tags, error: r.ok ? null : text.slice(0, 200) });
   }
