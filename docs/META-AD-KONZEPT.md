@@ -1,14 +1,14 @@
 # Zimmermannplatz 6: Meta-Ad-Konzept über 18 Monate
 
-Lead-Formular und Statics, Abverkauf von 16 verfügbaren Wohnungen, November 2026 bis April 2028. Stand 02.10.2026, ad.boutique. Methode: Creative Strategy Blueprint (Phase 0 bis 2, Setup-Fall). Der Betriebszustand (Personas, Backlog, Batches, Reviews) lebt in `docs/creative-strategy-zimmermannplatz6.md`.
+Lead-Formular und Statics, Abverkauf von 15 verfügbaren Wohnungen, November 2026 bis April 2028. Stand 02.10.2026, ad.boutique. Methode: Creative Strategy Blueprint (Phase 0 bis 2, Setup-Fall). Der Betriebszustand (Personas, Backlog, Batches, Reviews) lebt in `docs/creative-strategy-zimmermannplatz6.md`.
 
 ## 1. Ausgangslage und Ziel
 
 Gründerzeit-Eckhaus am Zimmermannplatz, 1090 Wien Alsergrund. 21 Wohneinheiten: 15 Altbauwohnungen im Bestand und 6 Neubauwohnungen im Dachgeschoss, davon 2 Penthäuser, zusätzlich 1 Geschäftslokal. 2 bis 4 Zimmer, 50 bis 160 m². Baustart Q4 2026, Fertigstellung Q1 2028. Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate, Projektentwicklung ZIMM 6.
 
-Im Verkauf sind 16 Wohnungen: 10 sanierte Altbauwohnungen (Top 2, 4, 5, 6, 7, 8, 10+11, 12, 14+15, 17), 4 Wohnungen im 1. Dachgeschoss (Top 19 bis 22) und 2 Penthäuser im 2. Dachgeschoss (Top 23 und 24). 5 Bestandswohnungen sind unbefristet vermietet und nicht im Verkauf. Deshalb nie "15 sanierte Wohnungen" schreiben.
+Im Verkauf sind 16 Wohnungen: 9 sanierte Altbauwohnungen (Top 2, 4, 5, 6, 7, 8, 10+11, 14+15, 17), 4 Wohnungen im 1. Dachgeschoss (Top 19 bis 22) und 2 Penthäuser im 2. Dachgeschoss (Top 23 und 24). 5 Bestandswohnungen sind unbefristet vermietet und nicht im Verkauf. Deshalb nie "15 sanierte Wohnungen" schreiben.
 
-Ziel: 16 Wohnungen in 18 Monaten, also knapp ein Verkauf pro Monat. Das Geschäftslokal läuft nicht über diese Kampagne (anderer Käufer, anderer Weg, siehe Warteliste).
+Ziel: 15 Wohnungen in 18 Monaten, also knapp ein Verkauf pro Monat. Das Geschäftslokal läuft nicht über diese Kampagne (anderer Käufer, anderer Weg, siehe Warteliste).
 
 Kanal: Meta (Facebook und Instagram), Kampagnenziel Leads mit Sofortformular, Werbemittel Statics in 4:5 für den Feed und 9:16 für Stories und Reels. Keine Links in den Anzeigen: Die Anfrage passiert im Formular, die Beratung beim Vertrieb. Der einzige Link ist der technisch vorgeschriebene zur Datenschutzerklärung im Formular.
 
@@ -19,7 +19,7 @@ Kanal: Meta (Facebook und Instagram), Kampagnenziel Leads mit Sofortformular, We
 - Substanz: Fischgrätparkett im sanierten Bestand, hohe Räume, Blick auf den Platz oder in den Garten im Hof
 - Durchstecker: Wohnungen, die den Block durchqueren, vorne der Platz, hinten der Garten
 - Neues Dach: Langdielen, großformatiges Feinsteinzeug, teils Naturstein, KNX, Splitkühlung, außenliegender Sonnenschutz, Loggia, Balkon oder Terrasse
-- Nur zwei Penthäuser: Top 23 mit 160,10 m², Terrasse 16,89 m² und Dachterrasse 76,75 m²; Top 24 mit 136,22 m², Terrasse 17,75 m² und Dachterrasse 57,89 m²; Lift mit Penthouse-Steuerung
+- Nur zwei Penthäuser: Top 23 mit 160,32 m², Terrasse 16,89 m² und Dachterrasse 78,88 m²; Top 24 mit 136,74 m², Terrasse 17,75 m² und Dachterrasse 48,41 m²; Lift mit Penthouse-Steuerung
 - Geschichte: benannt nach Georg Ritter von Zimmermann, einem Wohltäter, Wahlspruch Labore et Perseverantia
 - Allgemeingarten im Hof, Viktor-Frankl-Park und Liechtensteinpark in der Nähe, Servitenviertel mit Cafés und Geschäften
 
@@ -37,14 +37,14 @@ Kanal: Meta (Facebook und Instagram), Kampagnenziel Leads mit Sofortformular, We
 
 | Schritt | Wert | Herkunft |
 |---|---|---|
-| Verkaufsziel | 16 Wohnungen in 18 Monaten, rund 0,9 pro Monat | Wohnungsfinder, Topographie VERS-02 |
+| Verkaufsziel | 15 Wohnungen in 18 Monaten, rund 0,9 pro Monat | Wohnungsfinder, Preisliste 30.09.2026 und Verkaufspläne 01.10.2026 |
 | Abschlussquote Lead zu Kauf | 2 bis 4 %, Mitte 3 % | Annahme, nach 4 Wochen mit dem Vertrieb kalibrieren |
-| Lead-Bedarf | rund 530 Leads gesamt, rund 30 pro Monat | 16 / 0,03 / 18 |
-| Leistbarer CPL bei 1.000 € Werbebudget | rund 33 € | 1.000 / 30 |
+| Lead-Bedarf | rund 500 Leads gesamt, rund 28 pro Monat | 15 / 0,03 / 18 |
+| Leistbarer CPL bei 1.000 € Werbebudget | rund 36 € | 1.000 / 28 |
 | Erfahrungswerte ad.boutique Sofortformular | 6,97 € (Case, 489 Leads), 9,59 € Eigennutzer und 8,43 € Anleger (Fahrbachgasse, 460 Leads) | ADB-Cases im Vault |
 | Erwartung Zimmermannplatz 6 | 15 bis 30 €, weil höheres Preisniveau, kleinere Zielgruppe und Budgetfrage im Formular | Herleitung |
 | **Ziel-CPA** | **20 € je Lead** | Puffer unter dem leistbaren Wert |
-| **Break-even-CPA** | **45 € je Lead** | bei 4 % Abschluss reichen 22 Leads pro Monat, 1.000 / 22 |
+| **Break-even-CPA** | **48 € je Lead** | bei 4 % Abschluss reichen 21 Leads pro Monat, 1.000 / 21 |
 | Ziel je qualifiziertem Lead | 50 € | bei rund 40 % qualifizierten Leads, nach 4 Wochen prüfen |
 | Penthouse | bis 60 € je Lead akzeptiert | nur 2 Einheiten, hoher Wert, persönlicher Weg |
 
@@ -101,7 +101,7 @@ Die Methode erlaubt höchstens drei aktive Zielgruppen. Jede unterscheidet sich 
 
 - Milieus: Postmaterielle, Konservativ-Etablierte, ergänzend Kosmopolitische Individualisten
 - Wer: Paare und Familien, die heute oft schon im 7., 8., 9. oder 18. Bezirk im Altbau zur Miete wohnen, im Spital, an der Universität oder in der Innenstadt arbeiten und den Schritt ins Eigentum machen, ohne an den Stadtrand zu ziehen
-- Wohnungen: sanierte Altbauwohnungen mit 2 bis 4 Zimmern (Top 2, 4 bis 8, 10+11, 12, 14+15, 17) und die vier Wohnungen im 1. Dachgeschoss (Top 19 bis 22)
+- Wohnungen: sanierte Altbauwohnungen mit 2 bis 4 Zimmern (Top 2, 4 bis 8, 10+11, 14+15, 17) und die vier Wohnungen im 1. Dachgeschoss (Top 19 bis 22)
 - Auslöser: Familienzuwachs, Ende einer befristeten Miete, Eigenmittel aus Erbe oder Schenkung, ein neuer Job im AKH, die Debatte um den Gasausstieg in alten Häusern
 - Was sie am Altbau zögern lässt: Gasetagenheizung, Hitze im Sommer, kein Lift, das Risiko einer teuren Sanierung später
 - Highlights für sie: Wärmepumpe statt Gas, Fußboden-Heizung und -Kühlung, neuer Lift vom Keller bis ins Dach, Fischgrät und hohe Räume, Durchstecker mit Platz und Garten, Allgemeingarten im Hof, St. Anna Kinderspital, Parks und Schulen in Gehweite, 3 Minuten zur U6
@@ -114,10 +114,10 @@ Die Methode erlaubt höchstens drei aktive Zielgruppen. Jede unterscheidet sich 
 
 - Milieus: Performer, Konservativ-Etablierte
 - Wer: Unternehmer, leitende Ärztinnen und Ärzte, Rückkehrer nach Wien, Paare, die vom Haus in Währing oder Döbling auf eine Dachterrasse in der Stadt wechseln
-- Wohnungen: Top 23 (4 Zimmer, 160,10 m², rund 94 m² Freifläche) und Top 24 (4 Zimmer, 136,22 m², rund 76 m² Freifläche)
+- Wohnungen: Top 23 (4 Zimmer, 160,32 m², rund 96 m² Freifläche) und Top 24 (4 Zimmer, 136,74 m², rund 66 m² Freifläche)
 - Auslöser: Unternehmensverkauf oder Bonus, Kinder aus dem Haus, Wunsch nach Stadt statt Garten, Rückkehr aus dem Ausland
 - Einwände: Lage am Gürtel statt Innere Stadt, Baustelle bis 2028, Diskretion
-- Highlights für sie: nur zwei Einheiten, Dachterrasse bis 76,75 m² plus Terrasse, eigenes Geschoss über den Dächern des Alsergrunds, Lift mit Penthouse-Steuerung, KNX, Kühlung, Langdielen und Naturstein, rund 5 Minuten in den 1. Bezirk
+- Highlights für sie: nur zwei Einheiten, Dachterrasse bis 78,88 m² plus Terrasse, eigenes Geschoss über den Dächern des Alsergrunds, Lift mit Penthouse-Steuerung, KNX, Kühlung, Langdielen und Naturstein, rund 5 Minuten in den 1. Bezirk
 - Hauptbotschaft: Zwei Penthäuser über dem Alsergrund.
 - Framing: Rarität und Privatheit, Understatement statt Statusgeste. Für Performer die Technik, für Konservativ-Etablierte die Ruhe und den Blick.
 - Kaufweg: Formular "Penthouse" mit Terminwunsch, persönliches Gespräch mit dem Vertrieb, Ziel-CPA bis 60 €
@@ -127,7 +127,7 @@ Die Methode erlaubt höchstens drei aktive Zielgruppen. Jede unterscheidet sich 
 
 - Milieus: Konservativ-Etablierte, Adaptiv-Pragmatische Mitte
 - Wer: Privatanleger mit Eigenmitteln, die eine Wohnung als Vorsorge suchen, und Eltern, oft aus den Bundesländern, die für ihr Kind in Studium oder Ausbildung kaufen statt Miete zu zahlen
-- Wohnungen: 2-Zimmer-Wohnungen im Bestand (Top 4, 5, 6 mit rund 52 bis 55 m²) und Top 19 im 1. Dachgeschoss (54,02 m², Loggia)
+- Wohnungen: 2-Zimmer-Wohnungen im Bestand (Top 4, 5, 6 mit rund 53 bis 55 m²) und Top 19 im 1. Dachgeschoss (53,85 m², Loggia)
 - Auslöser: Studienplatz fix (MedAT-Ergebnisse im August, Semesterstart im Oktober), Geld, das nicht auf dem Konto liegen soll, Erbe
 - Einwände: Sanierungs- und Instandhaltungsrisiko im Altbau, Mietrecht, Abwicklung aus der Ferne
 - Highlights für sie: AKH, MedUni und Universität in der Nähe, U6 220 m, saniertes Haus mit neuer Haustechnik, Wärmepumpe, Lift, persönliche Betreuung durch den Exklusivvertrieb
@@ -153,8 +153,8 @@ Formel: Wohnung plus kaufen plus Lage plus ein Highlight oder eine Angle-Ergänz
 | M1 | Eigennutzer | Altbauwohnung kaufen im Alsergrund | Eigentum am Zimmermannplatz, 1090 Wien: sanierte Altbauwohnungen mit 2 bis 4 Zimmern und Fischgrätparkett, 220 m zur U6 Alser Straße. Wärmepumpe, Fußboden-Heizung und -Kühlung, neuer Lift. Fertigstellung Q1 2028. Grundrisse und Preise im Formular anfordern. | Straßen-Rendering |
 | M2 | Eigennutzer | Dachgeschoss kaufen in 1090 Wien | Neubauwohnungen im neuen Dach eines Gründerzeithauses am Zimmermannplatz: 2 bis 4 Zimmer mit Loggia, Balkon oder Terrasse, KNX und Kühlung. 3 Minuten zur U6. Fertigstellung Q1 2028. | Dach-Rendering |
 | M3 | Eigennutzer | Altbau-Eigentum ohne Gas, 1090 Wien | Wohnungen im sanierten Gründerzeithaus am Zimmermannplatz, versorgt über eine Wärmepumpe, alle mit Fußboden-Heizung und -Kühlung. 2 bis 4 Zimmer, 50 bis 160 m², 3 Minuten zur U6. | Typo auf Olive |
-| M4 | Penthouse | Penthouse kaufen im 9. Bezirk | Nur zwei Penthäuser am Zimmermannplatz: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 76,75 m². Lift mit Penthouse-Steuerung, KNX, Kühlung. Fertigstellung Q1 2028. | Dach-Rendering von oben |
-| M5 | Vorsorge | 2-Zimmer-Eigentum beim AKH | Eigentumswohnungen mit 2 Zimmern und rund 52 bis 55 m² am Zimmermannplatz, 1090 Wien. AKH, MedUni und Universität in der Nähe, 220 m zur U6. Saniertes Haus mit Wärmepumpe und Lift, Fertigstellung Q1 2028. | Lagekarte |
+| M4 | Penthouse | Penthouse kaufen im 9. Bezirk | Nur zwei Penthäuser am Zimmermannplatz: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 78,88 m². Lift mit Penthouse-Steuerung, KNX, Kühlung. Fertigstellung Q1 2028. | Dach-Rendering von oben |
+| M5 | Vorsorge | 2-Zimmer-Eigentum beim AKH | Eigentumswohnungen mit 2 Zimmern und rund 53 bis 55 m² am Zimmermannplatz, 1090 Wien. AKH, MedUni und Universität in der Nähe, 220 m zur U6. Saniertes Haus mit Wärmepumpe und Lift, Fertigstellung Q1 2028. | Lagekarte |
 | M6 | Eigennutzer | Eigentum am Zimmermannplatz 6 | Gründerzeithaus mit neuem Dach in 1090 Wien: Altbau- und Dachgeschosswohnungen mit 2 bis 4 Zimmern, 50 bis 160 m². Wärmepumpe, neuer Lift, Garten im Hof, 3 Minuten zur U6. | Skyline-Rendering |
 
 Für alle Master-Anzeigen: Beschreibung "Exklusivvertrieb Pia Estate und Elisabeth Rohr Real Estate", Button "Angebot anfordern", am Ende jedes Primärtexts "HWB [x] kWh/m²a, fGEE [x]".
@@ -171,7 +171,7 @@ Wichtig für die Umsetzung: Meta kennt keine Reihenfolge. Jede Anzeige muss für
 | 2 Das Haus, Jän bis Apr 2027 | Einwände gegen Altbau ausräumen, Gate 2 vorbereiten | A03 Altbau ohne Gas, A04 Lift bis ins Dach, A19 Saniert vom Keller bis zum Dach (Vorsorge), A10 Jahresstart | Winter: warmer Boden statt Gastherme; Jahresstart "2027 entscheiden, 2028 einziehen"; Ende April Gate 2 |
 | 3 Die Wohnung, Mai bis Jul 2027 | Gezielt nach Typ verkaufen, Penthäuser aktiv bewerben | A05 Durchstecker, A06 Fischgrät und hohe Räume, A13 und A16 Penthouse-Dachterrasse, A08 Familienalltag | Frühling und Frühsommer: Terrasse, Loggia, Garten im Hof |
 | 4 Der Sommer im Haus, Jul bis Sep 2027 | Komfort beweisen, Vorsorge zum Semesterstart | A11 Kühle Räume im Altbau-Sommer, A20 Studienplatz fix, Wohnung gesucht | Hitzetage: Budget um 20 % anheben; August MedAT-Ergebnisse, September Semesterstart |
-| 5 Das neue Dach, Okt bis Dez 2027 | Vertrauen durch sichtbaren Fortschritt, ehrliche Knappheit | A12 Baufortschritt und Dachgleiche [Termin prüfen], "Noch x von 16" [Zahl aus dem Finder], A09 Arbeitsweg zum AKH | Herbst; Jahresende als Entscheidungsfenster vor der Fertigstellung |
+| 5 Das neue Dach, Okt bis Dez 2027 | Vertrauen durch sichtbaren Fortschritt, ehrliche Knappheit | A12 Baufortschritt und Dachgleiche [Termin prüfen], "Noch x von 15" [Zahl aus dem Finder], A09 Arbeitsweg zum AKH | Herbst; Jahresende als Entscheidungsfenster vor der Fertigstellung |
 | 6 Ankommen, Jän bis Apr 2028 | Restwohnungen verkaufen | A23 Bezugsfertig, besichtigen Sie Ihre Wohnung, echte Fotos der fertigen Wohnungen | Jahresstart, Einzug im Frühling 2028 |
 
 Prüfpunkte: Gate 1 Mitte Dezember 2026 (nach den ersten drei Batches: welche Zielgruppe liefert die besten qualifizierten Leads?), Gate 2 Ende April 2027 (Ende der 6-monatigen Freigabe: Auswertung von Kampagne und Verkäufen mit dem Kunden, Entscheidung über die Verlängerung), danach jeweils nach sechs Monaten.
@@ -186,21 +186,21 @@ Alle Texte in Sie-Form, ohne Ausrufezeichen, ohne Superlative, ohne Gedankenstri
 | A04 | Lift bis ins Dach | Eigennutzer | Altbau mit Lift, vom Keller bis ins Dach | Ein neuer Aufzug führt im Haus am Zimmermannplatz vom Keller bis ins Dachgeschoss. Altbau mit Fischgrät und hohen Räumen, ohne Stufen bis zur Wohnungstür. 2 bis 4 Zimmer, 1090 Wien. | Straßen-Rendering, Schnitt-Grafik |
 | A05 | Durchstecker | Eigennutzer | Vorne der Platz, hinten der Garten | Einige Wohnungen am Zimmermannplatz durchqueren den Block: Licht von zwei Seiten, Ruhe auf der einen, Stadt auf der anderen. Sanierte Altbauwohnungen in 1090 Wien. | Durchstecker-Grafik der Website |
 | A06 | Fischgrät und hohe Räume | Eigennutzer | Fischgrät, hohe Räume, neue Technik | Die sanierten Altbauwohnungen behalten, was einen Altbau ausmacht, und bekommen, was ihm oft fehlt: Wärmepumpe, Fußbodenkühlung, Lift. Eigentum am Zimmermannplatz, 1090 Wien. | Materialbild Fischgrät |
-| A07 | Platz eines Wohltäters | Eigennutzer | Labore et Perseverantia | Der Zimmermannplatz trägt den Namen eines Wohltäters, sein Wahlspruch heißt durch Arbeit und Ausdauer. Genau so wird das Haus saniert und weitergebaut. 16 Eigentumswohnungen in 1090 Wien. | Damals und Heute |
+| A07 | Platz eines Wohltäters | Eigennutzer | Labore et Perseverantia | Der Zimmermannplatz trägt den Namen eines Wohltäters, sein Wahlspruch heißt durch Arbeit und Ausdauer. Genau so wird das Haus saniert und weitergebaut. 15 Eigentumswohnungen in 1090 Wien. | Damals und Heute |
 | A08 | Familienalltag | Eigennutzer | Kinderspital, Park und Schule ums Eck | St. Anna Kinderspital, Viktor-Frankl-Park und Liechtensteinpark, Schulen in Gehweite. Familienwohnungen mit 3 und 4 Zimmern im sanierten Altbau am Zimmermannplatz. | Lagekarte |
 | A09 | Arbeitsweg zum AKH | Eigennutzer | Zu Fuß zum AKH | Wer im AKH oder an der MedUni arbeitet, geht von hier zu Fuß [Gehzeit prüfen]. Eigentumswohnungen mit 2 bis 4 Zimmern am Zimmermannplatz, 1090 Wien. | Lagekarte mit AKH-Pin |
 | A10 | Jahresstart | Eigennutzer | 2027 entscheiden, 2028 einziehen | Die Wohnungen am Zimmermannplatz sind im ersten Quartal 2028 fertig. Wer jetzt entscheidet, plant den Einzug in Ruhe. Altbau und Dachgeschoss, 2 bis 4 Zimmer, 1090 Wien. | Skyline-Rendering |
 | A11 | Kühle Räume im Sommer | Eigennutzer | Der Boden kühlt mit | An heißen Tagen nimmt der Fußboden die Wärme auf, im Dach hilft außenliegender Sonnenschutz. Altbau- und Dachgeschosswohnungen am Zimmermannplatz, 1090 Wien. | Terrassen-Detail |
-| A12 | Baufortschritt | alle | Das neue Dach wächst | Am Zimmermannplatz entsteht das neue Dachgeschoss [Baufortschritt prüfen]. Noch x von 16 Wohnungen verfügbar, Fertigstellung Q1 2028. | echtes Baustellenfoto |
-| A13 | Nur zwei Penthäuser | Penthouse | Zwei Penthäuser über dem Alsergrund | Im 2. Dachgeschoss am Zimmermannplatz entstehen genau zwei Penthäuser: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 76,75 m². | Dach-Rendering von oben |
-| A14 | Vom Haus auf die Dachterrasse | Penthouse | Der Garten zieht aufs Dach | Vom Haus mit Garten in die Stadt, ohne auf Draußen zu verzichten: rund 94 m² Terrasse und Dachterrasse bei Top 23, begrünt und verschattet. Penthouse in 1090 Wien. | Terrassen-Detail |
+| A12 | Baufortschritt | alle | Das neue Dach wächst | Am Zimmermannplatz entsteht das neue Dachgeschoss [Baufortschritt prüfen]. Noch x von 15 Wohnungen verfügbar, Fertigstellung Q1 2028. | echtes Baustellenfoto |
+| A13 | Nur zwei Penthäuser | Penthouse | Zwei Penthäuser über dem Alsergrund | Im 2. Dachgeschoss am Zimmermannplatz entstehen genau zwei Penthäuser: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 78,88 m². | Dach-Rendering von oben |
+| A14 | Vom Haus auf die Dachterrasse | Penthouse | Der Garten zieht aufs Dach | Vom Haus mit Garten in die Stadt, ohne auf Draußen zu verzichten: rund 96 m² Terrasse und Dachterrasse bei Top 23, begrünt und verschattet. Penthouse in 1090 Wien. | Terrassen-Detail |
 | A15 | Eigenes Geschoss | Penthouse | Der Lift hält nur für Sie | Der Lift fährt mit Penthouse-Steuerung direkt ins 2. Dachgeschoss, KNX steuert Licht, Beschattung und Klima. Zwei Penthäuser am Zimmermannplatz. | Dach-Rendering |
-| A16 | Frühling auf der Dachterrasse | Penthouse | Frühling 2028 auf Ihrer Dachterrasse | Wer jetzt entscheidet, plant Bepflanzung und Möbel für die eigene Dachterrasse bis 76,75 m². Zwei Penthäuser am Zimmermannplatz, Fertigstellung Q1 2028. | Dach-Rendering |
+| A16 | Frühling auf der Dachterrasse | Penthouse | Frühling 2028 auf Ihrer Dachterrasse | Wer jetzt entscheidet, plant Bepflanzung und Möbel für die eigene Dachterrasse bis 78,88 m². Zwei Penthäuser am Zimmermannplatz, Fertigstellung Q1 2028. | Dach-Rendering |
 | A17 | Innenstadt nah | Penthouse | Fünf Minuten in den 1. Bezirk | Rund fünf Minuten in die Innere Stadt [Verkehrsmittel prüfen], am Abend die eigene Dachterrasse über dem Alsergrund. Penthouse mit 4 Zimmern in 1090 Wien. | Lagekarte, Hinweis 1. Bezirk |
 | A18 | 2 Zimmer beim AKH | Vorsorge | 2-Zimmer-Eigentum beim AKH | wie M5 | Lagekarte |
 | A19 | Saniert vom Keller bis zum Dach | Vorsorge | Neue Technik in altem Haus | Das Haus am Zimmermannplatz wird vom Keller bis zum Dach saniert: Wärmepumpe, Lift, neue Allgemeinbereiche. Persönliche Betreuung durch den Exklusivvertrieb, vom ersten Gespräch bis zur Übergabe. | Straßen-Rendering |
 | A20 | Studienplatz fix | Vorsorge | Studienplatz in Wien. Die Wohnung dazu. | Wenn das Studium in Wien beginnt, ist eine eigene Wohnung oft die ruhigere Lösung als jedes Semester eine neue Miete. 2 Zimmer am Zimmermannplatz, 220 m zur U6, AKH und Universität in der Nähe. | Lagekarte, Typo |
-| A21 | Dachgeschoss für Anleger | Vorsorge | 2 Zimmer im neuen Dach, 1090 Wien | Top 19 im 1. Dachgeschoss: 2 Zimmer, 54,02 m², Loggia, KNX und Kühlung. Neubau im Gründerzeithaus am Zimmermannplatz. [mietrechtlichen Status prüfen] | Dach-Rendering |
+| A21 | Dachgeschoss für Anleger | Vorsorge | 2 Zimmer im neuen Dach, 1090 Wien | Top 19 im 1. Dachgeschoss: 2 Zimmer, 53,85 m², Loggia, KNX und Kühlung. Neubau im Gründerzeithaus am Zimmermannplatz. [mietrechtlichen Status prüfen] | Dach-Rendering |
 | A23 | Bezugsfertig | alle | Bezugsfertig am Zimmermannplatz | Die Wohnungen sind fertig. Besichtigen Sie Ihre Wohnung vor Ort, 3 Minuten von der U6. [Übergabetermin prüfen] | echtes Wohnungsfoto |
 
 ### Saisonkalender
@@ -226,7 +226,7 @@ Zwei Formulare, damit Zielgruppe und Kaufweg im Reporting getrennt bleiben. Form
 | Teil | Inhalt |
 |---|---|
 | Intro, Headline | Grundrisse und Preise zu Zimmermannplatz 6 |
-| Intro, Text | 16 verfügbare Wohnungen im sanierten Altbau und im neuen Dachgeschoss, 2 bis 4 Zimmer. Der Exklusivvertrieb sendet Ihnen Grundriss, Ausstattung und Preis und meldet sich persönlich. |
+| Intro, Text | 15 verfügbare Wohnungen im sanierten Altbau und im neuen Dachgeschoss, 2 bis 4 Zimmer. Der Exklusivvertrieb sendet Ihnen Grundriss, Ausstattung und Preis und meldet sich persönlich. |
 | Frage 1 | Welche Wohnung interessiert Sie? Altbau im Bestand, Dachgeschoss, Penthouse, noch offen |
 | Frage 2 | Wie viele Zimmer suchen Sie? 2, 3, 4 |
 | Frage 3 | Wofür kaufen Sie? Zum Selbstbewohnen, als Anlage, für ein Familienmitglied |

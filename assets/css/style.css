@@ -356,7 +356,30 @@ ul { padding: 0; list-style: none; }
 .units .chev svg { width: 12px; height: 12px; transition: transform 0.4s var(--ease); }
 .units tr.is-open .chev svg { transform: rotate(45deg); }
 .units tr.detail td { padding: 0; border-bottom: 1px solid var(--line); white-space: normal; text-align: left; }
-.detail__inner { display: grid; grid-template-columns: 1fr 1fr auto; gap: 24px; padding: 4px 0 28px; align-items: end; overflow: hidden; }
+.detail__inner { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 3vw, 48px); padding: 8px 0 32px; align-items: start; overflow: hidden; }
+.detail__plan { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--line); background: #fff; cursor: zoom-in; }
+.detail__plan img { display: block; width: 100%; height: auto; }
+.detail__zoom { position: absolute; right: 12px; bottom: 12px; background: var(--olive); color: var(--ivory); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 12px; transition: background 0.3s var(--ease); }
+.detail__plan:hover .detail__zoom, .detail__plan:focus-visible .detail__zoom { background: var(--terra); }
+.detail__facts { display: grid; gap: 28px; align-content: start; }
+.detail__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 26px; }
+.units td.price { font-variant-numeric: tabular-nums; }
+.finder__plans { margin-top: 18px; font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.finder__plans span { color: var(--ink-soft); font-size: 0.78rem; }
+/* Verkaufsplan im Vollbild */
+.planbox { position: fixed; inset: 0; z-index: 95; display: flex; align-items: center; justify-content: center; padding: clamp(10px, 2vw, 28px); opacity: 0; transition: opacity 0.25s var(--ease); }
+.planbox[hidden] { display: none; }
+.planbox.is-open { opacity: 1; }
+.planbox__backdrop { position: absolute; inset: 0; background: rgba(43, 42, 26, 0.72); }
+.planbox__panel { position: relative; width: min(1500px, 100%); max-height: 100%; display: flex; flex-direction: column; background: var(--ivory); }
+.planbox__bar { display: flex; align-items: center; gap: 22px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.planbox__title { font-weight: 400; font-size: 1rem; margin: 0; flex: 1; min-width: 0; }
+.planbox__close { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line-strong); }
+.planbox__close svg { width: 14px; height: 14px; transform: rotate(45deg); }
+.planbox__scroll { overflow: auto; background: #fff; flex: 1; min-height: 0; }
+.planbox__scroll img { display: block; width: 100%; height: auto; max-height: calc(100svh - 150px); object-fit: contain; cursor: zoom-in; }
+.planbox.is-zoom .planbox__scroll img { width: 2400px; max-width: none; max-height: none; cursor: zoom-out; }
+.planbox__hint { margin: 0; padding: 10px 18px; font-size: 0.72rem; color: var(--ink-soft); }
 .detail__inner dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 0.88rem; }
 .detail__inner dt { color: var(--ink-soft); }
 .detail__inner dd { margin: 0; }
@@ -489,7 +512,15 @@ body.modal-open { overflow: hidden; }
   .drift__item:nth-child(even) { margin-top: 48px; width: 44vw; height: 56vw; }
   .drift__item img { will-change: transform; }
   .drift__pattern { display: none; }
-  .units th:nth-child(5), .units td:nth-child(5) { display: none; }
+  .units th:nth-child(2), .units td:nth-child(2), .units th:nth-child(5), .units td:nth-child(5) { display: none; }
+  .units tr.detail td { display: table-cell; }
+  /* Handy: Status nur als Punkt, engere Zellen, damit Preis und Status ohne Abschneiden passen */
+  .units td { padding: 16px 8px 16px 0; font-size: 0.86rem; }
+  .units th { padding-right: 8px; }
+  .units th:nth-child(7) { font-size: 0; }
+  .units .status { font-size: 0; gap: 0; }
+  .units .status::before { width: 8px; height: 8px; }
+  .detail__actions { gap: 14px 18px; }
   .detail__inner { grid-template-columns: 1fr; }
   .field--row { grid-template-columns: 1fr; gap: 0; }
   .thennow__stage { height: 60vh; }

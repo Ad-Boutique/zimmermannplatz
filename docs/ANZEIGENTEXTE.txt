@@ -29,7 +29,7 @@ Formular: Penthouse
 ########################################
 
 Primärtext:
-Nur zwei Penthäuser am Zimmermannplatz: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 76,75 m². Lift mit Penthouse-Steuerung, KNX, Kühlung. Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
+Nur zwei Penthäuser am Zimmermannplatz: 4 Zimmer, 136 und 160 m², Terrasse und Dachterrasse bis 78,88 m². Lift mit Penthouse-Steuerung, KNX, Kühlung. Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
 
 Headline:
 Penthouse kaufen im 9. Bezirk
@@ -48,7 +48,7 @@ Formular: Unterlagen
 ########################################
 
 Primärtext:
-Eigentumswohnungen mit 2 Zimmern und rund 52 bis 55 m² am Zimmermannplatz, 1090 Wien. AKH, MedUni und Universität in der Nähe, 220 m zur U6. Saniertes Haus mit Wärmepumpe und Lift, Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
+Eigentumswohnungen mit 2 Zimmern und rund 53 bis 55 m² am Zimmermannplatz, 1090 Wien. AKH, MedUni und Universität in der Nähe, 220 m zur U6. Saniertes Haus mit Wärmepumpe und Lift, Fertigstellung Q1 2028. HWB [x] kWh/m²a, fGEE [x].
 
 Headline:
 2-Zimmer-Eigentum beim AKH
@@ -157,7 +157,7 @@ Intro, Headline:
 Grundrisse und Preise zu Zimmermannplatz 6
 
 Intro, Text:
-16 verfügbare Wohnungen im sanierten Altbau und im neuen Dachgeschoss, 2 bis 4 Zimmer. Der Exklusivvertrieb sendet Ihnen Grundriss, Ausstattung und Preis und meldet sich persönlich.
+15 verfügbare Wohnungen im sanierten Altbau und im neuen Dachgeschoss, 2 bis 4 Zimmer. Der Exklusivvertrieb sendet Ihnen Grundriss, Ausstattung und Preis und meldet sich persönlich.
 
 Frage 1: Welche Wohnung interessiert Sie?
 Altbau im Bestand / Dachgeschoss / Penthouse / Noch offen

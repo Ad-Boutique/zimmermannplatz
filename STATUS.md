@@ -27,6 +27,8 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 05.10.2026 Wohnungsfinder mit Verkaufsplänen (Bild, Vollbild, PDF, Gesamt-PDF) und Kaufpreisen wie bei Am Waldrain; alle Flächen und Preise neu aus Preisliste 30.09.2026 und Verkaufsplänen 01.10.2026, Top 12 entfällt, Geschäftslokal Top 1 neu; Sicherheitscheck `tools/check-units.py` (287 Prüfungen, 0 Fehler) und Browser-Check (240 Prüfungen, 0 Fehler); Ad-Texte, Figma und Konzeptseite angepasst (lokal, wartet auf Freigabe)
+
 - 04.10.2026 "Made by Ad Boutique" im Footer, Abschnitt "Website und Marketing" im Impressum mit Links und JSON-LD, Impressum indexierbar, live geprüft
 
 - 02.10.2026 Qualitätscheck Karte: Ursache für die doppelte Karte war die Reihenfolge der angehefteten Sektionen (Karte startete um die Länge des Damals-Heute-Pins zu früh), behoben; zusätzlich feine Linien als Haarlinie, live geprüft in 1612 x 1151
@@ -70,6 +72,8 @@ Stand 02.10.2026
 - Englische Version (KV beim Kunden)
 
 ## Lehren
+
+- Vor jedem Push am Finder `python3 tools/check-units.py` laufen lassen; Quellen liegen in `docs/quellen` und `assets/plaene`
 
 - Mehrere angeheftete Sektionen: die weiter oben liegende braucht die höhere `refreshPriority` (Damals/Heute 2, Karte 1), sonst rechnet die untere ihren Start ohne den Pin-Abstand der oberen und hängt mitten in der Zeitleiste; die Karte erschien dadurch doppelt (02.10.2026)
 - Feine 1-pt-Linien in verkleinerten SVG-Karten als Haarlinie zeichnen (`vector-effect: non-scaling-stroke`)

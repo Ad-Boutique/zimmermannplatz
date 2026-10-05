@@ -371,6 +371,13 @@
   const statusLabel = { frei: "Verfügbar", reserviert: "Reserviert", verkauft: "Verkauft" };
   const statusClass = { frei: "", reserviert: "is-reserved", verkauft: "is-sold" };
   const m2 = (n) => n.toFixed(2).replace(".", ",");
+  const eur = (n) => "€ " + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const PL = window.Z6_PLAENE || { base: "assets/plaene/zimmermannplatz-6-" };
+  const planJpg = (u) => PL.base + u.plan + ".jpg";
+  const planPdf = (u) => PL.base + u.plan + ".pdf";
+  const isShop = (u) => u.zone === "gewerbe";
+  const unitName = (u) => isShop(u) ? `Geschäftslokal, Top ${u.top}` : `Top ${u.top}`;
+  const showPrice = (u) => u.price && u.status !== "verkauft";
   const outSum = (u) => u.out.reduce((s, o) => s + o.m2, 0);
   const outShort = (u) => u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : `<span class="muted">keine</span>`;
   const topSort = (t) => parseInt(t, 10);
@@ -380,34 +387,42 @@
       && (state.zone === "all" || u.zone === state.zone)
       && (state.level === null || u.level === state.level));
     const s = state.sort;
-    list.sort((a, b) => s === "area-asc" ? a.area - b.area : s === "area-desc" ? b.area - a.area : s === "out-desc" ? outSum(b) - outSum(a) : topSort(a.top) - topSort(b.top));
+    list.sort((a, b) => s === "area-asc" ? a.area - b.area : s === "area-desc" ? b.area - a.area : s === "out-desc" ? outSum(b) - outSum(a)
+      : s === "price-asc" ? (a.price || 9e9) - (b.price || 9e9) : s === "price-desc" ? (b.price || 0) - (a.price || 0) : topSort(a.top) - topSort(b.top));
     return list;
   }
   function render() {
     const list = filtered();
     body.innerHTML = "";
-    if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="7">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
+    if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="8">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
     list.forEach((u) => {
       const tr = document.createElement("tr"); tr.className = "unit" + (state.open === u.top ? " is-open" : ""); tr.dataset.top = u.top;
-      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${u.rooms}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
+      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${isShop(u) ? "Lokal" : u.rooms}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td class="price">${showPrice(u) ? `<span class="num">${eur(u.price)}</span>` : `<span class="muted">-</span>`}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
       tr.addEventListener("click", () => toggleDetail(u.top));
       body.appendChild(tr);
       if (state.open === u.top) {
         const d = document.createElement("tr"); d.className = "detail";
         const outRows = u.out.length ? u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("") : `<dt>Freifläche</dt><dd>keine</dd>`;
-        d.innerHTML = `<td colspan="7"><div class="detail__inner">
-          <dl><dt>Wohnfläche</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Zimmer</dt><dd>${u.rooms}</dd><dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Typ</dt><dd>${u.kind}</dd></dl>
-          <p class="note"><span class="label" style="display:block;margin-bottom:6px">Raumprogramm</span>${u.program}.<br><span class="muted">Einlagerungsraum im Keller zugeteilt.</span></p>
-          <a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a></div></td>`;
+        d.innerHTML = `<td colspan="8"><div class="detail__inner">
+          <button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>
+          <div class="detail__facts">
+            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>${isShop(u) ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Raumhöhe</dt><dd>${u.height}</dd><dt>Typ</dt><dd>${u.kind}</dd><dt>Kaufpreis</dt><dd>${showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
+            <div class="detail__actions">
+              ${u.status === "verkauft" ? "" : `<a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a>`}
+              <a class="textlink" href="${planPdf(u)}" download>Verkaufsplan als PDF</a>
+            </div>
+          </div></div></td>`;
         body.appendChild(d);
         const a = $("[data-inquire]", d);
-        a.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); prefill(u); openModal(); });
+        if (a) a.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); prefill(u); openModal(); });
+        $("[data-plan]", d).addEventListener("click", (e) => { e.stopPropagation(); openPlan(u); });
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
-    result.innerHTML = `<b>${list.length}</b> von ${units.length} verfügbaren Wohnungen`;
+    const avail = units.filter((u) => u.status !== "verkauft").length;
+    result.innerHTML = `<b>${list.length}</b> von ${avail} verfügbaren Einheiten`;
     const sum = list.reduce((s, u) => s + u.area, 0);
-    sumEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "Wohnung" : "Wohnungen"}, ${m2(sum)} m² Wohnnutzfläche` : "";
+    sumEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "Einheit" : "Einheiten"}, ${m2(sum)} m² Nutzfläche` : "";
     if (hasGsap) ScrollTrigger.refresh();
   }
   function toggleDetail(top) { state.open = state.open === top ? null : top; render(); }
@@ -424,6 +439,28 @@
     $$('.seg[data-filter="rooms"] button').forEach((x) => x.classList.toggle("is-on", x.dataset.value === "all"));
     $$('.seg[data-filter="zone"] button').forEach((x) => x.classList.toggle("is-on", x.dataset.value === state.zone));
     render();
+  }
+  /* Verkaufsplan im Vollbild: Klick auf das Bild schaltet zwischen eingepasst und Originalgroesse */
+  const planbox = $("#planbox");
+  function openPlan(u) {
+    if (!planbox) return;
+    $("#planboxTitle").textContent = `Verkaufsplan ${unitName(u)}, ${u.levelName}`;
+    const img = $("#planboxImg"); img.src = planJpg(u); img.alt = `Verkaufsplan ${unitName(u)}`;
+    $("#planboxPdf").href = planPdf(u);
+    planbox.classList.remove("is-zoom");
+    planbox.hidden = false; requestAnimationFrame(() => planbox.classList.add("is-open"));
+    document.body.classList.add("modal-open"); if (lenis) lenis.stop();
+    $("#planboxClose").focus();
+  }
+  function closePlan() {
+    if (!planbox || planbox.hidden) return;
+    planbox.classList.remove("is-open"); document.body.classList.remove("modal-open"); if (lenis) lenis.start();
+    setTimeout(() => { planbox.hidden = true; }, 250);
+  }
+  if (planbox) {
+    $$("[data-planbox-close]", planbox).forEach((el) => el.addEventListener("click", closePlan));
+    $("#planboxImg").addEventListener("click", () => planbox.classList.toggle("is-zoom"));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePlan(); });
   }
   render();
 
@@ -444,11 +481,11 @@
   const modal = $("#modal"); const qForm = $("#inquiryForm"); const qMsg = $("#qFormMsg"); const qDone = $("#modalDone");
   let lastFocus = null;
   function prefill(u) {
-    $("#modalTitle").textContent = `Anfrage für Top ${u.top}`;
+    $("#modalTitle").textContent = isShop(u) ? `Anfrage für das Geschäftslokal` : `Anfrage für Top ${u.top}`;
     const outs = u.out.length ? ", " + u.out.map((o) => `${o.type} ${m2(o.m2)} m²`).join(", ") : "";
-    $("#modalFacts").textContent = `${u.levelName}, ${u.rooms} Zimmer, ${m2(u.area)} m² Wohnnutzfläche${outs}.`;
+    $("#modalFacts").textContent = isShop(u) ? `Top ${u.top}, ${u.levelName}, ${m2(u.area)} m² Nutzfläche.` : `${u.levelName}, ${u.rooms} Zimmer, ${m2(u.area)} m² Wohnnutzfläche${outs}.`;
     $("#qTop").value = u.top;
-    const ta = $("#qMsg"); ta.value = `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${m2(u.area)} m²). Bitte senden Sie mir Grundriss und Preis.`;
+    const ta = $("#qMsg"); ta.value = isShop(u) ? `Ich interessiere mich für das Geschäftslokal (Top ${u.top}, ${m2(u.area)} m²). Bitte senden Sie mir die Unterlagen.` : `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${m2(u.area)} m²). Bitte senden Sie mir die Unterlagen.`;
   }
   function openModal() {
     lastFocus = document.activeElement;

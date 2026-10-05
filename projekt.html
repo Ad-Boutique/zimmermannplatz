@@ -12,7 +12,7 @@
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/URWGothic-Demi.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=926548">
+<link rel="stylesheet" href="assets/css/style.css?v=926550">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.zimmermannplatz6.at/#site","url":"https://www.zimmermannplatz6.at/","name":"Zimmermannplatz 6","inLanguage":"de-AT","creator":{"@id":"https://www.ad.boutique/#org"},"publisher":{"@type":"Organization","name":"ZIMM 6 Immobilienentwicklungs GmbH"}},{"@type":["Organization","ProfessionalService"],"@id":"https://www.ad.boutique/#org","name":"ad.boutique","alternateName":"Ad Boutique","legalName":"Ad Boutique Agency GmbH","url":"https://www.ad.boutique/","address":{"@type":"PostalAddress","streetAddress":"Tuchlauben 13/OG 4","postalCode":"1010","addressLocality":"Wien","addressCountry":"AT"},"knowsAbout":["Performance Marketing","Webdesign","Immobilienmarketing","Meta Ads"]}]}</script>
 </head>
 <body>
@@ -316,7 +316,7 @@
   <div class="section-rule"><span class="label">05</span></div>
   <div class="finder__head">
     <h2 class="display-2" data-reveal="words">Finden Sie Ihre Wohnung.</h2>
-    <p data-reveal>Hier sehen Sie alle verfügbaren Wohnungen im sanierten Bestand und im neuen Dachgeschoss. Filtern Sie nach Zimmern und Lage im Haus, sortieren Sie nach Fläche.</p>
+    <p data-reveal>Hier sehen Sie alle verfügbaren Wohnungen im sanierten Bestand und im neuen Dachgeschoss sowie das Geschäftslokal, jeweils mit Verkaufsplan und Kaufpreis. Filtern Sie nach Zimmern und Lage im Haus, sortieren Sie nach Fläche oder Preis.</p>
   </div>
   <div class="filters" id="filters" data-reveal>
     <div class="filter">
@@ -334,6 +334,7 @@
         <button class="is-on" data-value="all">Alle</button>
         <button data-value="bestand">Bestand</button>
         <button data-value="dach">Dachgeschoss</button>
+        <button data-value="gewerbe">Geschäftslokal</button>
       </div>
     </div>
     <div class="filter">
@@ -343,20 +344,23 @@
         <option value="area-asc">Fläche aufsteigend</option>
         <option value="area-desc">Fläche absteigend</option>
         <option value="out-desc">Freifläche absteigend</option>
+        <option value="price-asc">Preis aufsteigend</option>
+        <option value="price-desc">Preis absteigend</option>
       </select>
     </div>
-    <div class="filter__result" id="result"><b>16</b> von 16 verfügbaren Wohnungen</div>
+    <div class="filter__result" id="result"><b>16</b> von 16 verfügbaren Einheiten</div>
   </div>
 
   <div class="finder__body">
     <div class="finder__list" data-reveal>
       <table class="units" id="unitsTable">
         <thead>
-          <tr><th>Top</th><th>Geschoss</th><th>Zimmer</th><th>Wohnfläche</th><th>Freifläche</th><th>Status</th><th></th></tr>
+          <tr><th>Top</th><th>Geschoss</th><th>Zimmer</th><th>Wohnfläche</th><th>Freifläche</th><th>Kaufpreis</th><th>Status</th><th></th></tr>
         </thead>
         <tbody id="unitsBody"></tbody>
       </table>
-      <div class="finder__foot"><span>Netto-Nutzflächen laut Topographie, Stand 01.09.2026, vorbehaltlich Ausführung</span><span id="unitsSum"></span></div>
+      <div class="finder__foot"><span>Flächen laut Verkaufsplänen vom 01.10.2026, Kaufpreise laut Preisliste vom 30.09.2026, vorbehaltlich Ausführung</span><span id="unitsSum"></span></div>
+      <p class="finder__plans"><a class="textlink" href="assets/plaene/zimmermannplatz-6-verkaufsplaene-gesamt.pdf" download>Alle Verkaufspläne als PDF herunterladen</a> <span>11 MB, Stand 01.10.2026</span></p>
     </div>
   </div>
 </section>
@@ -437,6 +441,19 @@
   </div>
 </div>
 
+<div class="planbox" id="planbox" hidden role="dialog" aria-modal="true" aria-labelledby="planboxTitle">
+  <div class="planbox__backdrop" data-planbox-close></div>
+  <div class="planbox__panel">
+    <div class="planbox__bar">
+      <h2 class="planbox__title" id="planboxTitle">Verkaufsplan</h2>
+      <a class="textlink" id="planboxPdf" href="#" download>PDF herunterladen</a>
+      <button type="button" class="planbox__close" id="planboxClose" data-planbox-close aria-label="Schließen"><svg><use href="#plus"/></svg></button>
+    </div>
+    <div class="planbox__scroll"><img id="planboxImg" src="" alt="" width="2400" height="1697"></div>
+    <p class="planbox__hint">Klick auf den Plan vergrößert, erneuter Klick passt ihn wieder ein.</p>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="footer__mark" aria-hidden="true"><svg viewBox="0 0 301.71 169.67" preserveAspectRatio="xMidYMid meet" style="max-height:52vh"><use href="#wordmark"/></svg></div>
   <div class="footer__grid">
@@ -455,7 +472,7 @@
 <script src="assets/js/vendor/gsap.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/vendor/lenis.min.js"></script>
-<script src="assets/js/units.js?v=926544"></script>
-<script src="assets/js/main.js?v=926546"></script>
+<script src="assets/js/units.js?v=926545"></script>
+<script src="assets/js/main.js?v=926547"></script>
 </body>
 </html>
