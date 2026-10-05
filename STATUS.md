@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 05.10.2026 Status "Demnächst" wie bei Am Waldrain: nicht aus Justimmo gelieferte Einheiten (derzeit 9 Bestand und Geschäftslokal) ausgegraut, ohne Preis und Anfrage, stehen am Ende der Liste; Zähler "6 von 16 Einheiten verfügbar, 10 demnächst"; getestet live, simuliert, Ausfall, Mobil (lokal, wartet auf Freigabe)
 - 05.10.2026 Justimmo aktiv: neuer Zugang liefert Top 19 bis 24, `/api/units` live (unsichtbar), Finder lädt Status und Preis daraus, Rückfall auf Listendaten; getestet mit echten, simulierten (reserviert, verkauft) und fehlenden Daten (Finder lokal, wartet auf Freigabe)
 
 - 05.10.2026 Textfreigabe des Kunden (Word, rote Änderungen) auf der Homepage umgesetzt: 15 Wohneinheiten und 9 Altbauwohnungen, neue Texte in Projekt, Geschichte, Lage, Wohnen, Laufband, Grafik; Tippfehler behutsam korrigiert, live

@@ -352,6 +352,12 @@ ul { padding: 0; list-style: none; }
 .units .status.is-reserved::before { background: var(--terra); }
 .units .status.is-sold { color: var(--ink-soft); }
 .units .status.is-sold::before { background: var(--greige); }
+.units .status.is-soon { color: var(--ink-soft); }
+.units .status.is-soon::before { background: transparent; border: 1px solid var(--bronze); }
+/* Demnaechst: noch nicht im Verkauf (nicht aus Justimmo), ausgegraut wie bei Am Waldrain */
+.units tr.unit.is-soon td { opacity: 0.45; filter: grayscale(1); }
+.units tr.unit.is-soon:hover td { background: transparent; }
+.detail__soon { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
 .units td.chev { width: 20px; }
 .units .chev svg { width: 12px; height: 12px; transition: transform 0.4s var(--ease); }
 .units tr.is-open .chev svg { transform: rotate(45deg); }

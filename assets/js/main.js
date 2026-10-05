@@ -368,8 +368,8 @@
   const units = window.Z6_UNITS || [];
   const body = $("#unitsBody"); const result = $("#result"); const sumEl = $("#unitsSum");
   const state = { rooms: "all", zone: "all", level: null, sort: "top", open: null };
-  const statusLabel = { frei: "Verfügbar", reserviert: "Reserviert", verkauft: "Verkauft" };
-  const statusClass = { frei: "", reserviert: "is-reserved", verkauft: "is-sold" };
+  const statusLabel = { frei: "Verfügbar", reserviert: "Reserviert", verkauft: "Verkauft", demnaechst: "Demnächst" };
+  const statusClass = { frei: "", reserviert: "is-reserved", verkauft: "is-sold", demnaechst: "is-soon" };
   const m2 = (n) => n.toFixed(2).replace(".", ",");
   const eur = (n) => "€ " + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   const PL = window.Z6_PLAENE || { base: "assets/plaene/zimmermannplatz-6-" };
@@ -377,7 +377,8 @@
   const planPdf = (u) => PL.base + u.plan + ".pdf";
   const isShop = (u) => u.zone === "gewerbe";
   const unitName = (u) => isShop(u) ? `Geschäftslokal, Top ${u.top}` : `Top ${u.top}`;
-  const showPrice = (u) => u.price && u.status !== "verkauft";
+  const showPrice = (u) => u.price && (u.status === "frei" || u.status === "reserviert");
+  const isSoon = (u) => u.status === "demnaechst";
   const outSum = (u) => u.out.reduce((s, o) => s + o.m2, 0);
   const outShort = (u) => u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : `<span class="muted">keine</span>`;
   const topSort = (t) => parseInt(t, 10);
@@ -389,6 +390,7 @@
     const s = state.sort;
     list.sort((a, b) => s === "area-asc" ? a.area - b.area : s === "area-desc" ? b.area - a.area : s === "out-desc" ? outSum(b) - outSum(a)
       : s === "price-asc" ? (a.price || 9e9) - (b.price || 9e9) : s === "price-desc" ? (b.price || 0) - (a.price || 0) : topSort(a.top) - topSort(b.top));
+    list.sort((a, b) => (isSoon(a) ? 1 : 0) - (isSoon(b) ? 1 : 0)); /* Demnaechst ans Ende, Reihenfolge sonst unveraendert */
     return list;
   }
   function render() {
@@ -396,7 +398,7 @@
     body.innerHTML = "";
     if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="8">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
     list.forEach((u) => {
-      const tr = document.createElement("tr"); tr.className = "unit" + (state.open === u.top ? " is-open" : ""); tr.dataset.top = u.top;
+      const tr = document.createElement("tr"); tr.className = "unit" + (state.open === u.top ? " is-open" : "") + (isSoon(u) ? " is-soon" : ""); tr.dataset.top = u.top;
       tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${isShop(u) ? "Lokal" : u.rooms}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td class="price">${showPrice(u) ? `<span class="num">${eur(u.price)}</span>` : `<span class="muted">-</span>`}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
       tr.addEventListener("click", () => toggleDetail(u.top));
       body.appendChild(tr);
@@ -406,9 +408,9 @@
         d.innerHTML = `<td colspan="8"><div class="detail__inner">
           <button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>
           <div class="detail__facts">
-            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>${isShop(u) ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Raumhöhe</dt><dd>${u.height}</dd><dt>Typ</dt><dd>${u.kind}</dd><dt>Kaufpreis</dt><dd>${u.status === "verkauft" ? "verkauft" : showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
+            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>${isShop(u) ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Raumhöhe</dt><dd>${u.height}</dd><dt>Typ</dt><dd>${u.kind}</dd><dt>Kaufpreis</dt><dd>${u.status === "verkauft" ? "verkauft" : isSoon(u) ? "demnächst" : showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
             <div class="detail__actions">
-              ${u.status === "verkauft" ? "" : `<a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a>`}
+              ${u.status === "verkauft" || isSoon(u) ? (isSoon(u) ? `<span class="detail__soon">Kommt demnächst in den Verkauf.</span>` : "") : `<a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a>`}
               <a class="textlink" href="${planPdf(u)}" download>Verkaufsplan als PDF</a>
             </div>
           </div></div></td>`;
@@ -419,9 +421,10 @@
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
-    const avail = units.filter((u) => u.status !== "verkauft").length;
-    result.innerHTML = list.length === units.length && avail === units.length
-      ? `<b>${avail}</b> von ${units.length} verfügbaren Einheiten`
+    const avail = units.filter((u) => u.status === "frei" || u.status === "reserviert").length;
+    const soon = units.filter(isSoon).length;
+    result.innerHTML = list.length === units.length
+      ? `<b>${avail}</b> von ${units.length} Einheiten verfügbar${soon ? `, ${soon} demnächst` : ""}`
       : `<b>${list.length}</b> ${list.length === 1 ? "Einheit" : "Einheiten"} angezeigt, ${avail} von ${units.length} verfügbar`;
     const sum = list.reduce((s, u) => s + u.area, 0);
     sumEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "Einheit" : "Einheiten"}, ${m2(sum)} m² Nutzfläche` : "";
@@ -480,11 +483,10 @@
         let n = 0;
         units.forEach((u) => {
           const j = d.units[u.top];
-          if (!j || !statusLabel[j.status]) return;
+          if (!j || !statusLabel[j.status]) { u.status = "demnaechst"; u.price = null; return; } /* nicht aus Justimmo: Demnaechst */
           u.status = j.status; u.price = j.price; n++;
         });
-        if (!n) return;
-        if (srcEl) srcEl.textContent = `Status und Kaufpreise von ${n} Einheiten tagesaktuell aus dem Vertriebssystem, übrige laut Preisliste vom 30.09.2026. Flächen laut Verkaufsplänen vom 01.10.2026, vorbehaltlich Ausführung`;
+        if (srcEl) srcEl.textContent = `Status und Kaufpreise tagesaktuell aus dem Vertriebssystem. Flächen laut Verkaufsplänen vom 01.10.2026, vorbehaltlich Ausführung`;
         render();
       })
       .catch(() => {});

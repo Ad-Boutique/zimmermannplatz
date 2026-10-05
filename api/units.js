@@ -7,10 +7,10 @@
    nicht uebernommen und unter "abweichend" gemeldet. Sobald Justimmo eine Tuernummer liefert, gilt diese.
    tools/check-units.py prueft, dass FLAECHE mit assets/js/units.js uebereinstimmt.
 
-   Status (status_id wie in Justimmo, Logik wie bei Am Waldrain, laut Daniel 05.10.2026 ohne Ausgrauen):
-     5 aktiv -> frei; 7 reserviert, 11 Vertragserrichtung -> reserviert; 8 vermittelt, 10 fremdvermittelt -> verkauft.
-     4 Entwurf, 6 inaktiv, 9 storniert und alles andere: keine Uebernahme, der Finder behaelt die Listendaten.
-   Einheiten, die Justimmo nicht liefert (derzeit Bestand und Geschaeftslokal), behalten Status und Preis aus der Preisliste.
+   Status (status_id wie in Justimmo, Logik wie bei Am Waldrain, laut Daniel 05.10.2026):
+     5 aktiv -> frei; 7 reserviert, 11 Vertragserrichtung -> reserviert; 8 vermittelt, 10 fremdvermittelt -> verkauft;
+     4 Entwurf, 6 inaktiv, 9 storniert -> demnaechst (ausgegraut, ohne Preis). Unbekannte Status werden nicht uebernommen.
+   Einheiten, die Justimmo nicht liefert (derzeit Bestand und Geschaeftslokal), stellt der Finder ebenfalls auf "demnaechst".
 
    ?diag=1 zeigt zusaetzlich die Zuordnung je Justimmo-Objekt (nur oeffentliche Werte, keine Zugangsdaten). */
 const { json } = require("./_lib/http");
@@ -19,7 +19,7 @@ const { configured, realties } = require("./_lib/justimmo");
 const NUMMER = { "1575/1664": "19", "1575/1665": "20", "1575/1666": "21", "1575/1667": "22", "1575/1668": "23", "1575/1669": "24" };
 const FLAECHE = { "1": 125.37, "2": 81.98, "4": 55.10, "5": 55.34, "6": 52.58, "7": 86.65, "8": 72.72, "10+11": 82.04, "14+15": 119.18, "17": 109.97,
   "19": 53.85, "20": 87.02, "21": 84.50, "22": 116.97, "23": 160.32, "24": 136.74 };
-const STATUS = { 5: "frei", 7: "reserviert", 11: "reserviert", 8: "verkauft", 10: "verkauft" };
+const STATUS = { 5: "frei", 7: "reserviert", 11: "reserviert", 8: "verkauft", 10: "verkauft", 4: "demnaechst", 6: "demnaechst", 9: "demnaechst" };
 
 const normTop = (s) => { const m = String(s || "").match(/\d+(?:\s*(?:\+|\/|-|&|und)\s*\d+)*/); return m ? m[0].match(/\d+/g).map(Number).join("+") : null; };
 
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
       if (diag) protokoll.push({ nummer: o.nummer, tuer: o.tuer, etage: o.etage, wohnflaeche: o.wohnflaeche, zimmer: o.zimmer, kaufpreis: o.kaufpreis, status: o.status, zuordnung: top, flaecheOk, statusWebsite: status });
       if (!top || !flaecheOk) { abweichend.push({ nummer: o.nummer, wohnflaeche: o.wohnflaeche, zuordnung: top }); continue; }
       if (!status || units[top]) continue;
-      units[top] = { status, price: status === "verkauft" ? null : (o.kaufpreis || null) };
+      units[top] = { status, price: status === "frei" || status === "reserviert" ? (o.kaufpreis || null) : null };
     }
     res.setHeader("Cache-Control", diag ? "no-store" : "public, max-age=0, s-maxage=300, stale-while-revalidate=3600");
     const out = { ok: true, source: "justimmo", stand: new Date().toISOString(), units, abweichend: abweichend.length };
