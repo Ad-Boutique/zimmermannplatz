@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 06.10.2026 Finder zeigt alle Justimmo-Einheiten ausser Mietwohnungen: Bestand und Geschäftslokal zugeordnet, alle 16 live "Verfügbar" mit Preisen aus Justimmo; neue Justimmo-Einheiten erscheinen automatisch (ohne Plan); Datenbank angebunden, Speichertest ok
 - 06.10.2026 Anfragen an Justimmo: Code live, Weiterleitung aus (Schalter), Rechte geprüft, Testanfrage Top 19 in Justimmo angelegt (ID 52579477); Befund: Datenbank und Mail in Vercel nicht angebunden, Formulare speichern derzeit nichts
 - 05.10.2026 Status "Demnächst" wie bei Am Waldrain: nicht aus Justimmo gelieferte Einheiten (derzeit 9 Bestand und Geschäftslokal) ausgegraut, ohne Preis und Anfrage, stehen am Ende der Liste; Zähler "6 von 16 Einheiten verfügbar, 10 demnächst"; getestet live, simuliert, Ausfall, Mobil; gepusht und live geprüft am 05.10.2026 (Commit 23f4cd9)
 - 05.10.2026 Justimmo aktiv: neuer Zugang liefert Top 19 bis 24, `/api/units` live (unsichtbar), Finder lädt Status und Preis daraus, Rückfall auf Listendaten; getestet mit echten, simulierten (reserviert, verkauft) und fehlenden Daten (live seit 05.10.2026)
@@ -59,9 +60,9 @@ Stand 02.10.2026
 
 - Coming-soon-Seite: noch 21 Wohneinheiten und 15 Altbauwohnungen; an die neuen Zahlen anpassen? Kennzahl Wohnen "9 Bestand": war "Generalrenovierung" als Beschriftung gemeint?
 
-- Vercel: Datenbank anlegen (Storage, Neon) und Mail-Variablen setzen (GMAIL_USER, GMAIL_APP_PASSWORD, NOTIFY_TO), Admin-Zugang prüfen
+- Vercel: Mail-Variablen (GMAIL_USER, GMAIL_APP_PASSWORD, NOTIFY_TO) und Admin-Zugang (ADMIN_USER, ADMIN_PASSWORD, SESSION_SECRET) setzen; danach Testeintrag 1 im Admin löschen
 - Justimmo: Testanfrage 52579477 (Top 19, "Test Schnittstelle") löschen lassen; Türnummern pflegen lassen; alten Zugang api-128974 deaktivieren lassen
-- Freigabe: Bestand und Lokal aus Justimmo im Finder zuordnen; Weiterleitung der Anfragen einschalten
+- Freigabe: Weiterleitung der Anfragen an Justimmo einschalten (WEITERLEITEN_AKTIV); Zimmerzahl Top 14+15 klären (Justimmo 3, Preisliste 4)
 
 - Meta: Werbebudget bestätigen (Empfehlung 1.000 € pro Monat zusätzlich zum Honorar, Angebot nennt ab 500 €), Werbekonto mit Seite und Instagram durch ZIMM 6, HWB und fGEE, Kaufrahmen-Spannen für das Formular, Vertriebsinterview mit drei Fragen
 

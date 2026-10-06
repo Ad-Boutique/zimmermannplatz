@@ -14,6 +14,7 @@ Award-fähiger One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien. Die 
 | 29.09.2026 | Kontaktformular zusätzlich zum Finder, ZIMM6 als Projektentwicklung |
 | 30.09.2026 | Verbindliche Kundenzahlen auf allen Seiten |
 | 02.10.2026 | Lagekarte als Kartenfahrt statt Radius-Grafik |
+| 06.10.2026 | Finder zeigt alles, was Justimmo liefert, ausser Mietwohnungen (Top 3, 9, 13, 16, 18 und Vermarktungsart Miete) |
 | 06.10.2026 | Alle Anfragen zuerst im eigenen Backend (Datenbank) sichern, Justimmo bekommt Finder-Anfragen zusätzlich als Objektanfrage |
 | 05.10.2026 | Vermietete Einheiten (Top 3, 9, 13, 16, 18) und Top 12 vorerst nicht im Finder |
 | 05.10.2026 | Status "Demnächst" wie bei Am Waldrain: alle Einheiten, die nicht aus Justimmo kommen (und Justimmo-Status Entwurf, inaktiv, storniert), ausgegraut, ohne Preis und ohne Anfrage; bei Justimmo-Ausfall Listenstatus (Bestand und Lokal demnächst, Dach verfügbar) |
