@@ -523,6 +523,8 @@ body.modal-open { overflow: hidden; }
   .units tr.detail td { display: table-cell; }
   /* Handy: Status nur als Punkt, engere Zellen, damit Preis und Status ohne Abschneiden passen */
   .units td { padding: 16px 8px 16px 0; font-size: 0.86rem; }
+  .units td.rooms { white-space: normal; }
+  .units td.rooms.is-shop { font-size: 0.7rem; line-height: 1.3; } /* "Geschäftslokal" bricht am weichen Trennstrich statt die Tabelle zu verbreitern */
   .units th { padding-right: 8px; }
   .units th:nth-child(7) { font-size: 0; }
   .units .status { font-size: 0; gap: 0; }

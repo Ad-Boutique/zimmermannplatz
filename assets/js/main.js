@@ -381,7 +381,7 @@
   const isSoon = (u) => u.status === "demnaechst";
   /* Einheiten nur aus Justimmo (nicht in der Preisliste) haben keinen Plan und keine Freiflaechen-Angaben: out = null */
   const outSum = (u) => (u.out || []).reduce((s, o) => s + o.m2, 0);
-  const outShort = (u) => !u.out ? `<span class="muted">-</span>` : u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : `<span class="muted">keine</span>`;
+  const outShort = (u) => !u.out ? `<span class="muted">-</span>` : u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : ""; /* keine Freiflaeche: Feld leer (Kundenwunsch 06.10.2026) */
   const topSort = (t) => parseInt(t, 10);
 
   function filtered() {
@@ -400,12 +400,12 @@
     if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="8">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
     list.forEach((u) => {
       const tr = document.createElement("tr"); tr.className = "unit" + (state.open === u.top ? " is-open" : "") + (isSoon(u) ? " is-soon" : ""); tr.dataset.top = u.top;
-      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${isShop(u) ? "Lokal" : u.rooms || "-"}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td class="price">${showPrice(u) ? `<span class="num">${eur(u.price)}</span>` : `<span class="muted">-</span>`}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
+      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td class="rooms${isShop(u) ? " is-shop" : ""}">${isShop(u) ? "Geschäfts&shy;lokal" : u.rooms || "-"}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td class="price">${showPrice(u) ? `<span class="num">${eur(u.price)}</span>` : `<span class="muted">-</span>`}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
       tr.addEventListener("click", () => toggleDetail(u.top));
       body.appendChild(tr);
       if (state.open === u.top) {
         const d = document.createElement("tr"); d.className = "detail";
-        const outRows = !u.out ? "" : u.out.length ? u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("") : `<dt>Freifläche</dt><dd>keine</dd>`;
+        const outRows = !u.out ? "" : u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("");
         d.innerHTML = `<td colspan="8"><div class="detail__inner">
           ${u.plan ? `<button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>` : `<div class="detail__plan detail__plan--none">Grundriss folgt</div>`}
           <div class="detail__facts">
