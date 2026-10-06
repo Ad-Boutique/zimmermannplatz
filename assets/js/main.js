@@ -379,8 +379,9 @@
   const unitName = (u) => isShop(u) ? `Geschäftslokal, Top ${u.top}` : `Top ${u.top}`;
   const showPrice = (u) => u.price && (u.status === "frei" || u.status === "reserviert");
   const isSoon = (u) => u.status === "demnaechst";
-  const outSum = (u) => u.out.reduce((s, o) => s + o.m2, 0);
-  const outShort = (u) => u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : `<span class="muted">keine</span>`;
+  /* Einheiten nur aus Justimmo (nicht in der Preisliste) haben keinen Plan und keine Freiflaechen-Angaben: out = null */
+  const outSum = (u) => (u.out || []).reduce((s, o) => s + o.m2, 0);
+  const outShort = (u) => !u.out ? `<span class="muted">-</span>` : u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : `<span class="muted">keine</span>`;
   const topSort = (t) => parseInt(t, 10);
 
   function filtered() {
@@ -399,25 +400,25 @@
     if (!list.length) body.innerHTML = `<tr class="empty"><td colspan="8">Keine Wohnung entspricht der Auswahl. Filter zurücksetzen oder andere Zimmerzahl wählen.</td></tr>`;
     list.forEach((u) => {
       const tr = document.createElement("tr"); tr.className = "unit" + (state.open === u.top ? " is-open" : "") + (isSoon(u) ? " is-soon" : ""); tr.dataset.top = u.top;
-      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${isShop(u) ? "Lokal" : u.rooms}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td class="price">${showPrice(u) ? `<span class="num">${eur(u.price)}</span>` : `<span class="muted">-</span>`}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
+      tr.innerHTML = `<td class="top">Top ${u.top}</td><td>${u.levelName}</td><td>${isShop(u) ? "Lokal" : u.rooms || "-"}</td><td><span class="num">${m2(u.area)}</span><span class="m2">m²</span></td><td class="out">${outShort(u)}</td><td class="price">${showPrice(u) ? `<span class="num">${eur(u.price)}</span>` : `<span class="muted">-</span>`}</td><td><span class="status ${statusClass[u.status]}">${statusLabel[u.status]}</span></td><td class="chev"><svg><use href="#plus"/></svg></td>`;
       tr.addEventListener("click", () => toggleDetail(u.top));
       body.appendChild(tr);
       if (state.open === u.top) {
         const d = document.createElement("tr"); d.className = "detail";
-        const outRows = u.out.length ? u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("") : `<dt>Freifläche</dt><dd>keine</dd>`;
+        const outRows = !u.out ? "" : u.out.length ? u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("") : `<dt>Freifläche</dt><dd>keine</dd>`;
         d.innerHTML = `<td colspan="8"><div class="detail__inner">
-          <button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>
+          ${u.plan ? `<button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>` : `<div class="detail__plan detail__plan--none">Grundriss folgt</div>`}
           <div class="detail__facts">
-            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>${isShop(u) ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd><dt>Raumhöhe</dt><dd>${u.height}</dd><dt>Typ</dt><dd>${u.kind}</dd><dt>Kaufpreis</dt><dd>${u.status === "verkauft" ? "verkauft" : isSoon(u) ? "demnächst" : showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
+            <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}${u.storage ? `<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>` : ""}${isShop(u) || !u.rooms ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd>${u.height ? `<dt>Raumhöhe</dt><dd>${u.height}</dd>` : ""}${u.kind ? `<dt>Typ</dt><dd>${u.kind}</dd>` : ""}<dt>Kaufpreis</dt><dd>${u.status === "verkauft" ? "verkauft" : isSoon(u) ? "demnächst" : showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
             <div class="detail__actions">
               ${u.status === "verkauft" || isSoon(u) ? (isSoon(u) ? `<span class="detail__soon">Kommt demnächst in den Verkauf.</span>` : "") : `<a class="btn btn--terra" href="#" data-inquire="${u.top}">Anfragen <svg class="arr"><use href="#arrow"/></svg></a>`}
-              <a class="textlink" href="${planPdf(u)}" download>Verkaufsplan als PDF</a>
+              ${u.plan ? `<a class="textlink" href="${planPdf(u)}" download>Verkaufsplan als PDF</a>` : ""}
             </div>
           </div></div></td>`;
         body.appendChild(d);
         const a = $("[data-inquire]", d);
         if (a) a.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); prefill(u); openModal(); });
-        $("[data-plan]", d).addEventListener("click", (e) => { e.stopPropagation(); openPlan(u); });
+        const pb = $("[data-plan]", d); if (pb) pb.addEventListener("click", (e) => { e.stopPropagation(); openPlan(u); });
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
@@ -486,6 +487,11 @@
           if (!j || !statusLabel[j.status]) { u.status = "demnaechst"; u.price = null; return; } /* nicht aus Justimmo: Demnaechst */
           u.status = j.status; u.price = j.price; n++;
         });
+        (d.extra || []).forEach((x) => { /* von Justimmo geliefert, nicht in der Preisliste: mit Justimmo-Daten anzeigen */
+          if (!x || !x.top || !statusLabel[x.status] || units.some((u) => u.top === String(x.top))) return;
+          units.push({ top: String(x.top), level: x.level, levelName: x.levelName || "", rooms: x.rooms, area: Number(x.area) || 0, out: null, storage: null,
+            price: x.price, height: null, zone: x.level >= 4 ? "dach" : "bestand", kind: x.level >= 4 ? "Dachgeschoss" : "Altbau", plan: null, status: x.status });
+        });
         if (srcEl) srcEl.textContent = `Status und Kaufpreise tagesaktuell aus dem Vertriebssystem. Flächen laut Verkaufsplänen vom 01.10.2026, vorbehaltlich Ausführung`;
         render();
       })
@@ -510,7 +516,7 @@
   let lastFocus = null;
   function prefill(u) {
     $("#modalTitle").textContent = isShop(u) ? `Anfrage für das Geschäftslokal` : `Anfrage für Top ${u.top}`;
-    const outs = u.out.length ? ", " + u.out.map((o) => `${o.type} ${m2(o.m2)} m²`).join(", ") : "";
+    const outs = u.out && u.out.length ? ", " + u.out.map((o) => `${o.type} ${m2(o.m2)} m²`).join(", ") : "";
     $("#modalFacts").textContent = isShop(u) ? `Top ${u.top}, ${u.levelName}, ${m2(u.area)} m² Nutzfläche.` : `${u.levelName}, ${u.rooms} Zimmer, ${m2(u.area)} m² Wohnnutzfläche${outs}.`;
     $("#qTop").value = u.top;
     const ta = $("#qMsg"); ta.value = isShop(u) ? `Ich interessiere mich für das Geschäftslokal (Top ${u.top}, ${m2(u.area)} m²). Bitte senden Sie mir die Unterlagen.` : `Ich interessiere mich für Top ${u.top} (${u.rooms} Zimmer, ${m2(u.area)} m²). Bitte senden Sie mir die Unterlagen.`;

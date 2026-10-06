@@ -33,6 +33,7 @@ function realty(block) {
     etage: tag(b, "etage"),
     status: tag(b, "status"),
     status_id: Number(tag(b, "status_id")) || null,
+    miete: /<vermarktungsart[^>]*MIETE_PACHT="(?:1|true)"/i.test(b), /* Mietangebot, kommt nicht in den Finder */
     wohnflaeche: num(tag(b, "wohnflaeche")),
     zimmer: num(tag(b, "anzahl_zimmer")),
     kaufpreis: Math.round(num(tag(b, "kaufpreis")))

@@ -8,12 +8,17 @@
    Status (status_id wie in Justimmo, Logik wie bei Am Waldrain, laut Daniel 05.10.2026):
      5 aktiv -> frei; 7 reserviert, 11 Vertragserrichtung -> reserviert; 8 vermittelt, 10 fremdvermittelt -> verkauft;
      4 Entwurf, 6 inaktiv, 9 storniert -> demnaechst (ausgegraut, ohne Preis). Unbekannte Status werden nicht uebernommen.
-   Einheiten, die Justimmo nicht liefert (derzeit Bestand und Geschaeftslokal), stellt der Finder ebenfalls auf "demnaechst".
+   Einheiten, die Justimmo nicht liefert, stellt der Finder auf "demnaechst".
+   Laut Daniel 06.10.2026 kommt alles in den Finder, was Justimmo liefert, ausser Mietwohnungen (Vermarktungsart Miete oder
+   Top 3, 9, 13, 16, 18). Objekte ohne Zuordnung zur Preisliste stehen unter "extra" mit den Justimmo-Daten (ohne Plan).
 
    ?diag=1 zeigt zusaetzlich die Zuordnung je Justimmo-Objekt (nur oeffentliche Werte, keine Zugangsdaten). */
 const { json } = require("./_lib/http");
 const { configured, realties, inquire } = require("./_lib/justimmo");
-const { NUMMER, FLAECHE, STATUS, normTop } = require("./_lib/zuordnung");
+const { NUMMER, FLAECHE, STATUS, VERMIETET, normTop } = require("./_lib/zuordnung");
+const ETAGE = [[/^EG|erdgescho/i, 0, "Erdgeschoss"], [/^1\.\s*(Etage|Stock|OG|Obergescho)/i, 1, "1. Stock"], [/^2\.\s*(Etage|Stock|OG|Obergescho)/i, 2, "2. Stock"],
+  [/^3\.\s*(Etage|Stock|OG|Obergescho)/i, 3, "3. Stock"], [/^1\.\s*DG|^1\.\s*Dach/i, 4, "1. Dachgeschoss"], [/^2\.\s*DG|^2\.\s*Dach/i, 5, "2. Dachgeschoss"]];
+const etage = (s) => { const e = ETAGE.find(([re]) => re.test(String(s || "").trim())); return e ? { level: e[1], levelName: e[2] } : { level: null, levelName: String(s || "") }; };
 
 module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); /* oeffentliche Daten, auch fuer die lokale Vorschau */
@@ -25,25 +30,33 @@ module.exports = async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     const env = { datenbank: Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL), mail: Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD && process.env.NOTIFY_TO),
       admin: Boolean(process.env.ADMIN_USER && (process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD_HASH) && (process.env.SESSION_SECRET || "").length >= 16) };
+    env.datenbankVariablen = Object.keys(process.env).filter((k) => /DATABASE|POSTGRES|NEON|^PG/i.test(k)).sort(); /* nur Namen */
     let db = null;
     if (env.datenbank) { try { const { getSql, ensureSchema } = require("./_lib/db"); await ensureSchema(); db = (await getSql()`SELECT count(*)::int AS n FROM inquiries`)[0].n; } catch (e) { db = "Fehler: " + String(e && e.message).slice(0, 160); } }
     return json(res, 200, { ok: true, env, anfragenGespeichert: db, pruefung: await inquire({ objekt_id: 0 }) });
   }
   try {
     const items = await realties();
-    const units = {}; const abweichend = []; const protokoll = [];
+    const units = {}; const abweichend = []; const protokoll = []; const extra = [];
     for (const o of items) {
       const t = normTop(o.tuer);
       const top = (t && FLAECHE[t] ? t : null) || NUMMER[o.nummer] || null;
       const flaecheOk = top ? Math.abs((FLAECHE[top] || 0) - o.wohnflaeche) < 0.005 : false;
       const status = STATUS[o.status_id] || null;
-      if (diag) protokoll.push({ oid: o.oid, nummer: o.nummer, tuer: o.tuer, etage: o.etage, wohnflaeche: o.wohnflaeche, zimmer: o.zimmer, kaufpreis: o.kaufpreis, status: o.status, zuordnung: top, flaecheOk, statusWebsite: status });
-      if (!top || !flaecheOk) { abweichend.push({ nummer: o.nummer, wohnflaeche: o.wohnflaeche, zuordnung: top }); continue; }
-      if (!status || units[top]) continue;
-      units[top] = { status, price: status === "frei" || status === "reserviert" ? (o.kaufpreis || null) : null };
+      if (diag) protokoll.push({ oid: o.oid, miete: o.miete, nummer: o.nummer, tuer: o.tuer, etage: o.etage, wohnflaeche: o.wohnflaeche, zimmer: o.zimmer, kaufpreis: o.kaufpreis, status: o.status, zuordnung: top, flaecheOk, statusWebsite: status });
+      if (o.miete || VERMIETET.includes(top) || VERMIETET.includes(t)) continue; /* Mietwohnungen nie im Finder */
+      if (top && !flaecheOk) { abweichend.push({ nummer: o.nummer, wohnflaeche: o.wohnflaeche, zuordnung: top }); continue; }
+      if (!status) continue;
+      const price = status === "frei" || status === "reserviert" ? (o.kaufpreis || null) : null;
+      if (!top) { /* von Justimmo geliefert, aber nicht in der Preisliste: trotzdem anzeigen, Daten aus Justimmo */
+        extra.push(Object.assign({ top: t || o.nummer, nummer: o.nummer, rooms: o.zimmer || null, area: o.wohnflaeche, status, price }, etage(o.etage)));
+        continue;
+      }
+      if (units[top]) continue;
+      units[top] = { status, price };
     }
     res.setHeader("Cache-Control", diag ? "no-store" : "public, max-age=0, s-maxage=300, stale-while-revalidate=3600");
-    const out = { ok: true, source: "justimmo", stand: new Date().toISOString(), units, abweichend: abweichend.length };
+    const out = { ok: true, source: "justimmo", stand: new Date().toISOString(), units, extra, abweichend: abweichend.length };
     if (diag) Object.assign(out, { gelesen: items.length, objekte: protokoll, abweichendListe: abweichend });
     return json(res, 200, out);
   } catch (e) {
