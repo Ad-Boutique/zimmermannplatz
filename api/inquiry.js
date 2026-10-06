@@ -48,6 +48,11 @@ module.exports = async (req, res) => {
     user_agent: clip(req.headers["user-agent"], 300)
   };
 
+  const isTest = typeof body.testkey === "string" && crypto.createHash("sha256").update(body.testkey).digest("hex") === TEST_HASH;
+  if (isTest && !(process.env.DATABASE_URL || process.env.POSTGRES_URL)) { /* Schnittstellentest ohne Datenbank: nur Justimmo */
+    let jm; try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
+    return json(res, 200, { ok: true, id: null, datenbank: false, justimmo: jm });
+  }
   try {
     await ensureSchema();
     const sql = getSql();
@@ -56,7 +61,6 @@ module.exports = async (req, res) => {
       RETURNING id`;
     const id = rows[0].id;
     let delivered = false;
-    const isTest = typeof body.testkey === "string" && crypto.createHash("sha256").update(body.testkey).digest("hex") === TEST_HASH;
     if (!isTest) { try { delivered = await notify(record); } catch (e) { console.error("Mailversand fehlgeschlagen", e && e.message); } }
     try { await sql`UPDATE inquiries SET mail_delivered = ${delivered} WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
     let jm = { status: "aus", info: null };
