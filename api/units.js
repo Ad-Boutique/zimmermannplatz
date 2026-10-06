@@ -23,7 +23,8 @@ module.exports = async (req, res) => {
   const diag = req.query && req.query.diag === "1";
   if (req.query && req.query.diag === "anfrage") { /* Rechte-Pruefung objekt/anfrage ohne Kontaktdaten und mit Objekt 0, legt nichts an */
     res.setHeader("Cache-Control", "no-store");
-    const env = { datenbank: Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL), mail: Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD && process.env.NOTIFY_TO) };
+    const env = { datenbank: Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL), mail: Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD && process.env.NOTIFY_TO),
+      admin: Boolean(process.env.ADMIN_USER && (process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD_HASH) && (process.env.SESSION_SECRET || "").length >= 16) };
     let db = null;
     if (env.datenbank) { try { const { getSql, ensureSchema } = require("./_lib/db"); await ensureSchema(); db = (await getSql()`SELECT count(*)::int AS n FROM inquiries`)[0].n; } catch (e) { db = "Fehler: " + String(e && e.message).slice(0, 160); } }
     return json(res, 200, { ok: true, env, anfragenGespeichert: db, pruefung: await inquire({ objekt_id: 0 }) });

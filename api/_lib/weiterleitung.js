@@ -20,7 +20,10 @@ async function forward(record) {
   const { vorname, nachname } = splitName(record.name);
   const text = [record.message, record.interest ? `Interesse: ${record.interest}` : null,
     `Anfrage über zimmermannplatz6.at, Top ${record.top}${record.unit_summary ? ` (${record.unit_summary})` : ""}`].filter(Boolean).join("\n\n");
-  const r = await inquire({ objekt_id: obj.oid, vorname, nachname, email: record.email, tel: record.phone, message: text });
+  const tel = String(record.phone || "").trim();
+  /* Justimmo: Telefon leer oder mindestens 6 Zeichen, sonst 422; kurze Nummern stehen dann nur in der Nachricht */
+  const r = await inquire({ objekt_id: obj.oid, vorname, nachname, email: record.email, tel: tel.length >= 6 ? tel : "",
+    message: tel && tel.length < 6 ? `${text}\n\nTelefon: ${tel}` : text });
   return { status: r.ok ? "ok" : "fehler", info: `Objekt ${obj.nummer || obj.oid}, HTTP ${r.status}: ${r.antwort}`.slice(0, 500) };
 }
 

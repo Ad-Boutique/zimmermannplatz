@@ -62,7 +62,7 @@ async function realties() {
 /* Anfrage zu einem Objekt anlegen. Liefert { ok, status, antwort } (Antwort gekuerzt, ohne Zugangsdaten), wirft nie. */
 async function inquire(fields) {
   const q = new URLSearchParams({ culture: "de" });
-  Object.entries(fields).forEach(([k, v]) => { if (v != null && v !== "") q.set(k, String(v)); });
+  Object.entries(fields).forEach(([k, v]) => { if (v != null) q.set(k, String(v)); }); /* leere Strings bleiben: Justimmo verlangt vorname und nachname als Text */
   try {
     const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 8000);
     const r = await fetch(API + "/objekt/anfrage?" + q, { headers: { Authorization: auth(), Accept: "application/xml" }, signal: ctrl.signal });
