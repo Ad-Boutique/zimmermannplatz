@@ -4,12 +4,15 @@
    benachrichtigt per Mail, wenn konfiguriert. Finder und Kontakt verlangen Name und Telefon.
    Jede Anfrage wird zuerst in der eigenen Datenbank gesichert. Finder-Anfragen zu Wohnungen aus Justimmo gehen danach
    zusaetzlich als Objektanfrage an Justimmo (api/_lib/weiterleitung.js); das Ergebnis steht in justimmo_status.
-   Testmodus: body.testkey, dessen SHA-256 TEST_HASH entspricht, unterdrueckt nur die Mail (fuer den Schnittstellentest). */
+   Testmodus: body.testkey, dessen SHA-256 TEST_HASH entspricht, unterdrueckt die Mail und leitet auch bei
+   WEITERLEITEN_AKTIV = false weiter (fuer den Schnittstellentest). */
 const { getSql, ensureSchema } = require("./_lib/db");
 const { readJson, json, cors, clientIp } = require("./_lib/http");
 const { notify } = require("./_lib/mail");
 const { forward } = require("./_lib/weiterleitung");
 const crypto = require("crypto");
+/* Weiterleitung echter Anfragen an Justimmo erst nach Freigabe durch Daniel einschalten; bis dahin nur der Test */
+const WEITERLEITEN_AKTIV = false;
 const TEST_HASH = "1be52bbf311bc481373725959be2944bec38e9419c0f6820e6a1cd7ce5f057e7";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -57,7 +60,7 @@ module.exports = async (req, res) => {
     if (!isTest) { try { delivered = await notify(record); } catch (e) { console.error("Mailversand fehlgeschlagen", e && e.message); } }
     try { await sql`UPDATE inquiries SET mail_delivered = ${delivered} WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
     let jm = { status: "aus", info: null };
-    try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
+    if (WEITERLEITEN_AKTIV || isTest) try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
     try { await sql`UPDATE inquiries SET justimmo_status = ${jm.status}, justimmo_info = ${jm.info}, justimmo_at = now() WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
     return json(res, 200, isTest ? { ok: true, id, delivered, justimmo: jm } : { ok: true, id, delivered });
   } catch (e) {
