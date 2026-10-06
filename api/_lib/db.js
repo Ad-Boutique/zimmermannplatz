@@ -34,6 +34,10 @@ async function ensureSchema() {
   )`;
   /* Spalte fuer das Interesse aus dem allgemeinen Kontaktformular, nachtraeglich ergaenzt */
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS interest TEXT`;
+  /* Migration 06.10.2026: Ergebnis der Weiterleitung an Justimmo (ok, fehler, kein Objekt, aus) */
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS justimmo_status TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS justimmo_info TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS justimmo_at TIMESTAMPTZ`;
   ensured = true;
 }
 

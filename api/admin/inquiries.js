@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
       const source = url.searchParams.get("source") || "";
       const q = (url.searchParams.get("q") || "").trim();
       const like = q ? `%${q}%` : null;
-      const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, interest, message, consent, status, note, mail_delivered
+      const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, interest, message, consent, status, note, mail_delivered, justimmo_status, justimmo_info
         FROM inquiries
         WHERE (${source} = '' OR source = ${source})
           AND (${like}::text IS NULL OR name ILIKE ${like} OR email ILIKE ${like} OR top ILIKE ${like} OR interest ILIKE ${like} OR message ILIKE ${like})

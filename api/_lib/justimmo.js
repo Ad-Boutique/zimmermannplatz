@@ -2,12 +2,15 @@
    Der Zugang ist von Justimmo auf die Objekte von Zimmermannplatz 6 beschraenkt (Ticket 1080761).
    Env (Vercel, nie im Repo): JUSTIMMO_CLIENT_ID = API-Benutzer (api-...), JUSTIMMO_CLIENT_SECRET = Passwort.
    Rate Limit laut Justimmo: im Schnitt 10 Anfragen pro Sekunde und IP, die Antwort von /api/units wird deshalb 5 Minuten gecacht.
-   Projekt-Einheiten kommen nur mit alleProjektObjekte=1 (wie bei Am Waldrain). */
+   Projekt-Einheiten kommen nur mit alleProjektObjekte=1 (wie bei Am Waldrain).
+   Anfragen: objekt/anfrage legt eine Anfrage zum Objekt an (Felder laut offiziellem PHP-SDK justimmo/php-sdk,
+   RealtyInquiryMapper: objekt_id, vorname, nachname, email, tel, message, anrede_id, titel, firma, strasse, plz, ort, land). */
 const API = "https://api.justimmo.at/rest/v1";
 
 const ID = () => (process.env.JUSTIMMO_CLIENT_ID || "").trim();
 const SECRET = () => (process.env.JUSTIMMO_CLIENT_SECRET || "").trim();
 function configured() { return Boolean(ID() && SECRET()); }
+const auth = () => "Basic " + Buffer.from(ID() + ":" + SECRET()).toString("base64");
 
 function entities(s) {
   return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
@@ -24,6 +27,7 @@ function realty(block) {
   const b = block.replace(/<kontaktperson>[\s\S]*?<\/kontaktperson>/g, "").replace(/<anhaenge>[\s\S]*?<\/anhaenge>/g, "");
   return {
     id: tag(b, "objektnr_intern") || tag(b, "id"),
+    oid: tag(b, "id"), /* Justimmo-ID fuer objekt/anfrage */
     nummer: tag(b, "objektnr_extern") || tag(b, "objektnummer"),
     tuer: tag(b, "tuernummer"),
     etage: tag(b, "etage"),
@@ -36,13 +40,12 @@ function realty(block) {
 }
 
 async function realties() {
-  const auth = "Basic " + Buffer.from(ID() + ":" + SECRET()).toString("base64");
   const out = [];
   for (let offset = 0, page = 0; page < 10; page++) {
     const q = new URLSearchParams({ culture: "de", limit: "100", offset: String(offset), alleProjektObjekte: "1" });
     let r;
     for (let attempt = 0; attempt < 3; attempt++) {
-      r = await fetch(API + "/objekt/list?" + q, { headers: { Authorization: auth, Accept: "application/xml" } });
+      r = await fetch(API + "/objekt/list?" + q, { headers: { Authorization: auth(), Accept: "application/xml" } });
       if (r.status !== 429) break;
       await new Promise((ok) => setTimeout(ok, 1200 * (attempt + 1)));
     }
@@ -56,4 +59,19 @@ async function realties() {
   return out;
 }
 
-module.exports = { configured, realties };
+/* Anfrage zu einem Objekt anlegen. Liefert { ok, status, antwort } (Antwort gekuerzt, ohne Zugangsdaten), wirft nie. */
+async function inquire(fields) {
+  const q = new URLSearchParams({ culture: "de" });
+  Object.entries(fields).forEach(([k, v]) => { if (v != null && v !== "") q.set(k, String(v)); });
+  try {
+    const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 8000);
+    const r = await fetch(API + "/objekt/anfrage?" + q, { headers: { Authorization: auth(), Accept: "application/xml" }, signal: ctrl.signal });
+    clearTimeout(timer);
+    const antwort = (await r.text()).replace(/\s+/g, " ").trim().slice(0, 400);
+    return { ok: r.status === 200, status: r.status, antwort };
+  } catch (e) {
+    return { ok: false, status: 0, antwort: String(e && e.message || e).slice(0, 200) };
+  }
+}
+
+module.exports = { configured, realties, inquire };

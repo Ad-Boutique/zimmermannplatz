@@ -1,10 +1,16 @@
 /* POST /api/inquiry
    Nimmt Anfragen aus dem Wohnungsfinder (source "finder"), aus dem allgemeinen Kontaktformular (source "kontakt")
    und Vormerkungen der Coming-soon-Seite (source "coming-soon") an, speichert sie in der Datenbank und
-   benachrichtigt per Mail, wenn konfiguriert. Finder und Kontakt verlangen Name und Telefon. */
+   benachrichtigt per Mail, wenn konfiguriert. Finder und Kontakt verlangen Name und Telefon.
+   Jede Anfrage wird zuerst in der eigenen Datenbank gesichert. Finder-Anfragen zu Wohnungen aus Justimmo gehen danach
+   zusaetzlich als Objektanfrage an Justimmo (api/_lib/weiterleitung.js); das Ergebnis steht in justimmo_status.
+   Testmodus: body.testkey, dessen SHA-256 TEST_HASH entspricht, unterdrueckt nur die Mail (fuer den Schnittstellentest). */
 const { getSql, ensureSchema } = require("./_lib/db");
 const { readJson, json, cors, clientIp } = require("./_lib/http");
 const { notify } = require("./_lib/mail");
+const { forward } = require("./_lib/weiterleitung");
+const crypto = require("crypto");
+const TEST_HASH = "1be52bbf311bc481373725959be2944bec38e9419c0f6820e6a1cd7ce5f057e7";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const SOURCES = ["finder", "kontakt", "coming-soon"];
@@ -47,9 +53,13 @@ module.exports = async (req, res) => {
       RETURNING id`;
     const id = rows[0].id;
     let delivered = false;
-    try { delivered = await notify(record); } catch (e) { console.error("Mailversand fehlgeschlagen", e && e.message); }
+    const isTest = typeof body.testkey === "string" && crypto.createHash("sha256").update(body.testkey).digest("hex") === TEST_HASH;
+    if (!isTest) { try { delivered = await notify(record); } catch (e) { console.error("Mailversand fehlgeschlagen", e && e.message); } }
     try { await sql`UPDATE inquiries SET mail_delivered = ${delivered} WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
-    return json(res, 200, { ok: true, id, delivered });
+    let jm = { status: "aus", info: null };
+    try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
+    try { await sql`UPDATE inquiries SET justimmo_status = ${jm.status}, justimmo_info = ${jm.info}, justimmo_at = now() WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
+    return json(res, 200, isTest ? { ok: true, id, delivered, justimmo: jm } : { ok: true, id, delivered });
   } catch (e) {
     console.error("inquiry error", e && e.message);
     return json(res, 500, { ok: false, error: "Die Anfrage konnte gerade nicht gespeichert werden. Bitte versuchen Sie es in Kuerze noch einmal." });
