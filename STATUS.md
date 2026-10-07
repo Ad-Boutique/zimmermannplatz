@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 07.10.2026 Go-live-Check (Mail Yana): Texte, Pläne, Justimmo ok; Blocker Datenschutzerklärung, Mail/Admin-Variablen, Zahl "16 Altbau" ungeklärt
 - 06.10.2026 Kundenfeedback Finder: keine Freifläche = Feld leer (Tabelle und Detail), "Geschäftslokal" statt "Lokal" (mobil kleiner mit Trennstelle)
 - 06.10.2026 Finder zeigt alle Justimmo-Einheiten ausser Mietwohnungen: Bestand und Geschäftslokal zugeordnet, alle 16 live "Verfügbar" mit Preisen aus Justimmo; neue Justimmo-Einheiten erscheinen automatisch (ohne Plan); Datenbank angebunden, Speichertest ok
 - 06.10.2026 Anfragen an Justimmo: Code live, Weiterleitung aus (Schalter), Rechte geprüft, Testanfrage Top 19 in Justimmo angelegt (ID 52579477); Befund: Datenbank und Mail in Vercel nicht angebunden, Formulare speichern derzeit nichts
