@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 07.10.2026 Neues Straßen-Rendering (Ecke mit Geschäftslokal, assets/img/render-strasse-2026.jpg) in Collage, Damals/Heute und Coming soon
 - 07.10.2026 Go-live-Check (Mail Yana): Texte, Pläne, Justimmo ok; Blocker Datenschutzerklärung, Mail/Admin-Variablen, Zahl "16 Altbau" ungeklärt
 - 06.10.2026 Kundenfeedback Finder: keine Freifläche = Feld leer (Tabelle und Detail), "Geschäftslokal" statt "Lokal" (mobil kleiner mit Trennstelle)
 - 06.10.2026 Finder zeigt alle Justimmo-Einheiten ausser Mietwohnungen: Bestand und Geschäftslokal zugeordnet, alle 16 live "Verfügbar" mit Preisen aus Justimmo; neue Justimmo-Einheiten erscheinen automatisch (ohne Plan); Datenbank angebunden, Speichertest ok
