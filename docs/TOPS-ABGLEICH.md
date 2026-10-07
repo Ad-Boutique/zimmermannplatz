@@ -16,7 +16,7 @@ Quellen: Topographie VERS-02 vom 01.09.2026 (1600_TOPO_AUSSCHR_01.9.2026_VS2.pdf
 | 10+11 | 2. St. | Sanierung und Zusammenlegung | 3 | 81,68 | 82,04 | - | - | ja | ja | ja |
 | 12 | 2. St. | Sanierung | 3 | 110,08 | - | - | - | **nein** | **nein** | nein |
 | 13 | 2. St. | unbefristet vermietet | 2 | 48,72 | - | Balkon 5,50 (neu) | - | nein | nein | nein |
-| 14+15 | 3. St. | Sanierung und Zusammenlegung | 4 | 119,83 | 119,18 | Balkon 10,98 | Balkon 10,98 | ja (4 Zi.) | ja (**3 Zi.**) | ja (4 Zi.) |
+| 14+15 | 3. St. | Sanierung und Zusammenlegung | 4 | 119,83 | 119,18 | Balkon 10,98 | Balkon 10,98 | ja (4 Zi.) | ja (4 Zi., korrigiert 07.10.) | ja (4 Zi.) |
 | 16 | 3. St. | unbefristet vermietet | 2 | 55,42 | - | - | - | nein | nein | nein |
 | 17 | 3. St. | Sanierung | 3 | 109,74 | 109,97 | - | - | ja | ja | ja |
 | 18 | 3. St. | unbefristet vermietet | 2 | 49,35 | - | Balkon 5,50 (neu) | - | nein | nein | nein |
@@ -42,3 +42,12 @@ Zimmer laut Topographie: Wohnküche bzw. Wohnzimmer plus Zimmer, separate Küche
 - Top 12 (2. Stock, 110,08 m², 3 Zimmer, Sanierung) fehlt in Preisliste und Justimmo: Verkauf geplant?
 - Justimmo Top 14+15: 3 statt 4 Zimmer, in Justimmo korrigieren lassen.
 - Flächen Topographie (01.09.) weichen von Verkaufsplänen (01.10.) ab; der Finder folgt den neueren Verkaufsplänen. Größte Abweichung: Dachterrasse Top 24 57,89 (Topo) gegen 48,41 (Plan, Liste).
+
+## Antworten Vertrieb (Pia Schelling, 07.10.2026, 16:13)
+
+- Wohnungsanzahl: Vorschlag angenommen. Website nennt nur verkäufliche Wohnungen (15, davon 9 Altbau, 6 Dach, plus Geschäftslokal); Gesamtgröße des Hauses nur klar getrennt ("21 Wohnungen im Haus, davon 15 im Verkauf"). Yana hatte vorher (15:40) "16 Wohnungen" erbeten, die Antwort des Vertriebs kam danach.
+- Top 12: kommt sehr wahrscheinlich in den Verkauf, ist aber noch unbefristet vermietet, Verhandlungen laufen. Vorerst nicht online.
+- Top 1, zusätzliche Wohnung gartenseitig: nicht fixiert, derzeit nicht relevant.
+- Justimmo Top 14+15: auf 4 Zimmer korrigiert (geprüft 07.10.2026).
+- Energieausweis (HWB, fGEE): noch nicht fertig, wird nachgereicht.
+- Datenschutzerklärung (Verantwortlicher): noch unbeantwortet.
