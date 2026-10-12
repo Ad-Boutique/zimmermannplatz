@@ -240,9 +240,10 @@
 
   /* ---------- Lage: Kartenfahrt ----------
      Die Karte (assets/img/lage-karte.svg, erzeugt mit tools/ai2svg.py) wird inline geladen, damit Pins,
-     Radius und Hinweise einzeln animierbar sind. Desktop: Sektion bleibt stehen, Karte zoomt vom Z6 auf,
-     Radius zeichnet sich, Pins 1 bis 6 erscheinen nacheinander mit der Legende. Mobil: dieselbe Abfolge
-     beim Durchscrollen, ohne Anheften. Ohne JavaScript oder bei reduzierter Bewegung: fertige Karte. */
+     Radius und Hinweise einzeln animierbar sind. Desktop: Sektion bleibt kurz stehen, Karte zoomt vom Z6 auf,
+     Radius zeichnet sich, danach die Hinweise. Mobil: dieselbe Abfolge beim Durchscrollen, ohne Anheften.
+     Pins 1 bis 6 und die Legende sind seit 12.10.2026 immer sichtbar (Kundenwunsch: Nummern erschienen vorher erst
+     nach langem Scrollen und mit Verzoegerung). Ohne JavaScript oder bei reduzierter Bewegung: fertige Karte. */
   const locMap = $("#locMap");
   const locItems = $$("#locLegend .loc__item");
   function initLocMap(svg) {
@@ -309,39 +310,27 @@
       tl.fromTo(locMap, { scale: zoomFrom }, { scale: 1, duration: zoomEnd, ease: "power2.inOut" }, 0);
       tl.fromTo(home, { scale: 0.6, opacity: 0, transformOrigin: "50% 100%" }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(2)" }, 0);
       if (maskLine) tl.to(maskLine, { strokeDashoffset: 0, duration: zoomEnd, ease: "none" }, 0.3);
-      const step = (8.6 - zoomEnd) / pins.length;
-      pins.forEach((p, i) => {
-        tl.fromTo(p, { opacity: 0, scale: 0.4, y: 24, transformOrigin: "50% 100%" }, { opacity: 1, scale: 1, y: 0, duration: step * 0.8, ease: "back.out(2.2)" }, zoomEnd + i * step);
-      });
-      tl.fromTo(notes, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.25, ease: "power2.out" }, 8.6);
-      tl.to({}, { duration: 0.4 }, 9.6);
-      return { step, zoomEnd };
-    }
-    function progressToLegend(tl, timing) {
-      const t = tl.time();
-      if (t >= 8.6) { legendState(pins.length, 0); return; }
-      const count = Math.max(0, Math.min(pins.length, Math.floor((t - timing.zoomEnd) / timing.step + 0.5)));
-      legendState(count, count);
+      /* Pins bleiben unangetastet und damit von Anfang an sichtbar */
+      tl.fromTo(notes, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.25, ease: "power2.out" }, zoomEnd);
+      tl.to({}, { duration: 0.4 }, zoomEnd + 1.15);
     }
 
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1024px) and (min-height: 640px)", () => {
       const tl = gsap.timeline({ defaults: { ease: "none" } });
-      const timing = build(tl, 2.3, 3.8);
-      tl.eventCallback("onUpdate", () => progressToLegend(tl, timing));
+      build(tl, 1.15, 3.8); /* Start-Zoom so klein, dass alle 6 Pins von Anfang an im Ausschnitt liegen */
       ScrollTrigger.create({
-        trigger: "#loc", start: "center center", end: () => "+=" + Math.round(window.innerHeight * 2.4),
+        trigger: "#loc", start: "center center", end: () => "+=" + Math.round(window.innerHeight * 1.0),
         pin: true, scrub: 0.8, animation: tl, refreshPriority: 1, invalidateOnRefresh: true
       });
-      legendState(0, 0);
+      showAll();
       return () => { gsap.set([locMap, home, ...pins, ...notes], { clearProps: "all" }); if (maskLine) maskLine.style.strokeDashoffset = 0; showAll(); };
     });
     mm.add("(max-width: 1023px), (max-height: 639px)", () => {
       const tl = gsap.timeline({ defaults: { ease: "none" } });
-      const timing = build(tl, 1.35, 2.4);
-      tl.eventCallback("onUpdate", () => progressToLegend(tl, timing));
+      build(tl, 1.1, 2.4);
       ScrollTrigger.create({ trigger: "#locFrame", start: "top 92%", end: "bottom 30%", scrub: 0.6, animation: tl });
-      legendState(0, 0);
+      showAll();
       return () => { gsap.set([locMap, home, ...pins, ...notes], { clearProps: "all" }); if (maskLine) maskLine.style.strokeDashoffset = 0; showAll(); };
     });
     ScrollTrigger.sort();
