@@ -93,9 +93,16 @@
     revealEls.concat(mediaEls).forEach((el) => io.observe(el));
   } else { revealEls.concat(mediaEls).forEach((el) => el.classList.add("is-in")); }
 
-  /* stagger words inside a revealed block */
+  /* stagger words inside a revealed block; danach Maske aufheben, damit nichts abgeschnitten bleibt */
   $$('[data-reveal="words"]').forEach((el) => {
-    $$(".w > span", el).forEach((s, i) => { s.style.transitionDelay = `${i * 0.06}s`; });
+    const spans = $$(".w > span", el);
+    spans.forEach((s, i) => { s.style.transitionDelay = `${i * 0.06}s`; });
+    const done = () => $$(".w", el).forEach((w) => w.classList.add("is-done"));
+    new MutationObserver((m, mo) => {
+      if (!el.classList.contains("is-in")) return;
+      mo.disconnect(); setTimeout(done, 1150 + spans.length * 60 + 200);
+    }).observe(el, { attributes: true, attributeFilter: ["class"] });
+    if (el.classList.contains("is-in")) setTimeout(done, 1150 + spans.length * 60 + 200);
   });
 
   /* chars: scattered letters find their place */
