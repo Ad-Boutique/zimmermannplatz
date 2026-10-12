@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 12.10.2026 GO-LIVE auf Anweisung Daniel: zimmermannplatz6.at zeigt die volle Seite (Rewrite auf coming-soon und Redirect der JS-Dateien entfernt), Canonical und og:url auf www.zimmermannplatz6.at, robots.txt, sitemap.xml; Coming soon bleibt unter /coming-soon (noindex). Offen beim Go-live: Datenschutzerklärung (Link "#"), Mail- und Admin-Variablen in Vercel
 - 12.10.2026 Lageplan: Pins 1 bis 6 und Legende dauerhaft sichtbar (vorher an Scrollfortschritt gekoppelt, erschienen erst nach 900 bis 1.900 px Scrollen im angehefteten Abschnitt und verzögert); Start-Zoom 1,15 (mobil 1,1), damit alle Pins von Anfang an im Ausschnitt sind; Anheften 1,0 statt 2,4 Bildschirmhöhen
 - 12.10.2026 Footer: Adresse unter ZIMM 6 entfernt; "Projektsteuerung" statt "Projektentwicklung" auf Vollsite, Coming soon und Impressum (Kundenwunsch)
 - 12.10.2026 Zwei neue Visualisierungen: Luftbild Ecke (Hero, og:image, render-skyline-2026.jpg) und Luftbild von oben (Collage, Ausstattung, render-dach-2026.jpg), Detailausschnitte daraus ersetzen detail-dach und detail-terrasse; Headlines: Wort-Maske mit mehr Luft, nach dem Einblenden ohne Clipping (.is-done), "Was Sie berühren, bleibt." lief aus der zu schmalen Box
