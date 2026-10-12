@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 12.10.2026 Footer: Adresse unter ZIMM 6 entfernt; "Projektsteuerung" statt "Projektentwicklung" auf Vollsite, Coming soon und Impressum (Kundenwunsch)
 - 12.10.2026 Zwei neue Visualisierungen: Luftbild Ecke (Hero, og:image, render-skyline-2026.jpg) und Luftbild von oben (Collage, Ausstattung, render-dach-2026.jpg), Detailausschnitte daraus ersetzen detail-dach und detail-terrasse; Headlines: Wort-Maske mit mehr Luft, nach dem Einblenden ohne Clipping (.is-done), "Was Sie berühren, bleibt." lief aus der zu schmalen Box
 - 07.10.2026 Neues Straßen-Rendering (Ecke mit Geschäftslokal, assets/img/render-strasse-2026.jpg) in Collage, Damals/Heute und Coming soon
 - 07.10.2026 Go-live-Check (Mail Yana): Texte, Pläne, Justimmo ok; Blocker Datenschutzerklärung, Mail/Admin-Variablen, Zahl "16 Altbau" ungeklärt
