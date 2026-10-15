@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 15.10.2026 Testanfragen des Vertriebs (14.10.) kamen nicht in Justimmo: Weiterleitung war noch ausgeschaltet, Mail-Variablen fehlen. Weiterleitung eingeschaltet, 3 gespeicherte Finder-Anfragen nachgesendet (darunter eine echte vom 12.10. zu Top 2); Kontaktformular geht weiterhin nur per Mail (fehlt), nicht nach Justimmo
 - 12.10.2026 GO-LIVE auf Anweisung Daniel: zimmermannplatz6.at zeigt die volle Seite (Rewrite auf coming-soon und Redirect der JS-Dateien entfernt), Canonical und og:url auf www.zimmermannplatz6.at, robots.txt, sitemap.xml; Coming soon bleibt unter /coming-soon (noindex). Offen beim Go-live: Datenschutzerklärung (Link "#"), Mail- und Admin-Variablen in Vercel
 - 12.10.2026 Lageplan: Pins 1 bis 6 und Legende dauerhaft sichtbar (vorher an Scrollfortschritt gekoppelt, erschienen erst nach 900 bis 1.900 px Scrollen im angehefteten Abschnitt und verzögert); Start-Zoom 1,15 (mobil 1,1), damit alle Pins von Anfang an im Ausschnitt sind; Anheften 1,0 statt 2,4 Bildschirmhöhen
 - 12.10.2026 Footer: Adresse unter ZIMM 6 entfernt; "Projektsteuerung" statt "Projektentwicklung" auf Vollsite, Coming soon und Impressum (Kundenwunsch)
