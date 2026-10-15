@@ -11,9 +11,9 @@ const { readJson, json, cors, clientIp } = require("./_lib/http");
 const { notify } = require("./_lib/mail");
 const { forward } = require("./_lib/weiterleitung");
 const crypto = require("crypto");
-/* Weiterleitung echter Anfragen an Justimmo erst nach Freigabe durch Daniel einschalten; bis dahin nur der Test */
-const WEITERLEITEN_AKTIV = false;
-const TEST_HASH = "1be52bbf311bc481373725959be2944bec38e9419c0f6820e6a1cd7ce5f057e7";
+/* Weiterleitung an Justimmo: seit 15.10.2026 aktiv (Testanfragen des Vertriebs kamen vorher nicht an) */
+const WEITERLEITEN_AKTIV = true;
+const TEST_HASH = "99ba4a83aae78c04f1fe73bda5e00b1f2f3a2e8c15d03b0ffcf3a110af359dd9";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const SOURCES = ["finder", "kontakt", "coming-soon"];
@@ -26,6 +26,22 @@ module.exports = async (req, res) => {
   try { body = await readJson(req); } catch (e) { return json(res, 400, { ok: false, error: "Ungueltige Daten" }); }
 
   if (body.website) return json(res, 200, { ok: true, id: 0 }); /* Honeypot, stumm akzeptieren */
+  const isTest = typeof body.testkey === "string" && crypto.createHash("sha256").update(body.testkey).digest("hex") === TEST_HASH;
+  /* Nachsenden (nur mit Testschluessel): gespeicherte Finder-Anfragen, die noch nicht bei Justimmo sind, uebertragen */
+  if (isTest && body.nachsenden) {
+    try {
+      await ensureSchema(); const sql = getSql();
+      const rows = await sql`SELECT id, source, top, unit_summary, name, email, phone, interest, message FROM inquiries
+        WHERE source = 'finder' AND top IS NOT NULL AND coalesce(justimmo_status, 'aus') <> 'ok' ORDER BY id`;
+      const out = [];
+      for (const r of rows) {
+        let jm; try { jm = await forward(r); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
+        await sql`UPDATE inquiries SET justimmo_status = ${jm.status}, justimmo_info = ${jm.info}, justimmo_at = now() WHERE id = ${r.id}`;
+        out.push({ id: r.id, top: r.top, justimmo: jm.status, info: jm.info });
+      }
+      return json(res, 200, { ok: true, nachgesendet: out });
+    } catch (e) { return json(res, 500, { ok: false, error: String(e && e.message).slice(0, 200) }); }
+  }
   const source = SOURCES.includes(body.source) ? body.source : "finder";
   const needsPerson = source !== "coming-soon";
   const email = clip(body.email, 200);
@@ -48,7 +64,6 @@ module.exports = async (req, res) => {
     user_agent: clip(req.headers["user-agent"], 300)
   };
 
-  const isTest = typeof body.testkey === "string" && crypto.createHash("sha256").update(body.testkey).digest("hex") === TEST_HASH;
   if (isTest && !(process.env.DATABASE_URL || process.env.POSTGRES_URL)) { /* Schnittstellentest ohne Datenbank: nur Justimmo */
     let jm; try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
     return json(res, 200, { ok: true, id: null, datenbank: false, justimmo: jm });
