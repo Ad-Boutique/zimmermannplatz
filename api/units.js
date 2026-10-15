@@ -32,7 +32,9 @@ module.exports = async (req, res) => {
       admin: Boolean(process.env.ADMIN_USER && (process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD_HASH) && (process.env.SESSION_SECRET || "").length >= 16) };
     env.datenbankVariablen = Object.keys(process.env).filter((k) => /DATABASE|POSTGRES|NEON|^PG/i.test(k)).sort(); /* nur Namen */
     let db = null;
-    if (env.datenbank) { try { const { getSql, ensureSchema } = require("./_lib/db"); await ensureSchema(); db = (await getSql()`SELECT count(*)::int AS n FROM inquiries`)[0].n; } catch (e) { db = "Fehler: " + String(e && e.message).slice(0, 160); } }
+    if (env.datenbank) { try { const { getSql, ensureSchema } = require("./_lib/db"); await ensureSchema(); db = (await getSql()`SELECT count(*)::int AS n FROM inquiries`)[0].n;
+        /* Uebersicht ohne personenbezogene Daten: nur Zeitpunkt, Quelle, Top und Zustellstatus */
+        env.anfragen = await getSql()`SELECT id, created_at, source, top, mail_delivered, justimmo_status, left(coalesce(justimmo_info, ''), 160) AS justimmo_info FROM inquiries ORDER BY id DESC LIMIT 20`; } catch (e) { db = "Fehler: " + String(e && e.message).slice(0, 160); } }
     return json(res, 200, { ok: true, env, anfragenGespeichert: db, pruefung: await inquire({ objekt_id: 0 }) });
   }
   try {
