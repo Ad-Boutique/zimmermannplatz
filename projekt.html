@@ -15,7 +15,7 @@
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/URWGothic-Book.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="assets/fonts/URWGothic-Demi.otf" as="font" type="font/otf" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=926557">
+<link rel="stylesheet" href="assets/css/style.css?v=926558">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.zimmermannplatz6.at/#site","url":"https://www.zimmermannplatz6.at/","name":"Zimmermannplatz 6","inLanguage":"de-AT","creator":{"@id":"https://www.ad.boutique/#org"},"publisher":{"@type":"Organization","name":"ZIMM 6 Immobilienentwicklungs GmbH"}},{"@type":["Organization","ProfessionalService"],"@id":"https://www.ad.boutique/#org","name":"ad.boutique","alternateName":"Ad Boutique","legalName":"Ad Boutique Agency GmbH","url":"https://www.ad.boutique/","address":{"@type":"PostalAddress","streetAddress":"Tuchlauben 13/OG 4","postalCode":"1010","addressLocality":"Wien","addressCountry":"AT"},"knowsAbout":["Performance Marketing","Webdesign","Immobilienmarketing","Meta Ads"]}]}</script>
 </head>
 <body>
@@ -382,7 +382,13 @@
         <div><div class="label">Projektsteuerung</div><span class="dev-name">ZIMM 6 Immobilienentwicklungs GmbH</span></div>
       </div>
     </div>
-    <form class="contact__form" id="contactForm" novalidate data-reveal>
+    <!-- Kontaktformular vorübergehend ausgeblendet (15.10.2026): Anfragen laufen über den Wohnungsfinder direkt zum Objekt in Justimmo.
+         Wieder einblenden: hidden am Formular entfernen und den Block contact__cta löschen. -->
+    <div class="contact__cta" data-reveal>
+      <p>Anfragen nehmen wir direkt im Wohnungsfinder entgegen. Wählen Sie Ihre Wohnung, sehen Sie sich Grundriss und Preis an und fragen Sie mit einem Klick an. So landet Ihre Anfrage sofort beim richtigen Ansprechpartner im Exklusivvertrieb.</p>
+      <a class="btn" href="#wohnungen">Zum Wohnungsfinder <svg class="arr"><use href="#arrow"/></svg></a>
+    </div>
+    <form class="contact__form" id="contactForm" novalidate data-reveal hidden>
       <div class="field--row">
         <div class="field"><input type="text" id="cName" name="name" placeholder=" " required autocomplete="name"><label for="cName">Name</label></div>
         <div class="field"><input type="email" id="cMail" name="email" placeholder=" " required autocomplete="email"><label for="cMail">E-Mail</label></div>
