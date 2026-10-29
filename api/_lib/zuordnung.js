@@ -10,14 +10,19 @@ const STATUS = { 5: "frei", 7: "reserviert", 11: "reserviert", 8: "verkauft", 10
 
 const normTop = (s) => { const m = String(s || "").match(/\d+(?:\s*(?:\+|\/|-|&|und)\s*\d+)*/); return m ? m[0].match(/\d+/g).map(Number).join("+") : null; };
 
+/* Toleranz der Flaechenpruefung: Justimmo rundet Flaechen teils anders als die Verkaufsplaene (am 29.10.2026 Abweichungen
+   von 0,01 bis 0,02 m2 bei Top 2, 5, 7, 14+15). Die Zuordnung laeuft ueber die Objektnummer, die Flaeche sichert nur gegen
+   grobe Fehler ab (falsche Objektnummer, falsch eingetragene Wohnung). 0,1 m2 laesst Rundungen durch und faengt alles Groebere. */
+const TOLERANZ = 0.1;
+
 /* Top eines Justimmo-Objekts, nur wenn die Wohnflaeche passt; sonst null */
 function topOf(o) {
   const t = normTop(o.tuer);
   const top = (t && FLAECHE[t] ? t : null) || NUMMER[o.nummer] || null;
-  return top && Math.abs((FLAECHE[top] || 0) - o.wohnflaeche) < 0.005 ? top : null;
+  return top && Math.abs((FLAECHE[top] || 0) - o.wohnflaeche) < TOLERANZ ? top : null;
 }
 
 /* Unbefristet vermietete Wohnungen: nie im Finder, auch wenn Justimmo sie liefert (laut Daniel 06.10.2026) */
 const VERMIETET = ["3", "9", "13", "16", "18"];
 
-module.exports = { NUMMER, FLAECHE, STATUS, VERMIETET, normTop, topOf };
+module.exports = { NUMMER, FLAECHE, STATUS, VERMIETET, TOLERANZ, normTop, topOf };

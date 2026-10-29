@@ -15,7 +15,7 @@
    ?diag=1 zeigt zusaetzlich die Zuordnung je Justimmo-Objekt (nur oeffentliche Werte, keine Zugangsdaten). */
 const { json } = require("./_lib/http");
 const { configured, realties, inquire } = require("./_lib/justimmo");
-const { NUMMER, FLAECHE, STATUS, VERMIETET, normTop } = require("./_lib/zuordnung");
+const { NUMMER, FLAECHE, STATUS, VERMIETET, TOLERANZ, normTop } = require("./_lib/zuordnung");
 const ETAGE = [[/^EG|erdgescho/i, 0, "Erdgeschoss"], [/^1\.\s*(Etage|Stock|OG|Obergescho)/i, 1, "1. Stock"], [/^2\.\s*(Etage|Stock|OG|Obergescho)/i, 2, "2. Stock"],
   [/^3\.\s*(Etage|Stock|OG|Obergescho)/i, 3, "3. Stock"], [/^1\.\s*DG|^1\.\s*Dach/i, 4, "1. Dachgeschoss"], [/^2\.\s*DG|^2\.\s*Dach/i, 5, "2. Dachgeschoss"]];
 const etage = (s) => { const e = ETAGE.find(([re]) => re.test(String(s || "").trim())); return e ? { level: e[1], levelName: e[2] } : { level: null, levelName: String(s || "") }; };
@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
     for (const o of items) {
       const t = normTop(o.tuer);
       const top = (t && FLAECHE[t] ? t : null) || NUMMER[o.nummer] || null;
-      const flaecheOk = top ? Math.abs((FLAECHE[top] || 0) - o.wohnflaeche) < 0.005 : false;
+      const flaecheOk = top ? Math.abs((FLAECHE[top] || 0) - o.wohnflaeche) < TOLERANZ : false;
       const status = STATUS[o.status_id] || null;
       if (diag) protokoll.push({ oid: o.oid, miete: o.miete, nummer: o.nummer, tuer: o.tuer, etage: o.etage, wohnflaeche: o.wohnflaeche, zimmer: o.zimmer, kaufpreis: o.kaufpreis, status: o.status, zuordnung: top, flaecheOk, statusWebsite: status });
       if (o.miete || VERMIETET.includes(top) || VERMIETET.includes(t)) continue; /* Mietwohnungen nie im Finder */
