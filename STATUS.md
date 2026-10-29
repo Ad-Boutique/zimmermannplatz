@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 29.10.2026 Vier Wohnungen (Top 2, 5, 7, 14+15) fielen aus dem Finder: Vertrieb hat in Justimmo Flächen um 0,01 bis 0,02 m² geändert, die exakte Flächenprüfung lehnte ab. Toleranz jetzt 0,1 m², alle 16 wieder live. Top 1 Kaufpreis in Justimmo jetzt 810.000 € (vorher 675.000)
 - 15.10.2026 Kontaktformular vorübergehend ausgeblendet (hidden, Markup bleibt), stattdessen Hinweis mit Button zum Wohnungsfinder; Anfragen nur noch über den Finder (direkt zum Objekt in Justimmo)
 - 15.10.2026 Testanfragen des Vertriebs (14.10.) kamen nicht in Justimmo: Weiterleitung war noch ausgeschaltet, Mail-Variablen fehlen. Weiterleitung eingeschaltet, 3 gespeicherte Finder-Anfragen nachgesendet (darunter eine echte vom 12.10. zu Top 2); Kontaktformular geht weiterhin nur per Mail (fehlt), nicht nach Justimmo
 - 12.10.2026 GO-LIVE auf Anweisung Daniel: zimmermannplatz6.at zeigt die volle Seite (Rewrite auf coming-soon und Redirect der JS-Dateien entfernt), Canonical und og:url auf www.zimmermannplatz6.at, robots.txt, sitemap.xml; Coming soon bleibt unter /coming-soon (noindex). Offen beim Go-live: Datenschutzerklärung (Link "#"), Mail- und Admin-Variablen in Vercel
