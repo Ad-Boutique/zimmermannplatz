@@ -21,11 +21,11 @@ module.exports = async (req, res) => {
     const sql = getSql();
     const url = new URL(req.url, "http://x");
     const source = url.searchParams.get("source") || "";
-    const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, interest, message, consent, status, note, mail_delivered, justimmo_status, justimmo_info
+    const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, interest, message, consent, status, note, mail_delivered, justimmo_status, justimmo_info, herkunft, utm_source, utm_medium, utm_campaign, utm_content, meta_capi
       FROM inquiries WHERE (${source} = '' OR source = ${source}) ORDER BY created_at DESC`;
-    const head = ["ID", "Datum", "Quelle", "Top", "Wohnung", "Name", "E-Mail", "Telefon", "Interesse", "Nachricht", "Zustimmung", "Status", "Notiz", "Mail zugestellt", "Justimmo", "Justimmo Info"];
+    const head = ["ID", "Datum", "Quelle", "Top", "Wohnung", "Name", "E-Mail", "Telefon", "Interesse", "Nachricht", "Zustimmung", "Status", "Notiz", "Mail zugestellt", "Justimmo", "Justimmo Info", "Herkunft", "utm_source", "utm_medium", "utm_campaign", "utm_content", "Meta Server-Meldung"];
     const lines = [head.join(";")];
-    rows.forEach((r) => lines.push([r.id, fmtDate(r.created_at), r.source, r.top, r.unit_summary, r.name, r.email, r.phone, r.interest, r.message, r.consent ? "ja" : "nein", r.status, r.note, r.mail_delivered == null ? "" : (r.mail_delivered ? "ja" : "nein"), r.justimmo_status, r.justimmo_info].map(cell).join(";")));
+    rows.forEach((r) => lines.push([r.id, fmtDate(r.created_at), r.source, r.top, r.unit_summary, r.name, r.email, r.phone, r.interest, r.message, r.consent ? "ja" : "nein", r.status, r.note, r.mail_delivered == null ? "" : (r.mail_delivered ? "ja" : "nein"), r.justimmo_status, r.justimmo_info, r.herkunft, r.utm_source, r.utm_medium, r.utm_campaign, r.utm_content, r.meta_capi].map(cell).join(";")));
     const stamp = new Date().toISOString().slice(0, 10);
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/csv; charset=utf-8");

@@ -503,7 +503,25 @@
     if (!consent) return "Bitte der Datenverarbeitung zustimmen.";
     return "";
   }
+  /* Herkunft des Besuchs (Kampagnenangaben aus dem Einstiegslink, verweisende Website): nur im Speicher dieser Seite,
+     kein Cookie. Geht mit jeder Anfrage in die eigene Datenbank (vollstaendige Zahl je Kanal), an Meta nur mit Einwilligung. */
+  const herkunft = (() => {
+    const h = { zeit: Date.now() };
+    try {
+      const q = new URLSearchParams(location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"].forEach((k) => { if (q.get(k)) h[k] = q.get(k); });
+      const ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
+      if (ref && ref !== location.hostname.replace(/^www\./, "")) h.referrer = ref;
+    } catch (e) { /* ohne Herkunft weiter */ }
+    return h;
+  })();
+  const cookie = (n) => { const m = document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")); return m ? decodeURIComponent(m[1]) : null; };
+  const eventId = () => (window.crypto && crypto.randomUUID ? crypto.randomUUID() : Date.now() + "-" + Math.random().toString(36).slice(2));
+  /* Meta-Angaben fuer die Server-Meldung (api/_lib/meta.js) nur mit Marketing-Einwilligung, sonst null */
+  const metaDaten = (id) => (window.Z6Consent && window.Z6Consent.has("marketing")
+    ? { event_id: id, fbp: cookie("_fbp"), fbc: cookie("_fbc"), url: location.origin + location.pathname } : null);
   function sendInquiry(payload) {
+    payload.herkunft = herkunft;
     return fetch(API_BASE + "api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
       .then(async (r) => { const d = await r.json().catch(() => ({})); if (!r.ok || !d.ok) throw new Error(d.error || "Failed to fetch"); return d; });
   }
@@ -537,10 +555,12 @@
     const problem = checkPerson(name, mail, phone, $("#qPrivacy").checked);
     if (problem) { qMsg.className = "form__msg"; qMsg.textContent = problem; return; }
     const btn = $("button[type=submit]", qForm); btn.disabled = true; qMsg.className = "form__msg"; qMsg.textContent = "Wird gesendet";
-    sendInquiry({ source: "finder", top: $("#qTop").value, unit_summary: $("#modalFacts").textContent, name, email: mail, phone, message: $("#qMsg").value.trim(), consent: true, website: $("#qWebsite").value })
+    const evId = eventId(); const top = $("#qTop").value;
+    sendInquiry({ meta: metaDaten(evId), source: "finder", top, unit_summary: $("#modalFacts").textContent, name, email: mail, phone, message: $("#qMsg").value.trim(), consent: true, website: $("#qWebsite").value })
       .then(() => {
         /* Meta-Lead nur, wenn das Pixel nach Einwilligung geladen ist (consent.js); ohne Name, Mail oder Telefon */
-        if (window.fbq && window.Z6Consent && window.Z6Consent.has("marketing")) window.fbq("track", "Lead", { content_name: "Top " + $("#qTop").value });
+        /* gleiche eventID wie die Server-Meldung, Meta zaehlt einmal */
+        if (window.fbq && window.Z6Consent && window.Z6Consent.has("marketing")) window.fbq("track", "Lead", { content_name: "Top " + top }, { eventID: evId });
         qForm.hidden = true; qDone.hidden = false; qForm.reset();
       })
       .catch((err) => { qMsg.textContent = sendError(err); })

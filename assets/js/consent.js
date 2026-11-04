@@ -22,10 +22,26 @@
   function write(stat, mark) {
     var v = { v: VERSION, datum: new Date().toISOString(), notwendig: true, statistik: !!stat, marketing: !!mark };
     try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) { /* privater Modus: Auswahl gilt fuer diesen Seitenaufruf */ }
+    if (!v.marketing || !v.statistik) aufraeumen(v);
     state = v; apply(); close();
     try { document.dispatchEvent(new CustomEvent("z6:consent", { detail: v })); } catch (e) { /* alte Browser */ }
   }
   var state = read();
+
+  /* Cookies der Dienste loeschen, wenn eine Einwilligung fehlt oder zurueckgenommen wird */
+  function aufraeumen(v) {
+    var muster = [];
+    if (!v.marketing) muster.push("_fbp", "_fbc");
+    if (!v.statistik) muster.push("_ga", "_gid", "_gat");
+    var host = location.hostname.replace(/^www\./, "");
+    document.cookie.split(";").map(function (c) { return c.split("=")[0].trim(); })
+      .filter(function (n) { return muster.some(function (m) { return n.indexOf(m) === 0; }); })
+      .forEach(function (n) {
+        ["", "; domain=" + location.hostname, "; domain=." + host].forEach(function (d) {
+          document.cookie = n + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+        });
+      });
+  }
 
   /* Freigegebene Dienste laden; einmal geladene bleiben bis zum Neuladen aktiv, Widerruf wirkt ab dem naechsten Seitenaufruf */
   function apply() {

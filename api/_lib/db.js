@@ -38,6 +38,16 @@ async function ensureSchema() {
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS justimmo_status TEXT`;
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS justimmo_info TEXT`;
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS justimmo_at TIMESTAMPTZ`;
+  /* Migration 04.11.2026: Herkunft der Anfrage (Kanal und Kampagnenangaben aus dem Einstiegslink) und Ergebnis der Server-Meldung an Meta */
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS herkunft TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS utm_source TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS utm_medium TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS utm_campaign TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS utm_content TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS utm_term TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS klick_id TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS referrer TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS meta_capi TEXT`;
   ensured = true;
 }
 

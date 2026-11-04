@@ -4,12 +4,14 @@
    benachrichtigt per Mail, wenn konfiguriert. Finder und Kontakt verlangen Name und Telefon.
    Jede Anfrage wird zuerst in der eigenen Datenbank gesichert. Finder-Anfragen zu Wohnungen aus Justimmo gehen danach
    zusaetzlich als Objektanfrage an Justimmo (api/_lib/weiterleitung.js); das Ergebnis steht in justimmo_status.
+   Herkunft (Kanal, Kampagne) wird immer gespeichert, die Server-Meldung an Meta nur mit Marketing-Einwilligung (_lib/meta.js).
    Testmodus: body.testkey, dessen SHA-256 TEST_HASH entspricht, unterdrueckt die Mail und leitet auch bei
    WEITERLEITEN_AKTIV = false weiter (fuer den Schnittstellentest). */
 const { getSql, ensureSchema } = require("./_lib/db");
 const { readJson, json, cors, clientIp } = require("./_lib/http");
 const { notify } = require("./_lib/mail");
 const { forward } = require("./_lib/weiterleitung");
+const meta = require("./_lib/meta");
 const crypto = require("crypto");
 /* Weiterleitung an Justimmo: seit 15.10.2026 aktiv (Testanfragen des Vertriebs kamen vorher nicht an) */
 const WEITERLEITEN_AKTIV = true;
@@ -63,6 +65,7 @@ module.exports = async (req, res) => {
     ip: clip(clientIp(req), 60),
     user_agent: clip(req.headers["user-agent"], 300)
   };
+  const h = meta.herkunft(body);
 
   if (isTest && !(process.env.DATABASE_URL || process.env.POSTGRES_URL)) { /* Schnittstellentest ohne Datenbank: nur Justimmo */
     let jm; try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
@@ -81,7 +84,13 @@ module.exports = async (req, res) => {
     let jm = { status: "aus", info: null };
     if (WEITERLEITEN_AKTIV || isTest) try { jm = await forward(record); } catch (e) { jm = { status: "fehler", info: String(e && e.message).slice(0, 200) }; }
     try { await sql`UPDATE inquiries SET justimmo_status = ${jm.status}, justimmo_info = ${jm.info}, justimmo_at = now() WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
-    return json(res, 200, isTest ? { ok: true, id, delivered, justimmo: jm } : { ok: true, id, delivered });
+    let capi = "aus";
+    try { capi = await meta.lead({ meta: body.meta, h, ip: record.ip, ua: record.user_agent, inhalt: record.top ? "Top " + record.top : (record.source === "kontakt" ? "Kontaktanfrage" : "Vormerkung") }); } catch (e) { capi = "fehler"; }
+    try {
+      await sql`UPDATE inquiries SET herkunft = ${h.kanal}, utm_source = ${h.utm_source}, utm_medium = ${h.utm_medium}, utm_campaign = ${h.utm_campaign},
+        utm_content = ${h.utm_content}, utm_term = ${h.utm_term}, klick_id = ${h.fbclid || h.gclid}, referrer = ${h.referrer}, meta_capi = ${capi} WHERE id = ${id}`;
+    } catch (e) { /* unkritisch */ }
+    return json(res, 200, isTest ? { ok: true, id, delivered, justimmo: jm, herkunft: h.kanal, meta: capi } : { ok: true, id, delivered });
   } catch (e) {
     console.error("inquiry error", e && e.message);
     return json(res, 500, { ok: false, error: "Die Anfrage konnte gerade nicht gespeichert werden. Bitte versuchen Sie es in Kuerze noch einmal." });
