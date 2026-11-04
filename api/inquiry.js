@@ -15,7 +15,7 @@ const meta = require("./_lib/meta");
 const crypto = require("crypto");
 /* Weiterleitung an Justimmo: seit 15.10.2026 aktiv (Testanfragen des Vertriebs kamen vorher nicht an) */
 const WEITERLEITEN_AKTIV = true;
-const TEST_HASH = "99ba4a83aae78c04f1fe73bda5e00b1f2f3a2e8c15d03b0ffcf3a110af359dd9";
+const TEST_HASH = "20d9aba45aa176c851c9e91ce226f25a80390fabdfba172773c7e929702c4db4";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const SOURCES = ["finder", "kontakt", "coming-soon"];
