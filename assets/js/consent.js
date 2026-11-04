@@ -5,7 +5,8 @@
    - Auswahl in localStorage (z6_consent) mit Version und Datum; neue Version des Banners fragt erneut.
    - Optionale Dienste werden erst nach Einwilligung geladen: <script type="text/plain" data-consent="marketing" data-src="...">
      oder Inline-Code mit type="text/plain" data-consent="statistik". Zusaetzlich Ereignis "z6:consent" fuer eigene Logik.
-   Stand 02.11.2026: Auf der Website laufen noch keine Statistik- oder Marketing-Dienste. Meta-Pixel und Google-Tags hier anmelden. */
+   Stand 04.11.2026: Meta-Pixel (Marketing) auf Projekt, Impressum und Coming soon, jeweils direkt vor diesem Skript.
+   Lead-Ereignis bei erfolgreicher Anfrage im Wohnungsfinder (assets/js/main.js), nur wenn das Pixel geladen ist. */
 (function () {
   "use strict";
   var KEY = "z6_consent", VERSION = 1;

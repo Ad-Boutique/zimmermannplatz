@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 04.11.2026 Meta-Pixel 2161920534711801 auf allen Seiten, lädt nur nach Einwilligung "Marketing" (type="text/plain" data-consent, kein noscript-Pixel); Lead-Ereignis bei erfolgreicher Finder-Anfrage (nur Top, keine Personendaten); Widerruf ruft fbq consent revoke
 - 02.11.2026 Einwilligungs-Banner (assets/js/consent.js, CSS in style.css) auf Projekt, Impressum, Coming soon: Notwendig fix, Statistik und Marketing nur Opt-in, "Nur notwendige" gleichwertig, Widerruf über "Cookie-Einstellungen" im Footer, Auswahl in localStorage z6_consent; Dienste per script type="text/plain" data-consent. Live seit 02.11.2026 (a511598), live geprüft. Derzeit setzt die Website keine Cookies (nur Admin-Login)
 - 29.10.2026 Vier Wohnungen (Top 2, 5, 7, 14+15) fielen aus dem Finder: Vertrieb hat in Justimmo Flächen um 0,01 bis 0,02 m² geändert, die exakte Flächenprüfung lehnte ab. Toleranz jetzt 0,1 m², alle 16 wieder live. Top 1 Kaufpreis in Justimmo jetzt 810.000 € (vorher 675.000)
 - 15.10.2026 Kontaktformular vorübergehend ausgeblendet (hidden, Markup bleibt), stattdessen Hinweis mit Button zum Wohnungsfinder; Anfragen nur noch über den Finder (direkt zum Objekt in Justimmo)

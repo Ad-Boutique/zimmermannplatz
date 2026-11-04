@@ -538,7 +538,11 @@
     if (problem) { qMsg.className = "form__msg"; qMsg.textContent = problem; return; }
     const btn = $("button[type=submit]", qForm); btn.disabled = true; qMsg.className = "form__msg"; qMsg.textContent = "Wird gesendet";
     sendInquiry({ source: "finder", top: $("#qTop").value, unit_summary: $("#modalFacts").textContent, name, email: mail, phone, message: $("#qMsg").value.trim(), consent: true, website: $("#qWebsite").value })
-      .then(() => { qForm.hidden = true; qDone.hidden = false; qForm.reset(); })
+      .then(() => {
+        /* Meta-Lead nur, wenn das Pixel nach Einwilligung geladen ist (consent.js); ohne Name, Mail oder Telefon */
+        if (window.fbq && window.Z6Consent && window.Z6Consent.has("marketing")) window.fbq("track", "Lead", { content_name: "Top " + $("#qTop").value });
+        qForm.hidden = true; qDone.hidden = false; qForm.reset();
+      })
       .catch((err) => { qMsg.textContent = sendError(err); })
       .finally(() => { btn.disabled = false; });
   });

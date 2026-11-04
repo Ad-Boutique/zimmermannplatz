@@ -81,6 +81,21 @@
     <span>Impressum <a href="#" data-consent-open>Cookie-Einstellungen</a></span>
   </footer>
 </div>
-<script src="assets/js/consent.js?v=2"></script>
+<!-- Meta Pixel (ID 2161920534711801): laedt erst nach Einwilligung "Marketing" ueber assets/js/consent.js.
+     Der noscript-Teil des Meta-Codes ist bewusst weggelassen, weil er ohne Einwilligung feuern wuerde. -->
+<script type="text/plain" data-consent="marketing">
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2161920534711801');
+fbq('track', 'PageView');
+document.addEventListener('z6:consent', function (e) { fbq('consent', e.detail && e.detail.marketing ? 'grant' : 'revoke'); });
+</script>
+<script src="assets/js/consent.js?v=3"></script>
 </body>
 </html>
