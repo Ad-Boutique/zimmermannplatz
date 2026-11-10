@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   if (req.query && req.query.diag === "anfrage") {
     res.setHeader("Cache-Control", "no-store");
     const env = { datenbank: Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL), mail: Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD && process.env.NOTIFY_TO),
-      metaCapi: Boolean(process.env.META_CAPI_TOKEN), metaTestCode: Boolean(process.env.META_TEST_EVENT_CODE),
+      metaCapi: Boolean(process.env.META_CAPI_TOKEN), hub: Boolean(process.env.HUB_LEADS_URL), metaTestCode: Boolean(process.env.META_TEST_EVENT_CODE),
       admin: Boolean(process.env.ADMIN_USER && (process.env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD_HASH) && (process.env.SESSION_SECRET || "").length >= 16) };
     let db = null;
     if (env.datenbank) {
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
         await ensureSchema(); const sql = getSql();
         db = (await sql`SELECT count(*)::int AS n FROM inquiries`)[0].n;
         /* Uebersicht ohne personenbezogene Daten: nur Zeitpunkt, Quelle, Top und Zustellstatus */
-        env.anfragen = await sql`SELECT id, created_at, source, top, herkunft, utm_campaign, meta_capi, mail_delivered, justimmo_status FROM inquiries ORDER BY id DESC LIMIT 20`;
+        env.anfragen = await sql`SELECT id, created_at, source, top, herkunft, utm_campaign, meta_capi, hub_status, mail_delivered, justimmo_status FROM inquiries ORDER BY id DESC LIMIT 20`;
       } catch (e) { db = "Fehler: " + String(e && e.message).slice(0, 160); }
     }
     return json(res, 200, { ok: true, env, anfragenGespeichert: db });

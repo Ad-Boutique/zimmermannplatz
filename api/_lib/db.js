@@ -48,6 +48,9 @@ async function ensureSchema() {
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS klick_id TEXT`;
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS referrer TEXT`;
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS meta_capi TEXT`;
+  /* Migration 10.11.2026: Ergebnis der Uebertragung an den Agency Hub */
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS hub_status TEXT`;
+  await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS hub_at TIMESTAMPTZ`;
   /* Migration 10.11.2026: Status und Kaufpreis der Einheiten, gepflegt im Admin (statt Justimmo). Startwerte nur beim ersten Anlegen. */
   await sql`CREATE TABLE IF NOT EXISTS einheiten (
     top TEXT PRIMARY KEY,

@@ -5,13 +5,16 @@
    Jede Anfrage wird in der eigenen Datenbank gesichert und ist im Admin sichtbar. Die Weiterleitung an Justimmo ist seit
    10.11.2026 entfernt (Wunsch Pia Schelling 28.10.2026, Verwaltung im Admin); justimmo_status bleibt fuer alte Anfragen.
    Herkunft (Kanal, Kampagne) wird immer gespeichert, die Server-Meldung an Meta nur mit Marketing-Einwilligung (_lib/meta.js).
+   Danach Uebertragung an den Agency Hub (_lib/hub.js), Ergebnis in hub_status.
+   Nachsenden: body.testkey + body.hub_nachsenden uebertraegt alle gespeicherten Anfragen ohne hub_status ok (Testadressen ausgenommen).
    Testmodus: body.testkey, dessen SHA-256 TEST_HASH entspricht, unterdrueckt die Mail und liefert Details zurueck. */
 const { getSql, ensureSchema } = require("./_lib/db");
 const { readJson, json, cors, clientIp } = require("./_lib/http");
 const { notify } = require("./_lib/mail");
 const meta = require("./_lib/meta");
+const hub = require("./_lib/hub");
 const crypto = require("crypto");
-const TEST_HASH = "20d9aba45aa176c851c9e91ce226f25a80390fabdfba172773c7e929702c4db4";
+const TEST_HASH = "80b3c8ad7a5e6a3513ef9c792161bcb8da9e6177d3b9dbb96372ca429af37e3c";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const SOURCES = ["finder", "kontakt", "coming-soon"];
@@ -25,6 +28,20 @@ module.exports = async (req, res) => {
 
   if (body.website) return json(res, 200, { ok: true, id: 0 }); /* Honeypot, stumm akzeptieren */
   const isTest = typeof body.testkey === "string" && crypto.createHash("sha256").update(body.testkey).digest("hex") === TEST_HASH;
+  if (isTest && body.hub_nachsenden) {
+    try {
+      await ensureSchema(); const sql = getSql();
+      const rows = await sql`SELECT id, created_at, source, top, unit_summary, name, email, phone, interest, message, herkunft, utm_source, utm_medium, utm_campaign, utm_content
+        FROM inquiries WHERE coalesce(hub_status, '') <> 'ok' AND email NOT ILIKE '%@example.com' ORDER BY id`;
+      const out = [];
+      for (const r of rows) {
+        const st = await hub.send(r, sql);
+        await sql`UPDATE inquiries SET hub_status = ${st}, hub_at = now() WHERE id = ${r.id}`;
+        out.push({ id: r.id, hub: st });
+      }
+      return json(res, 200, { ok: true, nachgesendet: out });
+    } catch (e) { return json(res, 500, { ok: false, error: String(e && e.message).slice(0, 200) }); }
+  }
   const source = SOURCES.includes(body.source) ? body.source : "finder";
   const needsPerson = source !== "coming-soon";
   const email = clip(body.email, 200);
@@ -64,7 +81,10 @@ module.exports = async (req, res) => {
       await sql`UPDATE inquiries SET herkunft = ${h.kanal}, utm_source = ${h.utm_source}, utm_medium = ${h.utm_medium}, utm_campaign = ${h.utm_campaign},
         utm_content = ${h.utm_content}, utm_term = ${h.utm_term}, klick_id = ${h.fbclid || h.gclid}, referrer = ${h.referrer}, meta_capi = ${capi} WHERE id = ${id}`;
     } catch (e) { /* unkritisch */ }
-    return json(res, 200, isTest ? { ok: true, id, delivered, herkunft: h.kanal, meta: capi } : { ok: true, id, delivered });
+    let hubSt = "aus";
+    try { hubSt = await hub.send(Object.assign({}, record, h, { id, created_at: new Date(), herkunft: h.kanal }), sql); } catch (e) { hubSt = "fehler"; }
+    try { await sql`UPDATE inquiries SET hub_status = ${hubSt}, hub_at = now() WHERE id = ${id}`; } catch (e) { /* unkritisch */ }
+    return json(res, 200, isTest ? { ok: true, id, delivered, herkunft: h.kanal, meta: capi, hub: hubSt } : { ok: true, id, delivered });
   } catch (e) {
     console.error("inquiry error", e && e.message);
     return json(res, 500, { ok: false, error: "Die Anfrage konnte gerade nicht gespeichert werden. Bitte versuchen Sie es in Kuerze noch einmal." });

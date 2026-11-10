@@ -90,6 +90,14 @@ tops = re.findall(r'"([\d+]+)"', api[api.find("const TOPS"):api.find("const STAT
 ok(set(tops) == set(units), "einheiten.js TOPS: Einheiten weichen ab %s" % sorted(set(tops) ^ set(units)))
 start = dict(re.findall(r'"([\d+]+)":\s*(\d+)', api[api.find("const START"):api.find("};", api.find("const START"))]))
 ok(set(start) == set(units), "einheiten.js START: Einheiten weichen ab %s" % sorted(set(start) ^ set(units)))
+# Server-Kopie der Wohnungsdaten (api/_lib/wohnungen.js, fuer den Agency Hub) muss mit units.js uebereinstimmen
+ws = open(os.path.join(ROOT, "api/_lib/wohnungen.js"), encoding="utf-8").read()
+wdata = json.loads(ws[ws.find("module.exports = ") + len("module.exports = "):ws.rfind(";")])
+ok(set(wdata) == set(units), "wohnungen.js: Einheiten weichen ab, tools/wohnungen-fuer-server.py ausfuehren")
+for top, u in units.items():
+    w = wdata.get(top, {})
+    for k in ("levelName", "rooms", "area", "out", "storage", "height", "kind", "zone", "plan"):
+        ok(w.get(k) == u.get(k), "wohnungen.js Top %s %s weicht ab, tools/wohnungen-fuer-server.py ausfuehren" % (top, k))
 print("Prüfungen: %d, Fehler: %d" % (checks, len(errors)))
 for e in errors: print("  FEHLER", e)
 sys.exit(1 if errors else 0)

@@ -99,3 +99,11 @@ Ohne `DATABASE_URL` antwortet `POST /api/inquiry` mit Fehler 500 und die Formula
 - Nach dem Go-live: in Vercel `JUSTIMMO_CLIENT_ID` und `JUSTIMMO_CLIENT_SECRET` löschen, Justimmo den API-Benutzer deaktivieren lassen.
 - Getestet 10.11.2026 lokal: Server-Funktionen mit nachgebauter Datenbank (16 Einheiten, Ändern, Validierung, Sperre ohne Login, Anfrage ohne Justimmo), Admin-Oberfläche mit simuliertem Server (Desktop 1440, Mobil 375), Wohnungsfinder mit Daten im neuen Format.
 - Offen: echter Test gegen Neon erst nach Deploy möglich; Admin braucht ADMIN_USER, ADMIN_PASSWORD, SESSION_SECRET in Vercel.
+
+## Anfragen an den Agency Hub (seit 10.11.2026)
+
+- Nach dem Speichern geht jede Anfrage per POST (JSON) an den Lead-Eingang des Hubs (`api/_lib/hub.js`). Adresse mit eingebautem Schlüssel nur in der Vercel-Variable `HUB_LEADS_URL` (nie ins Repo). Ergebnis in `hub_status` (ok, aus, fehler ...), sichtbar im Admin und im CSV.
+- Felder: external_id (zimmermannplatz6-<id>, gegen Dubletten), name, email, phone, message, campaign, projekt, quelle; bei Wohnungsanfragen alle Wohnungsdaten: wohnung, wohnung_typ, _geschoss, _zimmer, _flaeche, _freiflaechen, _kellerabteil, _raumhoehe, _kaufpreis und _status (aktuell aus Tabelle einheiten), _plan (PDF-Link); dazu herkunft, utm_*, eingang, website. Felder außer name/email/phone/message/campaign im Hub unter "Feld-Zuordnung" zuordnen.
+- Wohnungsdaten für den Server: `api/_lib/wohnungen.js`, erzeugt mit `python3 tools/wohnungen-fuer-server.py` aus `assets/js/units.js`; `tools/check-units.py` prüft die Übereinstimmung.
+- Nachsenden: `POST /api/inquiry` mit `{testkey, hub_nachsenden: true}` überträgt alle gespeicherten Anfragen ohne hub_status ok (Adressen @example.com ausgenommen).
+- Getestet 10.11.2026: lokal mit nachgebauter Datenbank (vollständige Wohnungsdaten Top 21), echter Test-Lead an den Hub HTTP 200 (external_id zimmermannplatz6-test-1, "TEST ad.boutique Schnittstelle", im Hub zu löschen).
