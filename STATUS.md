@@ -27,7 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
-- 10.11.2026 Anfragen an den Agency Hub mit allen Wohnungsdaten (api/_lib/hub.js), Test-Lead am Hub angenommen; wartet auf HUB_LEADS_URL in Vercel, danach 16 bisherige Anfragen nachsenden
+- 10.11.2026 Anfragen an den Agency Hub mit allen Wohnungsdaten (api/_lib/hub.js), Test-Lead am Hub angenommen; HUB_LEADS_URL seit 10.11. in Vercel aktiv, 13 bisherige Anfragen (Nr. 2 bis 12, 15, 16) nachgesendet, alle ok; Testanfragen Nr. 1, 13, 14 (@example.com) nicht übertragen
 - 10.11.2026 Umstellung ohne Justimmo gebaut und getestet; Pflege der Einheiten durch ad.boutique (Pia meldet, wir ändern im Admin): Einheiten-Pflege im Admin, api/units aus eigener Tabelle, Weiterleitung an Justimmo entfernt. Anfrage Nr. 15 (Top 2, 08.11., Meta) wurde von Justimmo abgelehnt (Ein-Wort-Name), liegt in der Datenbank
 - 04.11.2026 Herkunft jeder Anfrage (UTM, Klick-Kennung, Verweis) in DB, Admin, CSV; Conversions API nur mit Marketing-Einwilligung, gleiche eventID wie Pixel (wie Am Waldrain). Wartet auf META_CAPI_TOKEN in Vercel. Kontaktanfragen Nr. 6 und 8 vom 15.10. liegen ungelesen in der Datenbank (keine Mail, kein Admin)
 - 04.11.2026 Meta-Pixel 2161920534711801 auf allen Seiten, lädt nur nach Einwilligung "Marketing" (type="text/plain" data-consent, kein noscript-Pixel); Lead-Ereignis bei erfolgreicher Finder-Anfrage (nur Top, keine Personendaten); Widerruf ruft fbq consent revoke
