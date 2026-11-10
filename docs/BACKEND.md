@@ -89,3 +89,13 @@ Ohne `DATABASE_URL` antwortet `POST /api/inquiry` mit Fehler 500 und die Formula
 - Conversions API: nur wenn der Besucher Marketing zugestimmt hat (Frontend schickt dann `meta` mit event_id, fbp, fbc, url). Server meldet "Lead" mit IP, Browserkennung, fbp, fbc, ohne Name, E-Mail, Telefon. Pixel-Lead im Browser nutzt dieselbe eventID, Meta zählt einmal. Ergebnis in `meta_capi` (ok, keine Einwilligung, aus, fehler ...).
 - Vercel-Variablen: `META_CAPI_TOKEN` (Pflicht, sonst "aus"), optional `META_TEST_EVENT_CODE` für Testereignisse im Events Manager, `META_PIXEL_ID` (Standard 2161920534711801), `META_GRAPH_VERSION`.
 - Getestet 04.11.2026: Herkunft wird gespeichert ("Meta", Kampagne z6_test), ohne Einwilligung "keine Einwilligung", mit Einwilligung ohne Token "aus".
+
+## Umstellung ohne Justimmo (10.11.2026, lokal, Push nach Freigabe)
+
+- Anlass: Pia Schelling (Mail 28.10.2026) dupliziert Wohnungen in Justimmo regelmäßig, damit sie auf Plattformen vorne stehen; dabei ändern sich die Objekt-IDs und die feste Zuordnung reißt ab. Entscheidung Pia: Schnittstelle entfernen, Verwaltung über unser Dashboard.
+- Status und Kaufpreis kommen jetzt aus der Tabelle `einheiten` (Migration in `api/_lib/db.js`, Startwerte = Justimmo-Stand 10.11.2026 in `api/_lib/einheiten.js`, nur beim ersten Anlegen). `GET /api/units` liest daraus, CDN-Cache 60 s.
+- Pflege im Admin, Reiter "Einheiten" (`api/admin/einheiten.js`, GET Liste, PATCH {top, status, price}); Status frei, reserviert, verkauft, demnaechst; Preis 10.000 bis 20 Mio. €, verkauft und demnächst ohne Preis auf der Website.
+- Weiterleitung von Anfragen an Justimmo entfernt, ebenso `api/_lib/justimmo.js`, `weiterleitung.js`, `zuordnung.js` und die Diagnose `?diag=1`. Spalten justimmo_* bleiben für alte Anfragen.
+- Nach dem Go-live: in Vercel `JUSTIMMO_CLIENT_ID` und `JUSTIMMO_CLIENT_SECRET` löschen, Justimmo den API-Benutzer deaktivieren lassen.
+- Getestet 10.11.2026 lokal: Server-Funktionen mit nachgebauter Datenbank (16 Einheiten, Ändern, Validierung, Sperre ohne Login, Anfrage ohne Justimmo), Admin-Oberfläche mit simuliertem Server (Desktop 1440, Mobil 375), Wohnungsfinder mit Daten im neuen Format.
+- Offen: echter Test gegen Neon erst nach Deploy möglich; Admin braucht ADMIN_USER, ADMIN_PASSWORD, SESSION_SECRET in Vercel.

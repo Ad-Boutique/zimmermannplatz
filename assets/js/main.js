@@ -375,7 +375,7 @@
   const unitName = (u) => isShop(u) ? `Geschäftslokal, Top ${u.top}` : `Top ${u.top}`;
   const showPrice = (u) => u.price && (u.status === "frei" || u.status === "reserviert");
   const isSoon = (u) => u.status === "demnaechst";
-  /* Einheiten nur aus Justimmo (nicht in der Preisliste) haben keinen Plan und keine Freiflaechen-Angaben: out = null */
+  /* Einheiten ohne Freiflaechen-Angaben (out = null) zeigen einen Strich */
   const outSum = (u) => (u.out || []).reduce((s, o) => s + o.m2, 0);
   const outShort = (u) => !u.out ? `<span class="muted">-</span>` : u.out.length ? u.out.map((o) => `${o.type.replace(" (erdberührt)", "")} <span class="num">${m2(o.m2)}</span><span class="m2">m²</span>`).join("<br>") : ""; /* keine Freiflaeche: Feld leer (Kundenwunsch 06.10.2026) */
   const topSort = (t) => parseInt(t, 10);
@@ -466,8 +466,8 @@
   }
   render();
 
-  /* Status und Kaufpreise aus Justimmo (api/units). Nur Einheiten, die Justimmo liefert und deren Flaeche stimmt,
-     werden ueberschrieben; alle anderen behalten die geprueften Listendaten. Faellt die Schnittstelle aus, bleibt alles wie es ist. */
+  /* Status und Kaufpreise aus api/units (seit 10.11.2026 vom Vertrieb im Admin gepflegt, vorher Justimmo).
+     Einheiten ohne Eintrag stehen auf Demnaechst; ist die Schnittstelle nicht erreichbar, bleiben die Listendaten aus units.js. */
   const srcEl = $("#unitsSource");
   (function liveUnits() {
     const base = (document.querySelector('meta[name="z6-api"]') || {}).content || "";
@@ -480,15 +480,10 @@
         let n = 0;
         units.forEach((u) => {
           const j = d.units[u.top];
-          if (!j || !statusLabel[j.status]) { u.status = "demnaechst"; u.price = null; return; } /* nicht aus Justimmo: Demnaechst */
+          if (!j || !statusLabel[j.status]) { u.status = "demnaechst"; u.price = null; return; } /* ohne Eintrag: Demnaechst */
           u.status = j.status; u.price = j.price; n++;
         });
-        (d.extra || []).forEach((x) => { /* von Justimmo geliefert, nicht in der Preisliste: mit Justimmo-Daten anzeigen */
-          if (!x || !x.top || !statusLabel[x.status] || units.some((u) => u.top === String(x.top))) return;
-          units.push({ top: String(x.top), level: x.level, levelName: x.levelName || "", rooms: x.rooms, area: Number(x.area) || 0, out: null, storage: null,
-            price: x.price, height: null, zone: x.level >= 4 ? "dach" : "bestand", kind: x.level >= 4 ? "Dachgeschoss" : "Altbau", plan: null, status: x.status });
-        });
-        if (srcEl) srcEl.textContent = `Status und Kaufpreise tagesaktuell aus dem Vertriebssystem. Flächen laut Verkaufsplänen vom 01.10.2026, vorbehaltlich Ausführung`;
+        if (srcEl) srcEl.textContent = `Status und Kaufpreise laufend aktualisiert vom Exklusivvertrieb. Flächen laut Verkaufsplänen vom 01.10.2026, vorbehaltlich Ausführung`;
         render();
       })
       .catch(() => {});

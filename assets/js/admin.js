@@ -1,10 +1,11 @@
-/* Admin: Login, Liste der Anfragen, Statuspflege, CSV-Export */
+/* Admin: Login, Liste der Anfragen, Statuspflege, CSV-Export; Reiter Einheiten: Status und Kaufpreis fuer den Wohnungsfinder */
 (function () {
   "use strict";
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const API = "api/admin/";
-  const loginView = $("#loginView"), listView = $("#listView"), logoutBtn = $("#logoutBtn");
+  const loginView = $("#loginView"), listView = $("#listView"), unitsView = $("#unitsView"), tabs = $("#tabs"), logoutBtn = $("#logoutBtn");
+  let tab = "listView";
   const state = { source: "", q: "", open: null, rows: [], statuses: [] };
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fmtDate = (d) => { const x = new Date(d); const p = (n) => String(n).padStart(2, "0"); return `${p(x.getDate())}.${p(x.getMonth() + 1)}.${x.getFullYear()} ${p(x.getHours())}:${p(x.getMinutes())}`; };
@@ -17,8 +18,53 @@
     if (!r.ok || data.ok === false) throw new Error(data.error || "Fehler");
     return data;
   }
-  function showLogin() { loginView.hidden = false; listView.hidden = true; logoutBtn.hidden = true; setTimeout(() => $("#lUser").focus(), 50); }
-  function showList() { loginView.hidden = true; listView.hidden = false; logoutBtn.hidden = false; }
+  function showLogin() { loginView.hidden = false; listView.hidden = true; unitsView.hidden = true; tabs.hidden = true; logoutBtn.hidden = true; setTimeout(() => $("#lUser").focus(), 50); }
+  function showList() { loginView.hidden = true; tabs.hidden = false; logoutBtn.hidden = false; showTab(tab); }
+  function showTab(id) {
+    tab = id; listView.hidden = id !== "listView"; unitsView.hidden = id !== "unitsView";
+    $$("#tabs button").forEach((b) => b.classList.toggle("is-on", b.dataset.tab === id));
+    if (id === "unitsView") loadUnits();
+  }
+
+  /* ---------- Einheiten ---------- */
+  const statusName = { frei: "Verfügbar", reserviert: "Reserviert", verkauft: "Verkauft", demnaechst: "Demnächst" };
+  const info = {}; (window.Z6_UNITS || []).forEach((u) => { info[u.top] = u; });
+  const m2 = (n) => (n == null ? "" : Number(n).toFixed(2).replace(".", ",") + " m²");
+  const euro = (n) => (n == null ? "" : String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+  async function loadUnits() {
+    $("#unitsMsg").textContent = "Lade Einheiten";
+    try {
+      const data = await api("einheiten");
+      renderUnits(data.rows, data.statuses);
+      $("#unitsMsg").textContent = "";
+    } catch (e) { $("#unitsMsg").textContent = e.message; }
+  }
+  function renderUnits(rows, statuses) {
+    const body = $("#unitsBody"); body.innerHTML = "";
+    rows.forEach((r) => {
+      const u = info[r.top] || {};
+      const tr = document.createElement("tr"); tr.className = "unit";
+      const opts = statuses.map((s) => `<option value="${s}" ${s === r.status ? "selected" : ""}>${statusName[s] || s}</option>`).join("");
+      tr.innerHTML = `<td class="top">${u.zone === "gewerbe" ? "<span class=\"lokal\">Geschäftslokal, </span>" : ""}Top ${esc(r.top)}</td><td>${esc(u.levelName || "")}</td><td>${m2(u.area)}</td>
+        <td><select class="status-select" aria-label="Status Top ${esc(r.top)}">${opts}</select></td>
+        <td><input class="price" inputmode="numeric" aria-label="Kaufpreis Top ${esc(r.top)}" value="${euro(r.price)}"></td>
+        <td class="muted">${r.updated_at ? fmtDate(r.updated_at) : ""}</td>
+        <td><button class="save" disabled>Speichern</button></td>`;
+      const sel = $("select", tr), inp = $("input", tr), btn = $(".save", tr);
+      const dirty = () => { const d = sel.value !== r.status || inp.value.replace(/\D/g, "") !== String(r.price == null ? "" : r.price); btn.disabled = !d; tr.classList.toggle("is-dirty", d); };
+      sel.addEventListener("change", dirty); inp.addEventListener("input", dirty);
+      btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        try {
+          const d = await api("einheiten", { method: "PATCH", body: JSON.stringify({ top: r.top, status: sel.value, price: inp.value.replace(/\D/g, "") }) });
+          r.status = d.row.status; r.price = d.row.price; r.updated_at = new Date().toISOString();
+          inp.value = euro(r.price); $("td.muted", tr).textContent = fmtDate(r.updated_at); dirty();
+          $("#unitsMsg").textContent = `Top ${r.top} gespeichert: ${statusName[r.status]}${r.price ? ", € " + euro(r.price) : ""}. Auf der Website nach spätestens einer Minute sichtbar.`;
+        } catch (err) { $("#unitsMsg").textContent = err.message; dirty(); }
+      });
+      body.appendChild(tr);
+    });
+  }
 
   async function load() {
     $("#listMsg").textContent = "Lade Anfragen";
@@ -57,6 +103,7 @@
     try { await api("login", { method: "POST", body: JSON.stringify({ user: $("#lUser").value.trim(), password: $("#lPass").value }) }); $("#lPass").value = ""; showList(); load(); }
     catch (err) { msg.textContent = err.message; }
   });
+  $$("#tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
   logoutBtn.addEventListener("click", async () => { try { await api("logout", { method: "POST" }); } catch (e) { /* egal */ } showLogin(); });
   $$("#sourceSeg button").forEach((b) => b.addEventListener("click", () => { $$("#sourceSeg button").forEach((x) => x.classList.toggle("is-on", x === b)); state.source = b.dataset.value; load(); }));
   let t; $("#search").addEventListener("input", (e) => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value.trim(); load(); }, 300); });

@@ -48,6 +48,18 @@ async function ensureSchema() {
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS klick_id TEXT`;
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS referrer TEXT`;
   await sql`ALTER TABLE inquiries ADD COLUMN IF NOT EXISTS meta_capi TEXT`;
+  /* Migration 10.11.2026: Status und Kaufpreis der Einheiten, gepflegt im Admin (statt Justimmo). Startwerte nur beim ersten Anlegen. */
+  await sql`CREATE TABLE IF NOT EXISTS einheiten (
+    top TEXT PRIMARY KEY,
+    status TEXT NOT NULL,
+    price INTEGER,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_by TEXT
+  )`;
+  const { TOPS, START } = require("./einheiten");
+  for (const top of TOPS) {
+    await sql`INSERT INTO einheiten (top, status, price, updated_by) VALUES (${top}, 'frei', ${START[top]}, 'Start Justimmo 10.11.2026') ON CONFLICT (top) DO NOTHING`;
+  }
   ensured = true;
 }
 

@@ -4,9 +4,9 @@
    2. Verkaufsplaene V01a vom 01.10.2026, RH+ Architekten (Einzelplaene je Top und Gesamt-PDF; Bezeichnung der Freiflaechen und Raumhoehen laut Plan)
    Flaechen in m2 exakt laut Unterlagen, Preise in Euro. Interne Anmerkungen der Preisliste werden nicht uebernommen.
    Nicht enthalten: Top 3, 9, 13, 16, 18 (unbefristet vermietet) und Top 12 (nicht in Preisliste und Einzelplaenen).
-   Status und Preis kommen aus Justimmo (api/units.js). Einheiten, die Justimmo nicht liefert, stehen auf "demnaechst" (ausgegraut, ohne Preis
-   und ohne Anfrage, wie bei Am Waldrain; laut Daniel 05.10.2026). Der Status hier gilt nur, falls Justimmo nicht erreichbar ist.
-   Seit 06.10.2026 liefert Justimmo alle 16 Einheiten, deshalb hier alle "frei".
+   Status und Preis kommen aus api/units.js (seit 10.11.2026 vom Vertrieb im Admin gepflegt, vorher Justimmo). Einheiten ohne Eintrag
+   stehen auf "demnaechst" (ausgegraut, ohne Preis, ohne Anfrage). Status und Preise hier gelten nur, falls api/units nicht
+   erreichbar ist, und bleiben bewusst auf dem Stand der Preisliste (tools/check-units.py prueft sie dagegen).
    Pruefung: tools/check-units.py vergleicht jeden Wert mit Preisliste und Plan-PDFs. */
 window.Z6_UNITS = [
   { top: "1", level: 0, levelName: "Erdgeschoss", rooms: null, area: 125.37, out: [], storage: 66.13, price: 675000, height: "405 cm, Küche und Nassraum 353 cm, Abstellraum und WC 415 cm",

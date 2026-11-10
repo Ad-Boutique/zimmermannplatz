@@ -84,12 +84,12 @@ for top, u in units.items():
     ok(h.replace("/", " / ") in t or h in t.replace(" ", "") or ("0 - " + h) in t, "Top %s Raumhöhe %s nicht im Plan" % (top, u["height"]))
 
 ok(os.path.exists(os.path.join(ROOT, "assets/plaene/zimmermannplatz-6-verkaufsplaene-gesamt.pdf")), "Gesamt-PDF fehlt")
-# Flaechen-Tabelle der Justimmo-Zuordnung (api/_lib/zuordnung.js) muss mit dem Finder uebereinstimmen
-api = open(os.path.join(ROOT, "api/_lib/zuordnung.js"), encoding="utf-8").read()
-fl = dict((k, float(v)) for k, v in re.findall(r'"([\d+]+)":\s*([\d.]+)', api[api.find("const FLAECHE"):api.find("const STATUS")]))
-ok(set(fl) == set(units), "zuordnung.js FLAECHE: Einheiten weichen ab %s" % sorted(set(fl) ^ set(units)))
-for top, u in units.items():
-    ok(abs(fl.get(top, -1) - u["area"]) < 0.005, "zuordnung.js FLAECHE Top %s %s statt %s" % (top, fl.get(top), u["area"]))
+# Einheiten der Status- und Preispflege (api/_lib/einheiten.js) muessen mit dem Finder uebereinstimmen
+api = open(os.path.join(ROOT, "api/_lib/einheiten.js"), encoding="utf-8").read()
+tops = re.findall(r'"([\d+]+)"', api[api.find("const TOPS"):api.find("const STATUS")])
+ok(set(tops) == set(units), "einheiten.js TOPS: Einheiten weichen ab %s" % sorted(set(tops) ^ set(units)))
+start = dict(re.findall(r'"([\d+]+)":\s*(\d+)', api[api.find("const START"):api.find("};", api.find("const START"))]))
+ok(set(start) == set(units), "einheiten.js START: Einheiten weichen ab %s" % sorted(set(start) ^ set(units)))
 print("Prüfungen: %d, Fehler: %d" % (checks, len(errors)))
 for e in errors: print("  FEHLER", e)
 sys.exit(1 if errors else 0)

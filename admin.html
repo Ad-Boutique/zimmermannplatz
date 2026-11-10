@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anfragen, Zimmermannplatz 6</title>
+<title>Verwaltung, Zimmermannplatz 6</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="assets/logo/logo-icon-zimmermannplatz-b.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/style.css?v=769311">
-<link rel="stylesheet" href="assets/css/admin.css?v=769311">
+<link rel="stylesheet" href="assets/css/admin.css?v=769316">
 </head>
 <body class="adm">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -18,7 +18,7 @@
 
 <header class="adm__top wrap">
   <a class="brand" href="index.html"><svg viewBox="0 0 301.71 169.67"><use href="#wordmark"/></svg></a>
-  <span class="label">Anfragen</span>
+  <nav class="adm__tabs" id="tabs" hidden><button class="is-on" data-tab="listView">Anfragen</button><button data-tab="unitsView">Einheiten</button></nav>
   <button class="textlink" id="logoutBtn" hidden>Abmelden</button>
 </header>
 
@@ -53,8 +53,23 @@
     </div>
     <p class="adm__hint muted body-s" id="listMsg"></p>
   </section>
+
+  <!-- Einheiten: Status und Kaufpreis fuer den Wohnungsfinder -->
+  <section id="unitsView" hidden>
+    <div class="adm__bar">
+      <p class="adm__intro">Status und Kaufpreis jeder Einheit. Gespeicherte Änderungen erscheinen nach spätestens einer Minute im Wohnungsfinder auf der Website. Verkaufte Einheiten und „Demnächst“ zeigen dort keinen Preis.</p>
+    </div>
+    <div class="adm__tablewrap">
+      <table class="units adm__table adm__units">
+        <thead><tr><th>Top</th><th>Geschoss</th><th>Fläche</th><th>Status</th><th>Kaufpreis (€)</th><th>Zuletzt geändert</th><th></th></tr></thead>
+        <tbody id="unitsBody"></tbody>
+      </table>
+    </div>
+    <p class="adm__hint muted body-s" id="unitsMsg" role="status"></p>
+  </section>
 </main>
 
-<script src="assets/js/admin.js?v=769313"></script>
+<script src="assets/js/units.js?v=926548"></script>
+<script src="assets/js/admin.js?v=769315"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ Award-fähiger One-Pager für das Wohnprojekt Zimmermannplatz 6, 1090 Wien. Die 
 | 02.10.2026 | Lagekarte als Kartenfahrt statt Radius-Grafik |
 | 15.10.2026 | Kontaktformular vorübergehend aus, Anfragen nur über den Wohnungsfinder (Empfehlung an Vertrieb/Pia) |
 | 12.10.2026 | Lageplan: Nummern immer sichtbar, keine Pin-Einblendung per Scroll mehr (Kundenwunsch) |
+| 10.11.2026 | Justimmo-Schnittstelle entfernt (Pia 28.10.), Status und Preise pflegt der Vertrieb im Admin, Anfragen nur noch im Admin und per Mail |
 | 07.10.2026 | Website nennt nur verkäufliche Wohnungen (15, davon 9 Altbau), Hausgröße nur getrennt ("21 im Haus, davon 15 im Verkauf"); Top 12 vorerst nicht online (Vertrieb, Pia) |
 | 06.10.2026 | Finder zeigt alles, was Justimmo liefert, ausser Mietwohnungen (Top 3, 9, 13, 16, 18 und Vermarktungsart Miete) |
 | 06.10.2026 | Alle Anfragen zuerst im eigenen Backend (Datenbank) sichern, Justimmo bekommt Finder-Anfragen zusätzlich als Objektanfrage |
