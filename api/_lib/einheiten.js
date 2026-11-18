@@ -9,6 +9,12 @@ const START = {
   "14+15": 1050000, "17": 890000, "19": 650000, "20": 1050000, "21": 890000, "22": 1400000, "23": 1900000, "24": 1590000
 };
 
+/* Aenderungen auf Zuruf des Vertriebs, die per Code eingespielt werden (solange kein Admin-Zugang eingerichtet ist).
+   Jede Aenderung laeuft genau einmal (Tabelle migrationen in _lib/db.js) und ueberschreibt spaetere Admin-Aenderungen nicht. */
+const AENDERUNGEN = [
+  { name: "2026-11-18 Pia Schelling", stand: { "1": "reserviert", "2": "verkauft", "7": "reserviert", "14+15": "reserviert" } }
+];
+
 /* Pruefen und vereinheitlichen; liefert { top, status, price } oder { error } */
 function pruefe(body) {
   const top = String(body && body.top || "");
@@ -29,4 +35,4 @@ async function liste(sql) {
   return rows.sort((a, b) => TOPS.indexOf(a.top) - TOPS.indexOf(b.top));
 }
 
-module.exports = { TOPS, STATUS, START, pruefe, liste };
+module.exports = { TOPS, STATUS, START, AENDERUNGEN, pruefe, liste };

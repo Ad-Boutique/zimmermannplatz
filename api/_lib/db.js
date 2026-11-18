@@ -59,9 +59,19 @@ async function ensureSchema() {
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_by TEXT
   )`;
-  const { TOPS, START } = require("./einheiten");
+  const { TOPS, START, AENDERUNGEN, STATUS } = require("./einheiten");
   for (const top of TOPS) {
     await sql`INSERT INTO einheiten (top, status, price, updated_by) VALUES (${top}, 'frei', ${START[top]}, 'Start Justimmo 10.11.2026') ON CONFLICT (top) DO NOTHING`;
+  }
+  /* Einmalige Status-Aenderungen auf Zuruf des Vertriebs (_lib/einheiten.js AENDERUNGEN), je Name genau einmal */
+  await sql`CREATE TABLE IF NOT EXISTS migrationen (name TEXT PRIMARY KEY, at TIMESTAMPTZ NOT NULL DEFAULT now())`;
+  for (const a of AENDERUNGEN) {
+    const neu = await sql`INSERT INTO migrationen (name) VALUES (${a.name}) ON CONFLICT (name) DO NOTHING RETURNING name`;
+    if (!neu.length) continue;
+    for (const [top, status] of Object.entries(a.stand)) {
+      if (!TOPS.includes(top) || !STATUS.includes(status)) continue;
+      await sql`UPDATE einheiten SET status = ${status}, updated_at = now(), updated_by = ${a.name} WHERE top = ${top}`;
+    }
   }
   ensured = true;
 }
