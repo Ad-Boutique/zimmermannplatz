@@ -418,11 +418,13 @@
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
-    const avail = units.filter((u) => u.status === "frei" || u.status === "reserviert").length;
-    const soon = units.filter(isSoon).length;
+    /* Zaehler: verfuegbar = nur freie Einheiten, reservierte und verkaufte getrennt (Wunsch Pia Schelling 18.11.2026) */
+    const avail = units.filter((u) => u.status === "frei").length;
+    const zahl = (st, wort) => { const n = units.filter((u) => u.status === st).length; return n ? `, ${n} ${wort}` : ""; };
+    const rest = zahl("reserviert", "reserviert") + zahl("verkauft", "verkauft") + zahl("demnaechst", "demnächst");
     result.innerHTML = list.length === units.length
-      ? `<b>${avail}</b> von ${units.length} Einheiten verfügbar${soon ? `, ${soon} demnächst` : ""}`
-      : `<b>${list.length}</b> ${list.length === 1 ? "Einheit" : "Einheiten"} angezeigt, ${avail} von ${units.length} verfügbar`;
+      ? `<b>${avail}</b> von ${units.length} Einheiten verfügbar${rest}`
+      : `<b>${list.length}</b> ${list.length === 1 ? "Einheit" : "Einheiten"} angezeigt, ${avail} von ${units.length} verfügbar${rest}`;
     const sum = list.reduce((s, u) => s + u.area, 0);
     sumEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "Einheit" : "Einheiten"}, ${m2(sum)} m² Nutzfläche` : "";
     if (hasGsap) ScrollTrigger.refresh();

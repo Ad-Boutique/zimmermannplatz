@@ -27,6 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
+- 25.11.2026 Zähler im Finder zählt nur freie Einheiten als verfügbar, reserviert und verkauft getrennt ("12 von 16 Einheiten verfügbar, 3 reserviert, 1 verkauft"), Wunsch Pia 18.11.
 - 18.11.2026 Status laut Mail Pia: Top 1 (Geschäftslokal) reserviert, Top 2 verkauft, Top 7 und Top 14+15 reserviert; eingespielt als einmalige Änderung (AENDERUNGEN in api/_lib/einheiten.js, Tabelle migrationen), weil der Admin-Zugang in Vercel noch fehlt
 - 10.11.2026 Anfragen an den Agency Hub mit allen Wohnungsdaten (api/_lib/hub.js), Test-Lead am Hub angenommen; HUB_LEADS_URL seit 10.11. in Vercel aktiv, 13 bisherige Anfragen (Nr. 2 bis 12, 15, 16) nachgesendet, alle ok; Testanfragen Nr. 1, 13, 14 (@example.com) nicht übertragen
 - 10.11.2026 Umstellung ohne Justimmo gebaut und getestet; Pflege der Einheiten durch ad.boutique (Pia meldet, wir ändern im Admin): Einheiten-Pflege im Admin, api/units aus eigener Tabelle, Weiterleitung an Justimmo entfernt. Anfrage Nr. 15 (Top 2, 08.11., Meta) wurde von Justimmo abgelehnt (Ein-Wort-Name), liegt in der Datenbank
