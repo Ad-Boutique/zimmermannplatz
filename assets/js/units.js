@@ -7,7 +7,6 @@
    Status und Preis kommen aus api/units.js (seit 10.11.2026 vom Vertrieb im Admin gepflegt, vorher Justimmo). Einheiten ohne Eintrag
    stehen auf "demnaechst" (ausgegraut, ohne Preis, ohne Anfrage). Status und Preise hier gelten nur, falls api/units nicht
    erreichbar ist, und bleiben bewusst auf dem Stand der Preisliste (tools/check-units.py prueft sie dagegen).
-   innen: Innenvisualisierungen (assets/img/innen, Stand 23.11.2026, von Pia Schelling 25.11.2026), im Finder unter dem Grundriss.
    Pruefung: tools/check-units.py vergleicht jeden Wert mit Preisliste und Plan-PDFs. */
 window.Z6_UNITS = [
   { top: "1", level: 0, levelName: "Erdgeschoss", rooms: null, area: 125.37, out: [], storage: 66.13, price: 675000, height: "405 cm, Küche und Nassraum 353 cm, Abstellraum und WC 415 cm",
@@ -27,9 +26,9 @@ window.Z6_UNITS = [
   { top: "10+11", level: 2, levelName: "2. Stock", rooms: 3, area: 82.04, out: [], storage: 4.88, price: 620000, height: "295 / 315 cm",
     zone: "bestand", kind: "Altbau, saniert und zusammengelegt", plan: "top-10-11", status: "frei" },
   { top: "14+15", level: 3, levelName: "3. Stock", rooms: 4, area: 119.18, out: [{ type: "Balkon", m2: 10.98 }], storage: 6.64, price: 1050000, height: "280 / 300 cm",
-    zone: "bestand", kind: "Altbau, saniert und zusammengelegt", plan: "top-14-15", innen: [{ bild: "top14-wohnen", raum: "Wohnen" }, { bild: "top15-bad", raum: "Bad" }], status: "reserviert" },
+    zone: "bestand", kind: "Altbau, saniert und zusammengelegt", plan: "top-14-15", status: "reserviert" },
   { top: "17", level: 3, levelName: "3. Stock", rooms: 3, area: 109.97, out: [], storage: 5.88, price: 890000, height: "280 / 300 cm",
-    zone: "bestand", kind: "Altbau, saniert", plan: "top-17", innen: [{ bild: "top17-wohnen", raum: "Wohnen" }, { bild: "top17-schlafen", raum: "Schlafen" }, { bild: "top17-bad", raum: "Bad" }], status: "frei" },
+    zone: "bestand", kind: "Altbau, saniert", plan: "top-17", status: "frei" },
   { top: "19", level: 4, levelName: "1. Dachgeschoss", rooms: 2, area: 53.85, out: [{ type: "Loggia", m2: 3.45 }], storage: 3.92, price: 650000, height: "244 / 252 cm",
     zone: "dach", kind: "Dachgeschoss, Neubau", plan: "top-19", status: "frei" },
   { top: "20", level: 4, levelName: "1. Dachgeschoss", rooms: 3, area: 87.02, out: [{ type: "Terrasse", m2: 5.52 }], storage: 5.31, price: 1050000, height: "244 / 252 cm",
@@ -37,9 +36,9 @@ window.Z6_UNITS = [
   { top: "21", level: 4, levelName: "1. Dachgeschoss", rooms: 3, area: 84.50, out: [{ type: "Loggia", m2: 3.37 }, { type: "Terrasse", m2: 1.83 }], storage: 4.18, price: 890000, height: "244 / 252 cm",
     zone: "dach", kind: "Dachgeschoss, Neubau", plan: "top-21", status: "frei" },
   { top: "22", level: 4, levelName: "1. Dachgeschoss", rooms: 4, area: 116.97, out: [{ type: "Loggia", m2: 3.35 }, { type: "Balkon", m2: 7.01 }], storage: 6.60, price: 1400000, height: "244 / 252 cm",
-    zone: "dach", kind: "Dachgeschoss, Neubau", plan: "top-22", innen: [{ bild: "top22-wohnen", raum: "Wohnen" }, { bild: "top22-kueche", raum: "Küche" }], status: "frei" },
+    zone: "dach", kind: "Dachgeschoss, Neubau", plan: "top-22", status: "frei" },
   { top: "23", level: 5, levelName: "2. Dachgeschoss", rooms: 4, area: 160.32, out: [{ type: "Terrasse", m2: 16.89 }, { type: "Dachterrasse", m2: 78.88 }], storage: 9.22, price: 1900000, height: "bis 250 cm",
-    zone: "dach", kind: "Penthouse, Neubau", plan: "top-23", innen: [{ bild: "top23-wohnen", raum: "Wohnen" }, { bild: "top23-kueche", raum: "Küche" }, { bild: "top23-schlafen", raum: "Schlafen" }, { bild: "top23-bad", raum: "Bad" }], status: "frei" },
+    zone: "dach", kind: "Penthouse, Neubau", plan: "top-23", status: "frei" },
   { top: "24", level: 5, levelName: "2. Dachgeschoss", rooms: 4, area: 136.74, out: [{ type: "Terrasse", m2: 17.75 }, { type: "Dachterrasse", m2: 48.41 }], storage: 8.68, price: 1590000, height: "bis 250 cm",
     zone: "dach", kind: "Penthouse, Neubau", plan: "top-24", status: "frei" }
 ];

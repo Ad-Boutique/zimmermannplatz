@@ -27,7 +27,7 @@ Stand 02.10.2026
 
 ## Erledigt
 
-- 25.11.2026 ENTWURF lokal (nicht gepusht, wartet auf Freigabe): 11 Innenvisualisierungen (Mail Pia 25.11., Stand 23.11.) in assets/img/innen (2000 px und 720 px); Wohnen-Karten mit Top 17 und Top 23, Ausstattung Böden (Top 14) und Bad (Top 23), Finder-Detail Top 14+15, 17, 22, 23 mit Innenansichten und Lightbox
+- 25.11.2026 ENTWURF lokal (nicht gepusht, wartet auf Freigabe): 11 Innenvisualisierungen (Mail Pia 25.11., Stand 23.11.) in assets/img/innen (2000 px und 720 px); Wohnen-Karten mit Top 17 und Top 23, Ausstattung Böden (Top 14) und Bad (Top 23), Bilder im Finder auf Wunsch Daniel wieder entfernt, nur 4 Bilder im Repo
 - 25.11.2026 Zähler im Finder zählt nur freie Einheiten als verfügbar, reserviert und verkauft getrennt ("12 von 16 Einheiten verfügbar, 3 reserviert, 1 verkauft"), Wunsch Pia 18.11.
 - 18.11.2026 Status laut Mail Pia: Top 1 (Geschäftslokal) reserviert, Top 2 verkauft, Top 7 und Top 14+15 reserviert; eingespielt als einmalige Änderung (AENDERUNGEN in api/_lib/einheiten.js, Tabelle migrationen), weil der Admin-Zugang in Vercel noch fehlt
 - 10.11.2026 Anfragen an den Agency Hub mit allen Wohnungsdaten (api/_lib/hub.js), Test-Lead am Hub angenommen; HUB_LEADS_URL seit 10.11. in Vercel aktiv, 13 bisherige Anfragen (Nr. 2 bis 12, 15, 16) nachgesendet, alle ok; Testanfragen Nr. 1, 13, 14 (@example.com) nicht übertragen
