@@ -600,3 +600,19 @@ body.modal-open { overflow: hidden; }
   .consent__btn { flex: 1 1 calc(50% - 5px); }
   .consent__btn--quiet { flex: 1 1 100%; }
 }
+
+/* ---------- Innenvisualisierungen (seit 25.11.2026) ---------- */
+.type__bild { grid-column: 1 / -1; position: relative; margin: 0 0 clamp(8px, 1.2vw, 16px); aspect-ratio: 3 / 2; overflow: hidden; background: var(--greige); }
+.type__bild img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.type__bild::after { content: ""; position: absolute; inset: auto 0 0 0; height: 30%; background: linear-gradient(to top, rgba(43, 42, 26, 0.38), rgba(43, 42, 26, 0)); pointer-events: none; }
+.type__bild figcaption { z-index: 1; position: absolute; left: 14px; bottom: 12px; font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ivory); text-shadow: 0 1px 10px rgba(0,0,0,0.45); }
+.detail__media { display: grid; gap: 12px; min-width: 0; }
+.detail__innen { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.detail__bild { position: relative; display: block; padding: 0; border: 0; background: var(--greige); cursor: zoom-in; aspect-ratio: 16 / 9; overflow: hidden; }
+.detail__bild img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s var(--ease); }
+.detail__bild:hover img, .detail__bild:focus-visible img { transform: scale(1.04); }
+.detail__bild::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgba(43, 42, 26, 0.45), rgba(43, 42, 26, 0)); pointer-events: none; }
+.detail__bild span { z-index: 1; position: absolute; left: 8px; bottom: 6px; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ivory); text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+.planbox.is-bild .planbox__scroll { background: var(--olive); }
+.planbox.is-bild .planbox__hint { visibility: hidden; }
+@media (max-width: 600px) { .detail__innen { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -402,8 +402,10 @@
       if (state.open === u.top) {
         const d = document.createElement("tr"); d.className = "detail";
         const outRows = !u.out ? "" : u.out.map((o) => `<dt>${o.type}</dt><dd>${m2(o.m2)} m²</dd>`).join("");
-        d.innerHTML = `<td colspan="8"><div class="detail__inner">
+        const innen = (u.innen || []).length ? `<div class="detail__innen">${u.innen.map((b, i) => `<button type="button" class="detail__bild" data-innen="${i}" aria-label="${unitName(u)}, ${b.raum} vergrößern"><img src="assets/img/innen/${b.bild}-klein.jpg" alt="${unitName(u)}, ${b.raum}, Visualisierung" width="720" height="405" loading="lazy"><span>${b.raum}</span></button>`).join("")}</div>` : "";
+        d.innerHTML = `<td colspan="8"><div class="detail__inner"><div class="detail__media">
           ${u.plan ? `<button type="button" class="detail__plan" data-plan="${u.top}" aria-label="Verkaufsplan ${unitName(u)} vergrößern"><img src="${planJpg(u)}" alt="Verkaufsplan ${unitName(u)}, ${u.levelName}" width="2400" height="1697" loading="lazy"><span class="detail__zoom">Grundriss vergrößern</span></button>` : `<div class="detail__plan detail__plan--none">Grundriss folgt</div>`}
+          ${innen}</div>
           <div class="detail__facts">
             <dl><dt>${isShop(u) ? "Nutzfläche" : "Wohnnutzfläche"}</dt><dd>${m2(u.area)} m²</dd>${outRows}${u.storage ? `<dt>Kellerabteil</dt><dd>${m2(u.storage)} m²</dd>` : ""}${isShop(u) || !u.rooms ? "" : `<dt>Zimmer</dt><dd>${u.rooms}</dd>`}<dt>Geschoss</dt><dd>${u.levelName}</dd>${u.height ? `<dt>Raumhöhe</dt><dd>${u.height}</dd>` : ""}${u.kind ? `<dt>Typ</dt><dd>${u.kind}</dd>` : ""}<dt>Kaufpreis</dt><dd>${u.status === "verkauft" ? "verkauft" : isSoon(u) ? "demnächst" : showPrice(u) ? eur(u.price) : "auf Anfrage"}</dd></dl>
             <div class="detail__actions">
@@ -415,6 +417,7 @@
         const a = $("[data-inquire]", d);
         if (a) a.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); prefill(u); openModal(); });
         const pb = $("[data-plan]", d); if (pb) pb.addEventListener("click", (e) => { e.stopPropagation(); openPlan(u); });
+        $$("[data-innen]", d).forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); openBild(u, Number(b.dataset.innen)); }));
         if (hasGsap && !reduced) gsap.from($(".detail__inner", d), { height: 0, opacity: 0, duration: 0.55, ease: "power3.out", clearProps: "height" });
       }
     });
@@ -450,8 +453,21 @@
     if (!planbox) return;
     $("#planboxTitle").textContent = `Verkaufsplan ${unitName(u)}, ${u.levelName}`;
     const img = $("#planboxImg"); img.src = planJpg(u); img.alt = `Verkaufsplan ${unitName(u)}`;
-    $("#planboxPdf").href = planPdf(u);
-    planbox.classList.remove("is-zoom");
+    $("#planboxPdf").href = planPdf(u); $("#planboxPdf").hidden = false;
+    planbox.classList.remove("is-zoom", "is-bild");
+    zeigeBox();
+  }
+  /* Innenansicht gross, in derselben Lightbox wie der Plan (ohne PDF-Link) */
+  function openBild(u, i) {
+    if (!planbox || !u.innen || !u.innen[i]) return;
+    const b = u.innen[i];
+    $("#planboxTitle").textContent = `${unitName(u)}, ${b.raum}, Visualisierung, unverbindlich`;
+    const img = $("#planboxImg"); img.src = `assets/img/innen/${b.bild}.jpg`; img.alt = `${unitName(u)}, ${b.raum}, Visualisierung`;
+    $("#planboxPdf").hidden = true;
+    planbox.classList.remove("is-zoom"); planbox.classList.add("is-bild");
+    zeigeBox();
+  }
+  function zeigeBox() {
     planbox.hidden = false; requestAnimationFrame(() => planbox.classList.add("is-open"));
     document.body.classList.add("modal-open"); if (lenis) lenis.stop();
     $("#planboxClose").focus();
